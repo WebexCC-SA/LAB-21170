@@ -190,6 +190,8 @@ __pycache__/
 build/
 develop-eggs/
 downloads/
+!/docs/assets/downloads/
+!/docs/assets/downloads/**
 eggs/
 .eggs/
 lib/
@@ -207,6 +209,7 @@ MANIFEST
 
 #Virtual Environment
 venv/
+.venv/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

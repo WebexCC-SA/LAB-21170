@@ -1,7 +1,7 @@
 ---
-site_name: "LAB-21170: Hands-On Flow Designer Lab" # This must begin with the session ID, e.g. LABXXX-1234 This is my Cisco Live Lab
-site_description: "LAB-21170: Hands-On Flow Designer Lab" # must be same as "site_name"
-site_author: Arunabh Bhattacharjee
+site_name: "LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action"
+site_description: "LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action"
+site_author: Adam Weeks and Arunabh Bhattacharjee
 copyright: Copyright &copy; 2026 Cisco
 theme:
   name: material
@@ -73,8 +73,8 @@ markdown_extensions:
   - tables
   - pymdownx.details
   - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight
   - pymdownx.tabbed:
       alternate_style: true
@@ -89,18 +89,10 @@ nav:
   - Welcome: welcome.md
   - Lab:
       - Overview: overview.md
-      - Lab 1 - Getting Started: lab1_getting_started.md
+      - Checkpoint 1 - Lab access: lab1_getting_started.md
+      - Checkpoints 2-3 - Flow Designer: lab2_flow_designer.md
+      - Checkpoints 4-5 - Agent and registration: lab3_agent_registration.md
+      - Checkpoints 6-8 - MCP and Agent Studio: lab4_mcp_agent_studio.md
+      - Checkpoint 9 - End-to-end test: lab5_end_to_end.md
+      - Troubleshooting and completion: troubleshooting.md
       - Conclusion: conclusion.md
-  - Topologies: topologies.md
-  - How to use this guide:
-      - Setting up and using the tool:
-        - Initial Setup: howToUse/initialSetup.md
-        - Using the tool after the initial setup: howToUse/postInitial.md
-        - Publishing your changes: howToUse/syncChanges.md
-      - Useful Tools and Resources: howToUse/usefulTools.md
-      - Importing from Word (docx): howToUse/importingFromWord.md
-      - Styling and Advanced Features:
-        - Custom Features: howToUse/customFeatures.md
-        - Custom Admonitions: howToUse/admonition.md
-      - Looking for Inspiration: howToUse/previousEventLabs.md
-      - Before the Event: howToUse/beforeTheEvent.md

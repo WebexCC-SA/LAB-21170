@@ -1,37 +1,17 @@
-# Lab 1 - Getting Started
+# Checkpoint 1: Open the lab and redeem your assignment
 
-## Section 1
-
-Please use the following credentials to connect to device:
-
-| <!-- -->         | <!-- -->         |
-| ---------------- | ---------------- |
-| `IP Address`     | 1.1.1.1          |
-| `Username`       | admin            |
-| `Password`       | C1sco123         |
-
-
-My content
-
-!!! note
-    This is a note
-
-Cisco IOS code block:
-
-```ios
-hostname ABC
-interface GigabitEthernet1
- ip address 122.1.1.1
-```
-
-
-
-Image:
+1. Open [MCP Lab](https://mcp-lab.webexdevs.com/).
+2. Enter the lab token supplied by the facilitator.
+3. Select **Continue**.
+4. Confirm that the lab opens the assigned workspace.
+5. Open **Test tenant details** and note the sandbox sign-in details, assignment expiration, Order Desk REST address, Order Desk MCP address, temporary bearer token, and sample order number.
 
 <figure markdown>
-  ![ACI](./assets/aci.png){ width="500" }
+  ![Logged-in MCP Lab AI Agent workspace](assets/lab-guide/01-mcp-lab-ai-agent.png)
+  <figcaption>MCP Lab AI Agent workspace with the lab-provided Order Desk service.</figcaption>
 </figure>
 
-## Section 2
+!!! success "Checkpoint complete"
+    The MCP Lab AI Agent workspace opens and **Order Desk** appears under **Provided by this lab**. Keep the bearer token in **Test tenant details**.
 
-More content
+[Continue to Checkpoints 2-3](lab2_flow_designer.md){ .md-button .md-button--primary }
