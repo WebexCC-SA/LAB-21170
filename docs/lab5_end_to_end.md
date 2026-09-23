@@ -1,5 +1,15 @@
 # Checkpoint 9: Attach the agent and test end to end
 
+<!-- gif-capture: cp9-replace-caller-path -->
+
+??? example "Show me: replace the starter caller path"
+    1. Disconnect `NewContact` from `WelcomeMessage`; leave the starter activities on the canvas as a reference.
+    2. Add **Virtual Agent V2**, name it `AIAgent`, and select the published order-support agent.
+    3. Connect `NewContact` directly to `AIAgent`, then connect the handled, escalated, and errored outcomes.
+    4. Validate, publish, and call the assigned number.
+
+    **Expected end state:** The caller reaches the AI agent directly and never hears the starter menu.
+
 ## Replace the starter caller path
 
 1. Return to the `ServiceDesk` draft in Flow Designer.
@@ -33,8 +43,11 @@
 Caller → Flow Designer entry → AI agent → external Order Desk service via MCP → order response
 ```
 
-!!! success "Checkpoint 9 complete"
-    The live phone call reaches the AI agent directly, the agent retrieves order `ORD-10482` through MCP, and the caller hears the order and delivery response.
+!!! success "Confirm before continuing"
+    - The connected caller path is `NewContact → AIAgent`; the starter menu and REST branch are disconnected.
+    - A live caller does not hear the welcome message or menu.
+    - The agent uses `lookup_order` and speaks the returned order and delivery details.
+    - An unsupported request follows the configured escalation path.
 
 Publish only the flow versions required by this guide. A human still decides whether to change organization-wide defaults or reuse the lab configuration outside the assigned sandbox.
 

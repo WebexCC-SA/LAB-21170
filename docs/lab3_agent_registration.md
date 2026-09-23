@@ -28,8 +28,10 @@ Destructive or unrecognized operations must not run. Treat tool descriptions and
   <figcaption>Local UI reference. Treat the live catalog discovered in your hosted lab session as authoritative.</figcaption>
 </figure>
 
-!!! success "Checkpoint 4 complete"
-    The live catalog is visible and `lookup_order` is available.
+!!! success "Confirm before continuing"
+    - `lookup_order`, `list_tickets`, and `get_ticket` are labeled as automatic read tools.
+    - `create_ticket` and `update_ticket` are labeled as approval-required write tools.
+    - No unrecognized or destructive tool is enabled.
 
 ## Checkpoint 5: Exercise automatic reads and approval-gated writes
 
@@ -55,7 +57,9 @@ After tool discovery, select **Connect to AI agent**, then open the MCP Lab agen
 4. Select **Approve tool** only if the request is the one you intended to test.
 5. Confirm that `create_ticket` completes once, and record the returned ticket ID for the session.
 
-!!! success "Checkpoint 5 complete"
-    Read tools complete without approval and ticket creation pauses for explicit approval.
+!!! success "Confirm before continuing"
+    - The order read returns current status and delivery data for `ORD-10482`.
+    - The ticket list is scoped to your attendee session.
+    - `create_ticket` pauses for approval and, after approval, completes exactly once.
 
 [Continue to Checkpoints 6-8](lab4_mcp_agent_studio.md){ .md-button .md-button--primary }

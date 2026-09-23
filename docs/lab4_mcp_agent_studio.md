@@ -4,6 +4,16 @@
 
 You have proved that the Order Desk MCP works. Now register that external service so the sandbox organization can make its tools available to AI Agent Studio. The registration describes the server; it does not turn MCP Lab or Order Desk into a Webex product.
 
+<!-- gif-capture: cp6-register-agentic-app -->
+
+??? example "Show me: register and allow the MCP"
+    1. In Developer Portal, create an **Agentic App**.
+    2. Select **MCP**, **Streamable HTTP**, and **UserToken**, then paste the assigned Order Desk MCP address.
+    3. Add the app and request admin approval if prompted.
+    4. In Control Hub, open **Apps → Agentic Apps**, allow the app, and enable `lookup_order`.
+
+    **Expected end state:** `LAB-21170 Order Desk` is allowed and `lookup_order` is enabled.
+
 ### Register the server in Developer Portal
 
 1. Open [Webex Developer Portal](https://developer.webex.com/) and sign in with the assigned sandbox account.
@@ -34,12 +44,24 @@ You have proved that the Order Desk MCP works. Now register that external servic
 6. You may also enable the read-only `list_tickets` and `get_ticket` tools. Leave `create_ticket` and `update_ticket` disabled for the final voice agent; you already tested their approval boundary in MCP Lab.
 7. Save the configuration and confirm that `lookup_order` remains enabled.
 
-!!! success "Checkpoint 6 complete"
-    `LAB-21170 Order Desk` is registered in Developer Portal, allowed in Control Hub, and `lookup_order` is enabled for the sandbox organization.
+!!! success "Confirm before continuing"
+    - Developer Portal shows `LAB-21170 Order Desk` as an MCP Agentic App using **Streamable HTTP** and **User Token** authentication.
+    - Control Hub shows the app as **Allowed**.
+    - `lookup_order` is enabled; `create_ticket` and `update_ticket` remain disabled for the final voice agent.
 
 ## Checkpoint 7: Customize the Track Package agent
 
 Use the built-in **Track Package - Autonomous** template as a starting point. It supplies the autonomous-agent structure, but you will replace its package-tracking language and remove its sample action.
+
+<!-- gif-capture: cp7-customize-track-package -->
+
+??? example "Show me: customize the template in tab order"
+    1. Create `LAB-21170 Order Support` from **Track Package - Autonomous**.
+    2. On **Profile**, replace the transparency and welcome messages.
+    3. On **Instructions**, replace all package-tracking instructions with the supplied order-support copy.
+    4. On **Actions**, remove `trackPackage` and keep the agent in **Draft**.
+
+    **Expected end state:** The draft contains only order-support language and has no configured action yet.
 
 ### Create the agent from the template
 
@@ -128,12 +150,25 @@ Boundaries
 !!! info "Preview is not active yet"
     This is expected. Preview becomes available after the agent has an action with configured fulfillment or a knowledge base. You add the working MCP action in Checkpoint 8.
 
-!!! success "Checkpoint 7 complete"
-    The draft is named `LAB-21170 Order Support`, the Profile and Instructions fields contain the order-support copy above, and `trackPackage` has been removed.
+!!! success "Confirm before continuing"
+    - The draft is named `LAB-21170 Order Support`.
+    - The Profile and Instructions fields contain the order-support copy above.
+    - The template `trackPackage` action is gone.
+    - Preview is still unavailable at this stage; that is expected until you add `lookup_order`.
 
 ## Checkpoint 8: Add the MCP action, preview, and publish
 
 The direct REST activity from Checkpoint 3 proved the data. Do not rebuild that request as a custom Agent Studio action. Instead, add the registered MCP tool so the agent can call the same external system through a structured `lookup_order` action.
+
+<!-- gif-capture: cp8-add-preview-publish -->
+
+??? example "Show me: add the tool, preview, and publish"
+    1. On **Actions**, select **Add actions → Browse actions → Select available**.
+    2. Open the `LAB-21170 Order Desk` MCP provider and add `lookup_order`.
+    3. Save, open **Preview**, and test `ORD-10482`.
+    4. Close Preview and publish the working agent.
+
+    **Expected end state:** The published agent uses `lookup_order` and returns order data without package-template language.
 
 ### Add `lookup_order`
 
@@ -161,7 +196,10 @@ The direct REST activity from Checkpoint 3 proved the data. Do not rebuild that 
 2. Enter a version label such as `order-desk-mcp-v1` if prompted.
 3. Wait until the agent shows **Published**.
 
-!!! success "Checkpoint 8 complete"
-    The published agent asks for a missing order number, uses `lookup_order` for `ORD-10482`, and explains the returned status without package-template language.
+!!! success "Confirm before continuing"
+    - Preview asks for an order number when one is missing.
+    - `lookup_order` runs for `ORD-10482` and returns current order and delivery information.
+    - The response contains no package-template language.
+    - The agent status is **Published** before you return to Flow Designer.
 
 [Continue to Checkpoint 9](lab5_end_to_end.md){ .md-button .md-button--primary }

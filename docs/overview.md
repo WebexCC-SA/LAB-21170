@@ -13,6 +13,13 @@ Final path:    Caller → AI agent → external Order Desk system → response
 
 The starter IVR teaches the core Flow Designer activities and gives you a direct REST response to compare with the finished experience. In the final version, you bypass the menu and connect the caller directly to the AI agent. The completed solution does not use a press-one/press-two menu.
 
+<figure markdown>
+  ![The lab begins with a starter IVR and REST lookup, then replaces that caller path with an AI agent and MCP lookup](assets/lab-guide/00-solution-evolution.png)
+  <figcaption>The starter IVR is a temporary learning and data-validation path. The completed call goes directly to the AI agent, which uses the external MCP tool.</figcaption>
+</figure>
+
+The two stages use the same simulated Order Desk data. The first exposes the mechanics; the second gives the caller a natural conversation without requiring the agent to construct or parse a REST request.
+
 ## Your role
 
 You are the Webex Contact Center administrator and automation developer. You will:

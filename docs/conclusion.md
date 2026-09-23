@@ -12,6 +12,22 @@ You also inspected the external Order Desk MCP, confirmed the boundary between a
 Caller → Flow Designer entry → AI agent → Order Desk MCP → order response
 ```
 
+## Lab environment and production use
+
+MCP Lab, Order Desk, the assigned organization, and the supplied credentials are temporary training resources. They demonstrate the integration pattern; they are not a production deployment.
+
+Before adapting this pattern for production, establish:
+
+- managed credential storage and rotation;
+- clear ownership of every registered app and tool;
+- schema and allowlist review;
+- timeout, retry, and operational-monitoring behavior;
+- auditable approval for write actions;
+- data-handling rules; and
+- tested error and escalation paths.
+
+Never reuse the lab bearer token, lab URLs, or sandbox configuration in a production environment. Continue with the [official product references](references.md) when you adapt the pattern.
+
 ## Take the guide with you
 
 - [Download the Word walkthrough](assets/downloads/LAB-21170-flow-lab-walkthrough.docx)
