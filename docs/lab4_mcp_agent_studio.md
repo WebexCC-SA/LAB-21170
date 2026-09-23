@@ -53,9 +53,9 @@ You have proved that the Order Desk MCP works. Now register that external servic
 
 Use the built-in **Track Package - Autonomous** template as a starting point. It supplies the autonomous-agent structure, but you will replace its package-tracking language and remove its sample action.
 
-<!-- gif-capture: cp7-customize-track-package -->
-
 ??? example "Show me: customize the template in tab order"
+    ![Open Profile, then Instructions, then Actions in the Track Package agent](assets/lab-guide/gifs/cp7-customize-track-package.gif)
+
     1. Create `LAB-21170 Order Support` from **Track Package - Autonomous**.
     2. On **Profile**, replace the transparency and welcome messages.
     3. On **Instructions**, replace all package-tracking instructions with the supplied order-support copy.
@@ -160,15 +160,17 @@ Boundaries
 
 The direct REST activity from Checkpoint 3 proved the data. Do not rebuild that request as a custom Agent Studio action. Instead, add the registered MCP tool so the agent can call the same external system through a structured `lookup_order` action.
 
-<!-- gif-capture: cp8-add-preview-publish -->
-
 ??? example "Show me: add the tool, preview, and publish"
+    ![Open Add actions and choose Select available](assets/lab-guide/gifs/cp8-add-actions-menu.gif)
+
     1. On **Actions**, select **Add actions → Browse actions → Select available**.
     2. Open the `LAB-21170 Order Desk` MCP provider and add `lookup_order`.
     3. Save, open **Preview**, and test `ORD-10482`.
     4. Close Preview and publish the working agent.
 
     **Expected end state:** The published agent uses `lookup_order` and returns order data without package-template language.
+
+    The clip stops at the action picker. Your `LAB-21170 Order Desk` provider appears there only after you complete Checkpoint 6.
 
 ### Add `lookup_order`
 
