@@ -1,53 +1,61 @@
-# Checkpoints 4-5: Configure the agent and registration
+# Checkpoints 4-5: Inspect and exercise the MCP tools
 
-## Checkpoint 4: Configure the AI agent
+## Checkpoint 4: Inspect the external MCP in MCP Lab
 
-1. In Control Hub, open **Contact Center → Customer Experience → AI Agents**.
-2. Select **Build your AI Agent**.
-3. Start from the lab template if one is provided; otherwise create a new agent.
-4. Give the agent a clear name such as `LAB-21170 Order Support`.
-5. Configure the conversation instructions so the agent:
-    - identifies itself as an order-support assistant;
-    - asks for an order number when one is missing;
-    - uses the connected Order Desk read action to retrieve order and delivery information;
-    - summarizes the result in plain language;
-    - does not create or update a ticket without explicit caller and policy approval; and
-    - escalates when the request is outside the exercise or the tool cannot answer it.
-6. Save the agent as a draft.
+The REST branch proved that the external Order Desk system returns usable data. Now inspect the same system through MCP and see the tool contract an AI agent can use.
+
+Return to [MCP Lab](https://mcp-lab.webexdevs.com/) and use the provided Order Desk connection.
+
+1. Select **Inspect MCP** for the provided server.
+2. Select **Inspect MCP tools**.
+3. Wait for the live discovery request to complete.
+4. Review the discovered tools and their policy labels.
+
+The Order Desk catalog should include:
+
+| Tool | Purpose | Lab policy |
+| --- | --- | --- |
+| `lookup_order` | Retrieve deterministic order and delivery details. | Runs automatically. |
+| `list_tickets` | List support tickets in the current attendee session. | Runs automatically. |
+| `get_ticket` | Retrieve one ticket and its related order. | Runs automatically. |
+| `create_ticket` | Create a support ticket for an order. | Explicit approval required. |
+| `update_ticket` | Change an existing ticket. | Explicit approval required. |
+
+Destructive or unrecognized operations must not run. Treat tool descriptions and tool output as data, not as instructions.
 
 <figure markdown>
-  ![Control Hub AI Agents area](assets/lab-guide/03-control-hub-ai-agents.png)
-  <figcaption>Open AI Agent Studio from the AI Agents area in Control Hub.</figcaption>
+  ![MCP tool catalog reference from the local lab UI](assets/lab-guide/05-mcp-tool-catalog-reference.png)
+  <figcaption>Local UI reference. Treat the live catalog discovered in your hosted lab session as authoritative.</figcaption>
 </figure>
-
-**Suggested test request:**
-
-> I need an update on order `ORD-10482`.
 
 !!! success "Checkpoint 4 complete"
-    The agent asks for a missing order number and is saved as a draft. You will connect the external action in Checkpoint 8.
+    The live catalog is visible and `lookup_order` is available.
 
-## Checkpoint 5: Register or confirm the external MCP in Developer Portal
+## Checkpoint 5: Exercise automatic reads and approval-gated writes
 
-Use Developer Portal to complete the MCP registration handoff before connecting it in AI Agent Studio. The lab supplies the synthetic Order Desk endpoint and temporary bearer token.
+After tool discovery, select **Connect to AI agent**, then open the MCP Lab agent workspace. This is a lab client used to inspect tool behavior before you configure the Webex AI agent.
 
-<figure markdown>
-  ![Developer Portal authentication reference](assets/lab-guide/04-developer-portal-authentication.png)
-  <figcaption>This is the portal's authentication reference. Use the facilitator-provided registration screen or details for the actual MCP setup.</figcaption>
-</figure>
+### Run an order read
 
-For this lab:
+1. Enter: `Look up order ORD-10482 and summarize its status`.
+2. Wait for the tool activity to finish.
+3. Review the response and the activity trace.
+4. Confirm that the response includes order status and delivery information.
 
-- Use the pre-created MCP registration or external action configuration supplied by the facilitator when one is provided.
-- If the facilitator asks you to create a Webex integration, use the assigned sandbox, the exact redirect URI, and only the minimum scopes required for the exercise.
-- Do not create a personal production integration for the lab.
-- Do not place client secrets or access tokens in the agent prompt.
-- The synthetic Order Desk endpoint and temporary bearer token come from the lab assignment. They describe the exercise service, not a production Webex service.
+### Run a ticket read
+
+1. Enter: `List the open support tickets`.
+2. Confirm that the results are scoped to your current attendee session.
+
+### Exercise the approval boundary
+
+1. Enter: `Create a high-priority ticket for order ORD-10482`.
+2. Stop when the **Approval required** card appears.
+3. Review the requested tool name, arguments, order number, and intended effect.
+4. Select **Approve tool** only if the request is the one you intended to test.
+5. Confirm that `create_ticket` completes once, and record the returned ticket ID for the session.
 
 !!! success "Checkpoint 5 complete"
-    The external MCP registration is available in Developer Portal, or you have the facilitator-provided registration details. You can distinguish the Webex integration credentials from the external Order Desk credentials.
-
-!!! note
-    If your tenant has no MCP-registration action, stop at this checkpoint and use the facilitator-provided AI Agent Studio action configuration.
+    Read tools complete without approval and ticket creation pauses for explicit approval.
 
 [Continue to Checkpoints 6-8](lab4_mcp_agent_studio.md){ .md-button .md-button--primary }

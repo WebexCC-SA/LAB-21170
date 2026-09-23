@@ -37,6 +37,22 @@ During the final test, you speak as the caller. The AI agent plays the order-sup
 
 MCP Lab and Order Desk support the exercise, but they are not Webex products. MCP Lab provides the temporary sandbox assignment and the synthetic Order Desk REST and MCP endpoints.
 
+## Lab sequence
+
+You will build and validate one layer at a time:
+
+1. Redeem the sandbox assignment.
+2. Build and call the starter IVR.
+3. Prove the Order Desk REST response in Flow Designer.
+4. Inspect the Order Desk MCP tool contract.
+5. Exercise automatic reads and an approval-gated write in MCP Lab.
+6. Register the external MCP in Developer Portal and enable it in Control Hub.
+7. Customize the **Track Package - Autonomous** template for order support.
+8. Add `lookup_order`, preview the agent, and publish it.
+9. Replace the starter caller path with the published AI agent and call the final flow.
+
+This order lets you see the raw API response before the agent uses the same business data through a structured MCP tool.
+
 ## Before you start
 
 Bring the event-provided **MCP Lab token** and use a supported browser. MCP Lab supplies the sandbox URL, sign-in details, Order Desk endpoints, temporary bearer token, assignment expiration, and sample order number after you redeem the token.

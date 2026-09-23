@@ -7,7 +7,7 @@
 3. Find **Virtual Agent V2** under **Contact handling** and drag it onto the canvas.
 4. Set **Activity label** to `AIAgent`.
 5. Connect `NewContact` directly to `AIAgent`.
-6. In the activity settings, select the agent configured in AI Agent Studio.
+6. In the activity settings, select the published `LAB-21170 Order Support` agent.
 7. Connect the activity's **Handled** outcome to the normal completion path.
 8. Connect **Escalated** to the facilitator-designated queue or transfer path.
 9. Connect **Errored** to the flow's error-handling path.

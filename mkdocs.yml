@@ -91,8 +91,8 @@ nav:
       - Overview: overview.md
       - Checkpoint 1 - Lab access: lab1_getting_started.md
       - Checkpoints 2-3 - Flow Designer: lab2_flow_designer.md
-      - Checkpoints 4-5 - Agent and registration: lab3_agent_registration.md
-      - Checkpoints 6-8 - MCP and Agent Studio: lab4_mcp_agent_studio.md
+      - Checkpoints 4-5 - Inspect and test MCP: lab3_agent_registration.md
+      - Checkpoints 6-8 - Register MCP and build agent: lab4_mcp_agent_studio.md
       - Checkpoint 9 - End-to-end test: lab5_end_to_end.md
       - Troubleshooting and completion: troubleshooting.md
       - Conclusion: conclusion.md

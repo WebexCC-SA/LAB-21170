@@ -122,4 +122,4 @@ This comparison step proves that Flow Designer can retrieve external data direct
 !!! success "Checkpoint 3 complete"
     On a live call, digit `1` reaches `GetOrder` and reads the status for `ORD-10482`; digit `2` still reaches `GeneralSupportMessage`.
 
-[Continue to Checkpoints 4-5](lab3_agent_registration.md){ .md-button .md-button--primary }
+[Continue to MCP inspection and testing](lab3_agent_registration.md){ .md-button .md-button--primary }
