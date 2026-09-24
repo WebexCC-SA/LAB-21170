@@ -2,7 +2,7 @@
 
 ## Checkpoint 4: Inspect the external MCP in MCP Lab
 
-The REST branch proved that the external Order Desk system returns usable data. Now inspect the same system through MCP and see the tool contract an AI agent can use.
+The REST branch is published; its runtime response still needs the phone and Debug test in Checkpoint 3. Now inspect the same external system through MCP and see the tool contract an AI agent can use.
 
 Return to [MCP Lab](https://mcp-lab.webexdevs.com/). Your assigned exercise should still be on **Inspect an MCP**.
 
