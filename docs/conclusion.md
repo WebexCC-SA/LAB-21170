@@ -16,7 +16,7 @@ Caller → Flow Designer entry → AI agent → Order Desk MCP → order respons
 | Direct Order Desk branch | `ServiceDesk` version 1 was published with the direct HTTP request. Its phone response has not been captured. |
 | Reusable lookup | The parser Function passed sample tests and was published; the guarded `OrderLookup` subflow was published as version 1. |
 | Refactored caller path | `ServiceDesk` version 2 passed validation, was published with `Test` and `Latest`, and was assigned to Entry Point-1. Its phone response has not been captured. |
-| AI and MCP path | An autonomous agent draft and MCP registration form were prepared. The Order Desk Agentic App was not submitted or enabled in the captured tenant, and Studio had no available MCP action. Final agent Preview, publication, and phone call remain to be completed. |
+| AI and MCP path | Order Desk was connected in MCP Lab; `lookup_order` returned order data, and a separate approval-gated ticket write was verified by read-back. An autonomous agent draft and MCP registration form were prepared. The Order Desk Agentic App was not submitted or enabled in the captured tenant, and Studio had no available MCP action. Final agent Preview, publication, and phone call remain to be completed. |
 
 Use the [completion checklist](troubleshooting.md) as checks to perform, not as a record that every check already passed. Screenshots identify which steps were exercised live and which still need runtime verification.
 

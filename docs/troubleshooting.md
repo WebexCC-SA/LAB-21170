@@ -6,9 +6,9 @@
 | --- | --- |
 | Invalid lab token | Re-enter the event-provided token exactly; do not use a sandbox password or Webex login password. |
 | No Order Desk connection appears | Open **Test tenant details** and confirm that the assigned exercise includes an Order Desk endpoint. |
-| MCP Lab discovery fails | Confirm that the endpoint is copied without extra spaces and the temporary bearer token has not expired. |
+| MCP Lab tool inspection fails | Return to the AI agent workspace and select **Connect MCP** on the lab-provided **Order Desk** card. If the tool catalog still does not load, ask the facilitator to check your lab assignment. |
 | A read asks for approval | Confirm that the tool name is one of the expected read tools and report the result to the facilitator. |
-| A write runs automatically | Stop the test and report it; `create_ticket` and `update_ticket` must be approval-gated. |
+| A ticket tool appears in the final voice agent | In Control Hub, leave `list_tickets`, `get_ticket`, `create_ticket`, and `update_ticket` disabled; attach only `lookup_order` in Agent Studio. |
 | The registered app does not appear in Control Hub | Confirm that you registered it with the assigned sandbox account, selected **Request admin approval** if available, and then refresh **Apps → Agentic Apps**. |
 | `lookup_order` does not appear in Agent Studio | If **Select available** says **No actions available**, confirm that the Agentic App was submitted in Developer Portal, is **Allowed** in Control Hub, has its Custom Headers authentication configured, and has `lookup_order` enabled under **Tools**. Refresh Studio after provisioning. |
 | Preview returns unavailable | Preview can open for a draft with no working MCP tool. Confirm that the attached action is the registered **MCP** `lookup_order`, then inspect its trace, input, Control Hub header, and tool permission. |
@@ -43,7 +43,8 @@
 - [ ] External Order Desk MCP discovered in MCP Lab.
 - [ ] `lookup_order` returns data for `ORD-10482`.
 - [ ] Automatic read behavior observed.
-- [ ] Approval-required behavior observed for ticket creation.
+- [ ] Optional MCP Lab ticket exercise: `create_ticket` pauses for approval; verify the result by reading the ticket list before retrying a failed assistant response.
+- [ ] `list_tickets`, `get_ticket`, `create_ticket`, and `update_ticket` are disabled for the final voice agent.
 - [ ] `LAB21170 Order Desk MCP` registered as a Streamable HTTP MCP Agentic App with Custom Headers authentication.
 - [ ] Private Agentic App allowed in Control Hub and `lookup_order` enabled.
 - [ ] `LAB-21170 Order Support` created as an autonomous Start Fresh agent, or the optional Track Package template fully cleaned up.
