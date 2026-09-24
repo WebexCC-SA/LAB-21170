@@ -292,9 +292,10 @@ The captured version 2 is a **published configuration check**: the walkthrough d
 
 #### Test the queue treatment
 
-1. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
-2. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
-3. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
+1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a safe **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this repaired version; the captured version 2 still has those ports open.
+2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
+3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
+4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
 
 #### Route the entry point to `ServiceDesk`
 
@@ -501,7 +502,17 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or follows the honest fallback. Make a second call on digit `2` to confirm that the general-support path remains intact. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
 !!! info "What the captured evidence proves"
-    Direct `ServiceDesk` version 1, the OrderLookup subflow version 1, and refactored `ServiceDesk` version 2 were published. Version 2 has `Test` and `Latest` labels and is routed from the assigned entry point. The Function passed valid and missing-status tests, and both subflow and parent drafts passed structural validation with zero errors. No `ServiceDesk` phone result has been verified here; publication and expression previews do not prove an Order Desk runtime response. Verify timeout and network-error behavior separately in Debug.
+    Direct `ServiceDesk` version 1, the OrderLookup subflow version 1, and refactored `ServiceDesk` version 2 were published. The Function passed valid, missing-status, and malformed-shape tests; both subflow and parent drafts passed structural validation with zero errors. A completed version 2 interaction reached `NewContact` and `WelcomeMessage`, then `SupportMenu` returned **Error** and `GlobalErrorHandling` ended the call. Debug showed no selected menu digit or specific cause. In response, version 3 connected the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs to a caller-facing fallback message and safe disconnect; it passed Validation with zero errors and was published as **Latest**. The entry point still uses `ServiceDesk` **Latest**. Neither the failed version 2 call nor version 3 publication verifies a digit branch or an Order Desk runtime response. Make fresh digit `1` and digit `2` calls before marking this checkpoint complete.
+
+<figure markdown>
+  ![Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling](assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg)
+  <figcaption>A live version 2 call reached the menu but did not enter the order or general-support branch. The trace establishes the failure point without identifying its cause.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Published ServiceDesk version 3 menu with three error outputs wired to MenuFallbackMessage and MenuFallbackDisconnect](assets/lab-guide/live/cp3-servicedesk-v3-menu-fallback.jpg)
+  <figcaption>Version 3 routes menu timeout, unmatched entry, and undefined error to an audible fallback and disconnect. This is a validated, published wiring check; no version 3 call has been captured.</figcaption>
+</figure>
 
 !!! tip "If the API branch fails"
     For the first version, check the full request URL, the temporary `Authorization` header, and the `$.order.status` JSON path. For the refactored version, also check the subflow input/output mappings, the `$` JSON mapping, `HttpStatusIs200`, and Function result paths. Keep the starter IVR connected until Checkpoint 9; the earlier published version preserves the direct-HTTP comparison.
