@@ -11,7 +11,8 @@ Caller → Flow Designer entry → AI agent → Order Desk MCP → order respons
 
 | Checkpoint | Captured evidence |
 | --- | --- |
-| Practice queue flow | `SimpleQueue` was published and exercised by phone; Debug and Analytics screenshots show the practice calls. |
+| Practice queue flow, version 1 | `SimpleQueue` was published and exercised by phone; Debug and Analytics screenshots show those calls. |
+| Reusable queue treatment, version 2 | The Queue Treatment subflow and a practice parent flow with a callback-or-wait menu were published. The parent flow passed Validation with 0 errors. No phone call through version 2 was captured; three optional error outputs remained unconnected. |
 | Direct Order Desk branch | `ServiceDesk` version 1 was published with the direct HTTP request. Its phone response has not been captured. |
 | Reusable lookup | The parser Function passed sample tests and was published; the guarded `OrderLookup` subflow was published as version 1. |
 | Refactored caller path | `ServiceDesk` version 2 passed validation, was published with `Test` and `Latest`, and was assigned to Entry Point-1. Its phone response has not been captured. |

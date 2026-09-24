@@ -227,7 +227,7 @@ The [Queue Treatment Subflow template](https://help.webex.com/article/nhovcy4) p
 On the subflow canvas:
 
 1. Follow the template path from **Start Subflow** through its **Condition**, two **Play Music** activities, **Play Message**, **Set Variable**, and **End Subflow**. The condition and counter bound the internal music/message loop. Keep those links intact.
-2. In the subflow variable definitions, inspect the template inputs. Set `queueMessage` (String) to a short waiting message, such as `Please stay on the line while we connect you.` Keep `queueMusic1` and `queueMusic2` (String) on the provided music-on-hold file unless your facilitator supplies another audio file. Set `counter` (Integer) to `0` and `musicDuration` (Integer) to `10` seconds. The template exposes no output variable.
+2. In the subflow variable definitions, inspect its four exposed inputs: `queueMessage` (String), `queueMusic1` (String), `queueMusic2` (String), and `musicDuration` (Integer). The live template defaults are `Please wait`, `defaultmusic_on_hold.wav` for both music inputs, and `10` seconds. You may change the waiting message to `Please stay on the line while we connect you.` before publishing. The `counter` variable starts at `0` but is internal to this template, so it is not a main-flow input to map. The template exposes no output variable.
 3. Check that the **Play Message** activity uses Cisco Cloud Text-to-Speech and reads `queueMessage`. Confirm that each **Play Music** activity uses the intended audio file and duration.
 4. Turn on **Validation**. Resolve errors, then select **Publish Subflow**. Confirm the subflow has a published version before you add it to a main flow.
 
@@ -252,30 +252,47 @@ The lab tenant's example `LAB21170_QueueTreatment_Ready_ARUN` was published as v
 
 Return to the practice flow from Part A. It already has **Queue Contact** configured for `Queue-1`, so you can add treatment without changing `ServiceDesk` or the Order Desk branch used in Checkpoint 3. Webex places the [Courtesy Callback](https://help.webex.com/article/nhovcy4) activity in a main flow after **Queue Contact**; the subflow canvas does not provide that activity. Courtesy Callback requires the queue and enterprise callback feature to be enabled. If **Callback** is unavailable in your main flow, ask the facilitator to check that setup before publishing this branch. **Schedule Callback** is a different activity for a chosen future time and needs a callback entry point and scheduling inputs.
 
-In **Global Flow Properties → Variable Definitions**, add the five variables below to the Part A practice flow. Use the same types as the subflow inputs.
+1. Open the Part A practice flow and turn **Edit** on. Disconnect **Queue Contact** from the template's **Music** activity. Keep the original **Music → PlayMessage** pair while you wire the replacement, then remove it after the new path validates.
+2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 10`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. The example version below uses these defaults. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
+3. Add a **Menu** after the subflow and label it `CallbackOrWait`. Use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**).
+4. Connect digit `2`, **No-Input Timeout**, and **Unmatched Entry** directly back to **Queue Treatment Subflow**. Do not loop to **Queue Contact**; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.
+5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. In the captured tenant, Callback validation required **Register callback to different destination?** on and an explicit **Static queue** of `Queue-1`, even though that is the same queue used by Queue Contact. Follow the validator and facilitator's queue policy in your tenant.
+6. Add a short Cisco Cloud Text-to-Speech confirmation **Play Message**, then **Disconnect Contact**. Connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
+7. For a flow you will route to callers, connect exposed error paths to a safe fallback or an error message followed by **Disconnect Contact**. Check that a successful callback does not return to waiting treatment. Flow Designer may show **0 errors** even when optional error outputs remain open, so inspect those links yourself.
+8. Wait for Autosave, turn on **Validation**, and resolve errors. Publish a new version of the practice flow. The example subflow uses **Latest** with automatic updates enabled; if you change the subflow later, validate the parent flow again and publish a new parent version before relying on the changed behavior.
 
-| Main-flow variable | Type | Value for this lab |
-| --- | --- | --- |
-| `queueMessage` | String | `Please stay on the line while we connect you.` |
-| `queueMusic1` | String | `defaultmusic_on_hold.wav` |
-| `queueMusic2` | String | `defaultmusic_on_hold.wav` |
-| `queueCycleCounter` | Integer | `0` |
-| `musicDuration` | Integer | `10` |
+The validated main-flow path is `Queue Contact → Queue Treatment Subflow → CallbackOrWait`. Digit `2`, no input, or an unmatched digit returns to the subflow without queueing the caller again; digit `1` goes to `Callback → confirmation → Disconnect Contact`. This follows the [Cisco subflow mapping](https://help.webex.com/article/nhovcy4) and [Courtesy Callback](https://help.webex.com/article/nhovcy4) requirements.
 
-1. Open the Part A practice flow and turn **Edit** on. Add the variables above, then disconnect the current link from **Queue Contact** to the template's **Music** activity. Keep the original **Music → PlayMessage** pair on the canvas as a fallback while you build.
-2. Add **Set Variable** and label it `ResetQueueCycle`. Configure it to set `queueCycleCounter` to integer `0`. Connect **Queue Contact → ResetQueueCycle**.
-3. Open the **Subflows** tab of the main-flow activity library, drag your published queue-treatment subflow onto the canvas, and choose its **Latest** version label. Map `queueMessage`, `queueMusic1`, `queueMusic2`, and `musicDuration` to their same-named inputs; map the subflow's `counter` input to `queueCycleCounter`. Each mapped pair must have the same type. The template has no output to map. Connect **ResetQueueCycle → Queue Treatment Subflow**.
-4. Add a **Menu** after the subflow and label it `CallbackOrWait`. Use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**).
-5. Connect digit `2` to `ResetQueueCycle`. Connect **No-Input Timeout** and **Unmatched Entry** to `ResetQueueCycle` as well, so an unanswered or invalid menu choice returns to audible queue treatment. A caller who stays in queue can be offered to an agent while the wait treatment runs.
-6. Add **Callback** from the main-flow **Voice** activities. Connect digit `1` to it. Leave the destination on the same queued destination and use the caller's ANI for **Callback Dial Number** unless your facilitator has configured another approved callback number. Add a short confirmation **Play Message**, then **Disconnect Contact**; connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
-7. Connect any exposed error path from the subflow, menu, or callback to an appropriate existing fallback or an error message followed by **Disconnect Contact**. Check that no successful callback path returns to the waiting loop.
-8. Wait for Autosave, turn on **Validation**, and resolve errors. Publish a new version of the practice flow. The subflow's published version must be selected and mapped before the main flow can use it. If you later publish a revised subflow, republish the main flow to apply that revision.
+<figure markdown>
+  ![Published queue-treatment subflow selected on Latest with four unmapped inputs](assets/lab-guide/live/cp2-subflow-inputs-unmapped.jpg)
+  <figcaption>The example parent flow maps no inputs. Flow Designer uses the four defaults configured in the published subflow; <code>counter</code> is internal.</figcaption>
+</figure>
 
-The intended main-flow path is `Queue Contact → ResetQueueCycle → Queue Treatment Subflow → CallbackOrWait`. Digit `2`, no input, or an unmatched digit returns to `ResetQueueCycle`; digit `1` goes to `Callback → confirmation → Disconnect Contact`. This follows the [Cisco subflow mapping](https://help.webex.com/article/nhovcy4) and [Courtesy Callback](https://help.webex.com/article/nhovcy4) requirements.
+<figure markdown>
+  ![Courtesy Callback settings using caller ANI and an explicit Queue-1 destination](assets/lab-guide/live/cp2-callback-settings-queue.jpg)
+  <figcaption><code>NewPhoneContact.ANI</code> supplies the return-call number. The captured tenant required an explicit callback destination of <code>Queue-1</code>; Callback ANI is the outbound caller ID selected separately.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Published practice flow from welcome prompt through Queue Contact and Queue Treatment](assets/lab-guide/live/cp2-practice-v2-queue-treatment.jpg)
+  <figcaption>In the published practice flow, Queue Contact enters the reusable treatment subflow. The queue failure and subflow error paths lead to the existing End Flow activities.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Published caller-choice menu with callback, wait, confirmation, and disconnect branches](assets/lab-guide/live/cp2-practice-v2-callback-branch.jpg)
+  <figcaption>Digit 1 registers Courtesy Callback, plays a confirmation, and disconnects the original call. Digit 2, no input, and unmatched input return to Queue Treatment without queueing again.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Practice flow version history showing version 2 with Test and Latest labels](assets/lab-guide/live/cp2-practice-v2-published.jpg)
+  <figcaption>The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
+</figure>
+
+The captured version 2 is a **published configuration check**: the walkthrough did not include a call through this version, so its waiting menu and callback behavior have not been verified in Debug or Analyze. Its Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs were still unconnected when published. Connect those fallbacks before using the flow with callers; the 0-error result does not test them. The earlier Part A call screenshots belong to version 1, before this queue-treatment change.
 
 #### Test the queue treatment
 
-1. Check that your assigned entry point still routes to the Part A practice flow on **Latest**. Call its number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
+1. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
 2. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 3. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
 
@@ -318,8 +335,8 @@ This comparison step configures Flow Designer to retrieve external data directly
 11. Set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Use the assigned URL from **Test tenant details** if it differs.
 
     <figure markdown>
-      ![Live HTTP Request settings with authenticated endpoint off, full Order Desk URL, and GET method](assets/lab-guide/live/cp3-http-settings.png)
-      <figcaption>Turning off the authenticated endpoint option exposes the full Request URL field. Configure parsing farther down the activity settings; keep the Authorization value out of screenshots and GIFs.</figcaption>
+      ![Published ServiceDesk version 1 GetOrder HTTP Request settings with URL field and GET method](assets/lab-guide/live/cp3-getorder-settings-focused.jpg)
+      <figcaption>The published version 1 activity is named `GetOrder`. Turning off the authenticated endpoint option exposes the Request URL field. The complete URL is in step 11; keep the Authorization value out of screenshots and GIFs.</figcaption>
     </figure>
 
 12. Under **HTTP request headers**, add **Key** `Authorization` and **Value** `Bearer <temporary Order Desk token>`. Include the word `Bearer`, one space, and then the token copied from **Test tenant details**. Keep this temporary value only in the assigned sandbox; never put it in a screenshot, GIF, source file, or notes.
@@ -396,7 +413,7 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
         return response
     ```
 
-4. In the Function test panel, use `{"order":{"status":"processing"}}` for `order_data` and select **Test**. Confirm that the result has `statusCode: 200`, `data.status: processing`, and `data.lookupSucceeded: true`. Test `{}` as well; `data.status` should be `unavailable` and `data.lookupSucceeded` should be `false`. Fix code or output definitions before publishing.
+4. In the Function test panel, use `{"order":{"status":"processing"}}` for `order_data` and select **Test**. Confirm that the result has `statusCode: 200`, `data.status: processing`, and `data.lookupSucceeded: true`. Test `{}` as well; `data.status` should be `unavailable` and `data.lookupSucceeded` should be `false`. Then test the valid JSON object `{"order":{"status":42}}`: a non-string status must also return `unavailable` and `false`. If you type malformed JSON syntax such as `{bad`, the JSON input rejects it and disables **Test**; correct the input before testing the Function. Fix code or output definitions before publishing.
 
     <figure markdown>
       ![Live Function test with an Order Desk JSON input and processing status in the result](assets/lab-guide/live/cp3-function-valid-test.png)
@@ -406,6 +423,16 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
     <figure markdown>
       ![Screenshot sequence of valid and empty JSON Function tests followed by the Function publish dialog](assets/lab-guide/gifs/cp3-function-local-tests.gif)
       <figcaption>Screenshot sequence: local Function tests return `processing` for sample order JSON and `unavailable` for `{}`, then the Function publish dialog opens. This is not a caller test.</figcaption>
+    </figure>
+
+    <figure markdown>
+      ![Function test input with an order status set to the number 42](assets/lab-guide/live/cp3-function-malformed-input.jpg)
+      <figcaption>Malformed-shape input: valid JSON with a numeric `status` field.</figcaption>
+    </figure>
+
+    <figure markdown>
+      ![Function test result with unavailable status and false lookup success](assets/lab-guide/live/cp3-function-malformed-result.jpg)
+      <figcaption>The same live test returns `unavailable` and `lookupSucceeded: false` without a runtime error. Syntactically invalid JSON is stopped by the test form before the Function runs.</figcaption>
     </figure>
 
 5. Select **Publish Function** and note the published version label. A draft Function is not available for use by the subflow.

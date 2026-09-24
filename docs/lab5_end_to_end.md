@@ -1,6 +1,6 @@
 # Checkpoint 9: Attach the agent and test end to end
 
-??? example "Show me: replace the starter caller path"
+??? example "Target wiring: replace the starter caller path"
     1. Disconnect `NewContact` from `WelcomeMessage`; leave the starter activities on the canvas as a reference.
     2. Add **Virtual Agent V2**, name it `AIAgent`, select **Webex AI Agent (Autonomous)**, and select the published order-support agent.
     3. Connect `NewContact` directly to `AIAgent`. Send **Handled** to a clean end, **Escalated** to the assigned human queue and wait treatment, and **Errored** to an honest fallback.
@@ -45,7 +45,7 @@
 7. Make a second call and say: `Please connect me to a human agent.` Confirm that the **Escalated** path plays `EscalationMessage` and enters `Queue-1`. If a test agent is available, answer the call in Agent Desktop. If no agent is available, confirm that the caller hears wait treatment rather than a false claim of transfer completion.
 8. In **Debug**, inspect the second Interaction ID and confirm that it followed `AIAgent → EscalationMessage → HumanAgentQueue`. Check the Queue Contact error path separately when the facilitator can safely supply a controlled failure.
 
-**Completed path:**
+**Target caller path:**
 
 ```text
 Caller → Flow Designer entry → AI agent → external Order Desk service via MCP → response

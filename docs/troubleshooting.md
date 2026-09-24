@@ -14,6 +14,9 @@
 | Preview returns unavailable | Preview can open for a draft with no working MCP tool. Confirm that the attached action is the registered **MCP** `lookup_order`, then inspect its trace, input, Control Hub header, and tool permission. |
 | The agent cannot find the order | Confirm that MCP `lookup_order` is attached and receives `ORD-10482`; check the temporary sandbox bearer configured in the app's Control Hub Custom Headers setting. |
 | The agent still talks about packages | If you used the optional Track Package template, replace its Profile and Instructions copy and remove `trackPackage`. |
+| The practice call never enters `Queue-1` | Confirm the published `SimpleQueue` version is selected by the entry point, the welcome message reaches **Queue Contact**, and the queue choice is `Queue-1`. A saved draft alone will not handle the call. |
+| Queue treatment does not play or repeat | Confirm that the published **Queue Treatment Subflow** is selected in the main flow and the link reaches it after **Queue Contact**. Its four exposed inputs may use their published defaults; any mapped override needs a matching variable type. Check that digit `2`, no-input, and unmatched menu links return to the subflow rather than Queue Contact. |
+| Callback cannot be added or does not register | **Callback** is a main-flow activity and depends on queue and enterprise Courtesy Callback setup. Keep it outside the subflow; ask the facilitator to verify entitlement and caller number policy before testing the callback branch. |
 | A menu selection goes nowhere | For direct `ServiceDesk` v1, check digit `1` to `GetOrder`; for refactored v2, check digit `1` to `OrderLookup`. Digit `2` should reach `GeneralSupportMessage`. |
 | The phone number does not reach the intended flow | Confirm that the inbound entry point is **Active**, has the assigned Calling Location and PSTN number, and routes to the published flow's **Latest** version. The practice call uses `SimpleQueue`; later `ServiceDesk` versions require reassignment. |
 | The API call returns unauthorized | Confirm that the header key is `Authorization` and the value starts with `Bearer ` followed by the current temporary token. |
@@ -23,6 +26,10 @@
 ## Completion checklist
 
 - [ ] Control Hub organization and Contact Center area identified.
+- [ ] Native `SimpleQueue` template published, assigned to the entry point, and verified by phone, Debug, and Analyze.
+- [ ] Native **Comprehensive Call Flow** post-queue path inspected and the reusable **Queue Treatment Subflow** published.
+- [ ] Practice flow invokes the published queue-treatment subflow after **Queue Contact**; menu digit `2` repeats wait treatment by phone.
+- [ ] If Courtesy Callback is enabled, practice menu digit `1` registers a callback and the original call ends; Debug evidence is captured.
 - [ ] `ServiceDesk` Flow Designer draft created from scratch.
 - [ ] `NewContact` is the voice start event.
 - [ ] Starter IVR contains `WelcomeMessage` and `SupportMenu`.
@@ -37,7 +44,7 @@
 - [ ] `lookup_order` returns data for `ORD-10482`.
 - [ ] Automatic read behavior observed.
 - [ ] Approval-required behavior observed for ticket creation.
-- [ ] `LAB-21170 Order Desk` registered as a Streamable HTTP MCP Agentic App with Custom Headers authentication.
+- [ ] `LAB21170 Order Desk MCP` registered as a Streamable HTTP MCP Agentic App with Custom Headers authentication.
 - [ ] Private Agentic App allowed in Control Hub and `lookup_order` enabled.
 - [ ] `LAB-21170 Order Support` created as an autonomous Start Fresh agent, or the optional Track Package template fully cleaned up.
 - [ ] Profile and Instructions copy replaced with the provided order-support text.

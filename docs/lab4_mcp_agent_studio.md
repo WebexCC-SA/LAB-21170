@@ -4,13 +4,17 @@
 
 After discovering the Order Desk tools in MCP Lab, register that external service so the sandbox organization can make its tools available to AI Agent Studio. Discovery shows the tool catalog; only a successful tool call proves the service returned data. Registration describes the server and does not turn MCP Lab or Order Desk into a Webex product.
 
-??? example "Show me: register and allow the MCP"
+??? example "Registration steps: register and allow the MCP"
     1. In Developer Portal, create an **Agentic App**.
     2. Select **MCP**, **Streamable HTTP**, and **Custom Headers**, then paste the assigned Order Desk MCP address.
     3. Review the registration terms, add the app when authorized, and request admin approval if prompted.
     4. In Control Hub, open **Apps → Agentic Apps**, allow the app, configure its sandbox Authorization header, and enable `lookup_order`.
 
-    **Expected end state:** `LAB-21170 Order Desk` is allowed and `lookup_order` is enabled.
+    **Expected end state:** `LAB21170 Order Desk MCP` is allowed and `lookup_order` is enabled.
+
+    ![Live form tour showing MCP endpoint, transport, Custom Headers, and the untouched Add Agentic App control](assets/lab-guide/gifs/cp6-registration-pre-submit-tour.gif)
+
+    This screenshot tour follows the prepared Developer Portal form from top to bottom. It stops before **Add Agentic App**; no registration or Control Hub approval is shown.
 
 ### Register the server in Developer Portal
 
@@ -20,7 +24,7 @@ After discovering the Order Desk tools in MCP Lab, register that external servic
 4. Complete the form with these values:
     - **Module:** `MCP`
     - **Transport Type:** `Streamable HTTP`
-    - **Name:** `LAB-21170 Order Desk`
+    - **Name:** `LAB21170 Order Desk MCP`
     - **Description:** `Synthetic order and support-ticket tools for the LAB-21170 WebexOne lab.`
     - **Logo:** select one of the provided default logos.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
@@ -30,9 +34,11 @@ After discovering the Order Desk tools in MCP Lab, register that external servic
 7. Select **Request admin approval** if that option appears.
 
 <figure markdown>
-  ![Live Developer Portal Agentic App form with Custom Headers selected before submission](assets/lab-guide/live/cp4-mcp-registration-ready.png)
-  <figcaption>The captured form has Custom Headers selected, but registration had not been submitted when this screenshot was taken. No credential is shown.</figcaption>
+  ![Live Developer Portal form showing MCP, the Order Desk URL, Streamable HTTP, and an available app name](assets/lab-guide/live/cp4-mcp-registration-details-close.jpg)
+  <figcaption>The live form shows the MCP endpoint, transport, and app name. The form tour above also shows Custom Headers and the untouched terms control. Registration had not been submitted; no credential is shown.</figcaption>
 </figure>
+
+Open the focused views of [Custom Headers](assets/lab-guide/live/cp4-mcp-registration-auth-close.jpg) and the [pre-submit terms notice](assets/lab-guide/live/cp4-mcp-registration-submit-close.jpg) if you need to inspect those controls closely.
 
 !!! warning "Keep the sandbox credential in the authentication setting"
     This lab registers an external MCP as an Agentic App. The temporary Order Desk bearer is not a Webex OAuth token. Do not put it in the app description, agent instructions, screenshots, source files, or a User Token field.
@@ -41,14 +47,14 @@ After discovering the Order Desk tools in MCP Lab, register that external servic
 
 1. Return to **Control Hub**.
 2. Open **Apps → Agentic Apps**.
-3. Find and open `LAB-21170 Order Desk`. It may take a short time to appear after registration; refresh the list once if needed.
+3. Find and open `LAB21170 Order Desk MCP`. It may take a short time to appear after registration; refresh the list once if needed.
 4. On **General**, set the app to **Allowed** for the organization.
 5. Under **Authentication**, configure the app's **Custom Headers** with header name `Authorization` and the assigned sandbox value in the form `Bearer <temporary Order Desk token>`. Keep the value in the admin credential field and out of guide media.
 6. Open **Tools** and enable `lookup_order`. You may also enable the read-only `list_tickets` and `get_ticket` tools if the exercise needs them. Leave `create_ticket` and `update_ticket` disabled for the final voice agent; their MCP Lab approval behavior does not authorize voice-agent writes.
 7. Apply or save each setting as the tenant UI requires, then reopen **General**, **Authentication**, and **Tools** to confirm the app is allowed, the header is configured, and `lookup_order` remains enabled. Tool discovery can be cached, so allow time for an approved tool to appear in AI Agent Studio.
 
 !!! success "Confirm before continuing"
-    - Developer Portal shows `LAB-21170 Order Desk` as an MCP Agentic App using **Streamable HTTP** and **Custom Headers** authentication.
+    - Developer Portal shows `LAB21170 Order Desk MCP` as an MCP Agentic App using **Streamable HTTP** and **Custom Headers** authentication.
     - Control Hub shows the app as **Allowed**.
     - `lookup_order` is enabled; `create_ticket` and `update_ticket` remain disabled for the final voice agent.
 
@@ -163,23 +169,18 @@ Boundaries
 
 Checkpoint 3 publishes the direct REST and subflow designs; its `ServiceDesk` phone response still needs verification. Add the registered MCP tool so the agent can call Order Desk through a structured `lookup_order` action. A source-flow action with a similar name does not substitute for this MCP action.
 
-??? example "Show me: add the tool, preview, and publish"
+??? example "Show me: open the action picker"
     ![Open Add actions and choose Select available](assets/lab-guide/gifs/cp8-add-actions-menu.gif)
 
-    1. On **Actions**, select **Add actions → Select available**.
-    2. Open the `LAB-21170 Order Desk` MCP provider and add `lookup_order`.
-    3. Save, open **Preview**, and test `ORD-10482`.
-    4. Close Preview and publish the working agent.
+    On **Actions**, select **Add actions → Select available**. The action picker should open. Continue with the full tool attachment, Preview, and publication steps below after Checkpoint 6 provisioning is complete.
 
-    **Expected end state:** The published agent uses `lookup_order` and returns order data without package-template language.
-
-    The clip stops at the action picker. Your `LAB-21170 Order Desk` provider appears there only after you complete Checkpoint 6 and the admin enables its tool.
+    The clip stops at the action picker. Your `LAB21170 Order Desk MCP` provider appears there only after you complete Checkpoint 6 and the admin enables its tool.
 
 !!! warning "Provisioning gate"
     In the captured tenant, **Select available** showed **No actions available** because the Order Desk Agentic App had not been submitted and enabled. Do not publish the draft as the final lab agent or proceed to Checkpoint 9 until the actual MCP `lookup_order` action appears and succeeds in Preview. Follow the [registration and Control Hub provisioning references](references.md) if the catalog remains empty.
 
 <figure markdown>
-  ![Live AI Agent Studio action picker with no available MCP actions](assets/lab-guide/live/cp4-ai-mcp-no-actions.png)
+  ![Close-up of the live AI Agent Studio action picker showing no available MCP actions](assets/lab-guide/live/cp4-ai-mcp-no-actions-close.jpg)
   <figcaption>The live action picker has no available actions before Order Desk registration and provisioning. This is a blocker for the final AI-to-MCP path, not evidence of a completed integration.</figcaption>
 </figure>
 
@@ -188,7 +189,7 @@ Checkpoint 3 publishes the direct REST and subflow designs; its `ServiceDesk` ph
 1. In `LAB-21170 Order Support`, open **Actions**.
 2. Select **Add actions**.
 3. Select **Select available**.
-4. Find the `LAB-21170 Order Desk` provider with the **MCP** label.
+4. Find the `LAB21170 Order Desk MCP` provider with the **MCP** label.
 5. Select `lookup_order`, then select **Add**.
 6. Confirm that the action name, description, and `orderNumber` input were populated from the registered MCP tool. The sandbox Authorization header belongs in the Control Hub app configuration from Checkpoint 6.
 7. Switch away from **Actions**, return to it, and confirm that `lookup_order` remains attached. AI Agent Studio saves the action automatically.
