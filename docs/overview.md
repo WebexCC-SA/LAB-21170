@@ -51,8 +51,8 @@ You will build and validate one layer at a time:
 1. Redeem the sandbox assignment.
 2. Build and call the starter IVR.
 3. Prove the Order Desk REST response in Flow Designer.
-4. Inspect the Order Desk MCP tool contract.
-5. Exercise automatic reads and an approval-gated write in MCP Lab.
+4. Connect Order Desk and inspect its MCP tool contract.
+5. Test the order lookup in MCP Lab.
 6. Register the external MCP in Developer Portal and enable it in Control Hub.
 7. Customize the **Track Package - Autonomous** template for order support.
 8. Add `lookup_order`, preview the agent, and publish it.

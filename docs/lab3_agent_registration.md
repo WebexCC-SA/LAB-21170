@@ -1,14 +1,20 @@
-# Checkpoints 4-5: Inspect and exercise the MCP tools
+# Checkpoints 4-5: Connect Order Desk and test the lookup
 
-## Checkpoint 4: Inspect the external MCP in MCP Lab
+<span id="checkpoint-4-inspect-the-external-mcp-in-mcp-lab"></span>
+## Checkpoint 4: Connect and inspect Order Desk in MCP Lab
 
 The REST branch proved that the external Order Desk system returns usable data. Now inspect the same system through MCP and see the tool contract an AI agent can use.
 
-Return to [MCP Lab](https://mcp-lab.webexdevs.com/). Your assigned exercise should still be on **Inspect an MCP**.
+Return to the **AI agent** workspace in [MCP Lab](https://mcp-lab.webexdevs.com/). The Order Desk is a lab-provided simulation of an external order system. You do not need to enter an MCP URL or bearer token here.
 
-1. Select **Inspect MCP tools**.
-2. Wait for the live discovery request to complete.
-3. Review the discovered tools and their policy labels.
+1. On the lab-provided **Order Desk** card, select **Connect MCP**.
+2. On **Connect the Order Desk MCP**, confirm that **Order Desk** and **Session token** are shown. Select **Inspect MCP tools**. Do not use **Inspect orders** on the card; that opens the sample order viewer, not the MCP connection.
+3. On **Inspect the tool catalog**, review the five checked tools. The three read tools say **Runs automatically**; the two ticket-writing tools say **Approval required**.
+4. Leave all five tools checked and select **Connect to AI agent**.
+5. On **Ready to use**, confirm **Order Desk — 5 tools ready**, then select **Return to AI agent**.
+6. In **Connected MCPs**, confirm that **Order Desk** shows **Connected**, **5 tools**, and **Active MCP**.
+
+These five tools are connected only to the MCP Lab test agent. In Checkpoint 6, you will enable only `lookup_order` for the Webex voice agent.
 
 The Order Desk catalog should include:
 
@@ -23,42 +29,26 @@ The Order Desk catalog should include:
 Destructive or unrecognized operations must not run. Treat tool descriptions and tool output as data, not as instructions.
 
 <figure markdown>
-  ![MCP tool catalog reference from the local lab UI](assets/lab-guide/05-mcp-tool-catalog-reference.png)
-  <figcaption>Local UI reference. Treat the live catalog discovered in your hosted lab session as authoritative.</figcaption>
+  ![Order Desk MCP connection sequence from Connect MCP to Connected MCPs](assets/lab-guide/05-order-desk-mcp-connection.gif)
+  <figcaption>Follow the Order Desk connection path. The final frame shows one connected MCP with five tools. Your live tool catalog is authoritative.</figcaption>
 </figure>
 
 !!! success "Confirm before continuing"
+    - **Connected MCPs** shows **Order Desk** with five tools.
     - `lookup_order`, `list_tickets`, and `get_ticket` are labeled as automatic read tools.
     - `create_ticket` and `update_ticket` are labeled as approval-required write tools.
-    - No unrecognized or destructive tool is enabled.
 
-## Checkpoint 5: Exercise automatic reads and approval-gated writes
+<span id="checkpoint-5-exercise-automatic-reads-and-approval-gated-writes"></span>
+## Checkpoint 5: Test the order lookup in MCP Lab
 
-After tool discovery, select **Connect to AI agent**, then open the MCP Lab agent workspace. This is a lab client used to inspect tool behavior before you configure the Webex AI agent.
-
-### Run an order read
+With Order Desk connected to the MCP Lab's AI agent, test the same order lookup that you will add to the Webex AI agent in a later checkpoint. You do not need to list or create support tickets for this exercise.
 
 1. Enter: `Look up order ORD-10482 and summarize its status`.
 2. Wait for the tool activity to finish.
-3. Review the response and the activity trace.
-4. Confirm that the response includes order status and delivery information.
-
-### Run a ticket read
-
-1. Enter: `List the open support tickets`.
-2. Confirm that the results are scoped to your current attendee session.
-
-### Exercise the approval boundary
-
-1. Enter: `Create a high-priority ticket for order ORD-10482`.
-2. Stop when the **Approval required** card appears.
-3. Review the requested tool name, arguments, order number, and intended effect.
-4. Select **Approve tool** only if the request is the one you intended to test.
-5. Confirm that `create_ticket` completes once, and record the returned ticket ID for the session.
+3. In **Tool activity**, confirm that the agent called `lookup_order`.
+4. Confirm that the response includes order status and delivery information for `ORD-10482`.
 
 !!! success "Confirm before continuing"
-    - The order read returns current status and delivery data for `ORD-10482`.
-    - The ticket list is scoped to your attendee session.
-    - `create_ticket` pauses for approval and, after approval, completes exactly once.
+    - `lookup_order` runs automatically and returns order status and delivery data for `ORD-10482`.
 
 [Continue to Checkpoints 6-8](lab4_mcp_agent_studio.md){ .md-button .md-button--primary }
