@@ -23,7 +23,7 @@
 
 1. Confirm that the canvas contains the `NewContact` start event.
 2. Select `NewContact` and confirm that its channel type is **Voice**.
-3. Save the draft.
+3. Confirm that **Autosave** is on. Flow Designer saves draft changes automatically; wait for the saved status before leaving the page.
 
 <figure markdown>
   ![Blank ServiceDesk flow with the NewContact voice start event](assets/lab-guide/02-flow-designer-empty.png)
@@ -44,7 +44,7 @@
 10. In **Prompt**, turn on **Enable text-to-speech**, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `General support is not included in this exercise.`
 11. Connect the digit `2` output from `SupportMenu` to `GeneralSupportMessage`.
 12. Leave the digit `1` output unconnected. You will connect it to the temporary **HTTP Request** in Checkpoint 3.
-13. Save the draft.
+13. Wait for Autosave to finish, then confirm that the connections remain in place.
 
 <figure markdown>
   ![Completed starter IVR with the welcome message, two-option menu, and general-support message](assets/lab-guide/02-starter-ivr-flow-example.png)
@@ -76,9 +76,15 @@ Publish this version so you can hear the flow before adding the API branch.
 5. Set **Service level threshold** to `300` seconds, unless your facilitator provides another value.
 6. Keep the assigned sandbox timezone.
 7. For **Routing Flow**, select `ServiceDesk`.
-8. Under **Phone numbers**, select **Add** and choose the number assigned to your sandbox.
-9. Select **Create**.
-10. Confirm that the channel is **Active**, the routing flow is `ServiceDesk`, and the assigned phone number appears on the channel.
+8. For **Version label**, select **Latest** so later published versions of `ServiceDesk` become active without remapping the channel.
+9. Keep the default **Music on Hold** unless your facilitator provides another option.
+10. Under **Phone numbers**, select **Add more** or **Add**.
+11. In the phone-number row, select the **Webex Calling Location** assigned to your sandbox.
+12. Select the assigned **PSTN number**. If the sandbox uses an extension instead, enter the facilitator-provided extension.
+13. Select the **PSTN Region** if the field appears and is required.
+14. Select the check mark or **Save** in the phone-number row.
+15. Select **Create**.
+16. Confirm that the channel is **Active**, its routing flow is `ServiceDesk`, its version label is **Latest**, and the assigned phone number appears on the channel.
 
 ### Call the starter IVR
 
@@ -95,19 +101,23 @@ Publish this version so you can hear the flow before adding the API branch.
 This comparison step proves that Flow Designer can retrieve external data directly before the agent uses the same data through MCP. The temporary API test is separate from the final caller path.
 
 1. Return to `ServiceDesk` in Flow Designer and turn **Edit** on.
-2. Find **HTTP Request** under **Utilities** and drag it onto the canvas.
-3. In **General settings**, set **Activity label** to `GetOrder`.
-4. Connect the digit `1` **Order Support** output from `SupportMenu` to `GetOrder`. This is a temporary comparison branch, not the final caller path.
-5. Open **Test tenant details** in MCP Lab and find the Order Desk REST API details and temporary bearer token.
-6. In `GetOrder`, set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`.
-7. Under **HTTP request headers**, add **Key** `Authorization` and **Value** `Bearer <temporary Order Desk token>`. Include the word `Bearer`, one space, and then the token copied from **Test tenant details**. Do not paste the token into this guide or your notes.
-8. Set the request **Content type** to **Application/JSON**.
-9. Under **Parse settings**, set **Content type** to **JSON**.
-10. Select **Add parsed variable**. Set **Variable** to `orderStatus` and **JSON path** to `$.order.status`.
-11. Add a **Play Message** activity and set **Activity label** to `OrderStatusMessage`.
-12. In its **Prompt** settings, enable text to speech, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `Your order status is {{orderStatus}}.`
-13. Connect `GetOrder` to `OrderStatusMessage`.
-14. Save, validate, and publish a new flow version with a label such as `order-api-v1`.
+2. Open **Global Flow Properties** from the canvas controls.
+3. Under **Variable Definitions → Custom Flow Variables**, select **Add**.
+4. Create a variable named `orderStatus`, set its type to **String**, leave its default value blank, and add it to the flow.
+5. Wait for Autosave, then close **Global Flow Properties**.
+6. Find **HTTP Request** under **Utilities** and drag it onto the canvas.
+7. In **General settings**, set **Activity label** to `GetOrder`.
+8. Connect the digit `1` **Order Support** output from `SupportMenu` to `GetOrder`. This is a temporary comparison branch, not the final caller path.
+9. Open **Test tenant details** in MCP Lab and find the Order Desk REST API details and temporary bearer token.
+10. In `GetOrder`, set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`.
+11. Under **HTTP request headers**, add **Key** `Authorization` and **Value** `Bearer <temporary Order Desk token>`. Include the word `Bearer`, one space, and then the token copied from **Test tenant details**. Do not paste the token into this guide or your notes.
+12. Set the request **Content type** to **Application/JSON**.
+13. Under **Parse settings**, set **Content type** to **JSON**.
+14. Select **Add parsed variable**. Set **Variable** to `orderStatus` and **JSON path** to `$.order.status`.
+15. Add a **Play Message** activity and set **Activity label** to `OrderStatusMessage`.
+16. In its **Prompt** settings, enable text to speech, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `Your order status is {{orderStatus}}.`
+17. Connect `GetOrder` to `OrderStatusMessage`.
+18. Wait for Autosave, select **Validation**, resolve any errors, and publish a new flow version with a label such as `order-api-v1`.
 
 ### Test the API branch by phone
 

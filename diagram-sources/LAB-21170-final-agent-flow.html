@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LAB-21170 final AI agent flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 1280px; height: 720px; overflow: hidden; background: #fafaf7; }
+    body { color: #181818; font-family: "Geist", Arial, sans-serif; }
+    svg { display: block; width: 1280px; height: 720px; }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 1280 720" role="img" aria-labelledby="final-flow-title final-flow-desc">
+    <title id="final-flow-title">Final AI agent caller path</title>
+    <desc id="final-flow-desc">NewContact sends the caller directly to the autonomous AI agent. Handled calls disconnect normally. Escalated and errored calls play distinct messages before disconnecting.</desc>
+    <defs>
+      <marker id="arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#545454"/>
+      </marker>
+      <marker id="arrow-accent" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#0672ef"/>
+      </marker>
+      <marker id="arrow-link" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+        <polygon points="0 0, 8 3, 0 6" fill="#007aa3"/>
+      </marker>
+    </defs>
+
+    <rect width="1280" height="720" fill="#fafaf7"/>
+    <text x="64" y="52" fill="#656c75" font-family="'Geist Mono', monospace" font-size="8" font-weight="600" letter-spacing="1.6">CHECKPOINT 9 · REFERENCE TOPOLOGY</text>
+    <text x="64" y="96" fill="#181818" font-family="'Instrument Serif', Georgia, serif" font-size="32">The AI agent owns the final caller path.</text>
+    <text x="64" y="128" fill="#545454" font-size="12">Configure the autonomous agent, then connect every outcome before publishing.</text>
+    <line x1="64" y1="152" x2="1216" y2="152" stroke="rgba(24,24,24,0.12)"/>
+
+    <!-- Connectors render before nodes. -->
+    <line x1="224" y1="352" x2="304" y2="352" stroke="#0672ef" stroke-width="2" marker-end="url(#arrow-accent)"/>
+
+    <path d="M 544 328 H 584 Q 592 328 592 320 V 224 Q 592 216 600 216 H 688" fill="none" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <path d="M 544 352 H 688" fill="none" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <path d="M 544 376 H 584 Q 592 376 592 384 V 480 Q 592 488 600 488 H 688" fill="none" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <path d="M 888 216 H 944 Q 952 216 952 224 V 312 Q 952 320 960 320 H 1008" fill="none" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <line x1="888" y1="352" x2="1008" y2="352" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+    <path d="M 888 488 H 944 Q 952 488 952 480 V 392 Q 952 384 960 384 H 1008" fill="none" stroke="#545454" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+    <!-- Outcome labels sit on paper-colored masks. -->
+    <rect x="604" y="188" width="72" height="16" fill="#fafaf7"/>
+    <text x="640" y="200" fill="#545454" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">HANDLED</text>
+    <rect x="580" y="324" width="88" height="16" fill="#fafaf7"/>
+    <text x="624" y="336" fill="#545454" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">ESCALATED</text>
+    <rect x="604" y="460" width="72" height="16" fill="#fafaf7"/>
+    <text x="640" y="472" fill="#545454" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">ERRORED</text>
+
+    <!-- Nodes. -->
+    <g>
+      <rect x="64" y="296" width="160" height="112" rx="56" fill="#ffffff" stroke="rgba(24,24,24,0.30)" stroke-width="1.5"/>
+      <text x="144" y="340" fill="#181818" font-size="16" font-weight="600" text-anchor="middle">NewContact</text>
+      <text x="144" y="368" fill="#656c75" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">voice start event</text>
+    </g>
+
+    <g>
+      <rect x="304" y="280" width="240" height="144" rx="8" fill="rgba(6,114,239,0.08)" stroke="#0672ef" stroke-width="2"/>
+      <rect x="320" y="296" width="80" height="20" rx="4" fill="#0672ef"/>
+      <text x="360" y="308" fill="#ffffff" font-family="'Geist Mono', monospace" font-size="8" font-weight="600" text-anchor="middle">AUTONOMOUS</text>
+      <text x="424" y="344" fill="#181818" font-size="20" font-weight="600" text-anchor="middle">AIAgent</text>
+      <text x="424" y="372" fill="#545454" font-size="12" text-anchor="middle">Virtual Agent V2</text>
+      <text x="424" y="396" fill="#656c75" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">LAB-21170 Order Support</text>
+    </g>
+
+    <g>
+      <rect x="688" y="168" width="200" height="96" rx="8" fill="#ffffff" stroke="rgba(24,24,24,0.30)"/>
+      <text x="788" y="208" fill="#181818" font-size="16" font-weight="600" text-anchor="middle">Normal completion</text>
+      <text x="788" y="236" fill="#656c75" font-size="12" text-anchor="middle">agent finishes the call</text>
+    </g>
+
+    <g>
+      <rect x="688" y="304" width="200" height="96" rx="8" fill="#ffffff" stroke="rgba(24,24,24,0.30)"/>
+      <text x="788" y="344" fill="#181818" font-size="16" font-weight="600" text-anchor="middle">EscalationMessage</text>
+      <text x="788" y="372" fill="#656c75" font-size="12" text-anchor="middle">unsupported request</text>
+    </g>
+
+    <g>
+      <rect x="688" y="440" width="200" height="96" rx="8" fill="#ffffff" stroke="rgba(24,24,24,0.30)"/>
+      <text x="788" y="480" fill="#181818" font-size="16" font-weight="600" text-anchor="middle">AgentErrorMessage</text>
+      <text x="788" y="508" fill="#656c75" font-size="12" text-anchor="middle">temporary failure</text>
+    </g>
+
+    <g>
+      <rect x="1008" y="288" width="200" height="128" rx="64" fill="rgba(24,24,24,0.04)" stroke="rgba(24,24,24,0.34)" stroke-width="1.5"/>
+      <text x="1108" y="344" fill="#181818" font-size="16" font-weight="600" text-anchor="middle">DisconnectContact</text>
+      <text x="1108" y="372" fill="#656c75" font-family="'Geist Mono', monospace" font-size="8" text-anchor="middle">end every branch cleanly</text>
+    </g>
+
+    <rect x="64" y="604" width="1152" height="52" rx="6" fill="rgba(6,114,239,0.08)" stroke="rgba(6,114,239,0.30)"/>
+    <text x="88" y="635" fill="#181818" font-size="12" font-weight="600">Before publishing:</text>
+    <text x="214" y="635" fill="#545454" font-size="12">select Webex AI Agent (Autonomous), choose the published agent, and connect Handled, Escalated, and Errored.</text>
+  </svg>
+</body>
+</html>

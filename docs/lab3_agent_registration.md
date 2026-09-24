@@ -4,12 +4,11 @@
 
 The REST branch proved that the external Order Desk system returns usable data. Now inspect the same system through MCP and see the tool contract an AI agent can use.
 
-Return to [MCP Lab](https://mcp-lab.webexdevs.com/) and use the provided Order Desk connection.
+Return to [MCP Lab](https://mcp-lab.webexdevs.com/). Your assigned exercise should still be on **Inspect an MCP**.
 
-1. Select **Inspect MCP** for the provided server.
-2. Select **Inspect MCP tools**.
-3. Wait for the live discovery request to complete.
-4. Review the discovered tools and their policy labels.
+1. Select **Inspect MCP tools**.
+2. Wait for the live discovery request to complete.
+3. Review the discovered tools and their policy labels.
 
 The Order Desk catalog should include:
 

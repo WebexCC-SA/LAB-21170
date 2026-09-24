@@ -8,7 +8,7 @@ You have proved that the Order Desk MCP works. Now register that external servic
 
 ??? example "Show me: register and allow the MCP"
     1. In Developer Portal, create an **Agentic App**.
-    2. Select **MCP**, **Streamable HTTP**, and **UserToken**, then paste the assigned Order Desk MCP address.
+    2. Select **MCP**, **Streamable HTTP**, and **User token**, then paste the assigned Order Desk MCP address.
     3. Add the app and request admin approval if prompted.
     4. In Control Hub, open **Apps → Agentic Apps**, allow the app, and enable `lookup_order`.
 
@@ -26,7 +26,7 @@ You have proved that the Order Desk MCP works. Now register that external servic
     - **Description:** `Synthetic order and support-ticket tools for the LAB-21170 WebexOne lab.`
     - **Logo:** select one of the provided default logos.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
-    - **Auth Type:** `UserToken`
+    - **Auth Type:** `User token`
 5. Select **Add Agentic App**.
 6. On the app details page, confirm that the URL ends in `/order-desk/mcp`, the transport is **Streamable HTTP**, and the authentication type is **User Token**.
 7. Select **Request admin approval** if that option appears.
@@ -42,7 +42,7 @@ You have proved that the Order Desk MCP works. Now register that external servic
 4. On **General**, set the app to **Allowed** for the organization.
 5. Open **Tools** and enable `lookup_order`.
 6. You may also enable the read-only `list_tickets` and `get_ticket` tools. Leave `create_ticket` and `update_ticket` disabled for the final voice agent; you already tested their approval boundary in MCP Lab.
-7. Save the configuration and confirm that `lookup_order` remains enabled.
+7. Return to **General**, then reopen **Tools** and confirm that `lookup_order` remains enabled. These settings apply automatically; there is no separate Save button.
 
 !!! success "Confirm before continuing"
     - Developer Portal shows `LAB-21170 Order Desk` as an MCP Agentic App using **Streamable HTTP** and **User Token** authentication.
@@ -93,7 +93,7 @@ Hi, I'm an AI assistant for Order Support. This interaction may be recorded and 
 Welcome to Order Support. I can help you check an order's status and delivery information. What is your order number?
 ```
 
-6. Select **Save changes**.
+6. Wait for the updated values to persist, then switch to **Instructions**. AI Agent Studio saves these fields automatically.
 
 ### Instructions tab
 
@@ -137,7 +137,7 @@ Boundaries
 - Keep responses concise and appropriate for a voice conversation.
 ```
 
-3. Select **Save changes**.
+3. Wait for the updated instructions to persist, then switch to **Actions**. AI Agent Studio saves the instructions automatically.
 
 ### Actions tab
 
@@ -181,7 +181,7 @@ The direct REST activity from Checkpoint 3 proved the data. Do not rebuild that 
 5. Select `lookup_order`, then select **Add**.
 6. If Agent Studio requests a user token, paste the temporary Order Desk bearer token from **Test tenant details** into the credential field. Do not add the word `Bearer` unless the field explicitly asks for a full authorization value.
 7. Confirm that the action name, description, and `orderNumber` input were populated from the registered MCP tool.
-8. Select **Save changes**.
+8. Switch away from **Actions**, return to it, and confirm that `lookup_order` remains attached. AI Agent Studio saves the action automatically.
 
 ### Preview the completed agent
 
