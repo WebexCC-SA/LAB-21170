@@ -125,7 +125,7 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
   <figcaption>Screenshot sequence: inspect one call in Debug, then compare completed calls in Analyze.</figcaption>
 </figure>
 
-!!! success "Compare your calls with the captured trace"
+!!! success "Compare your calls with the example trace"
     `LAB21170_SimpleQueue_ARUN` version 1 was assigned to `Entry Point-1` and received at least three calls. Debug showed the welcome, queue, waiting treatment, and EndFlow. The first Analyze refresh showed two completed executions with no node errors: WelcomePrompt and Queue appeared on every path; Music and the waiting message appeared on half. A later Queue view listed three interactions. Your counts will depend on your calls and selected time window.
 
 The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) explains templates, entry point routing, Debug, and Flow Analytics.
@@ -292,11 +292,11 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
   <figcaption>The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
 </figure>
 
-Version 2 proves that the queue-treatment and callback design was published, but no call through it was captured. Its Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs were still open despite 0 validation errors. Connect them before routing callers. The Part A Debug and Analyze screenshots show version 1, before this change.
+The version 2 screenshot shows the queue-treatment and callback design published. It does not show a call through that version. Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** were still open despite 0 validation errors. Connect them before routing callers. The Part A Debug and Analyze screenshots show version 1.
 
 #### Test the queue treatment
 
-1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a safe **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this repaired version; the captured version 2 still has those ports open.
+1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this version; the version 2 screenshot still shows those ports open.
 2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
 3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
@@ -334,7 +334,7 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 5. Wait for Autosave, then close **Global Flow Properties**.
 6. Find **HTTP Request** under **Utilities** and drag it onto the canvas.
 7. In **General settings**, set **Activity label** to `GetOrder`.
-8. Disconnect the digit `1` **Order Support** output from `OrderSupportPending` and connect it to `GetOrder`. The temporary message and its end link can be removed once validation confirms the replacement path. This HTTP branch is a comparison exercise, not the final caller path.
+8. Disconnect the digit `1` **Order Support** output from `OrderSupportPending` and connect it to `GetOrder`. Remove the temporary message and its end link after the replacement path validates.
 9. Open **Test tenant details** in MCP Lab and find the Order Desk REST API details and temporary bearer token.
 10. In `GetOrder`, turn **Use authenticated endpoint** off. When it is on, Flow Designer asks for a configured connector and **Request path**; turning it off reveals the full **Request URL** field used for this temporary lab endpoint.
 11. Set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Use the assigned URL from **Test tenant details** if it differs.
@@ -367,13 +367,13 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
       <figcaption>Screenshot sequence: create `orderStatus`, configure the direct GET, map `$.order.status`, and preview the spoken expression. These setup screens do not show a successful HTTP response.</figcaption>
     </figure>
 
-18. Connect the single outgoing `GetOrder` port to `OrderStatusMessage`, then connect the message to the same `Queue Contact` used by menu digit `2`. Confirm it still selects `Queue-1` and reaches the **Play Music** wait treatment. In this tenant, HTTP Request has no separate error port. This direct version is a known-order comparison; the status guard and honest fallback are built in the subflow below.
+18. Connect the single outgoing `GetOrder` port to `OrderStatusMessage`, then connect the message to the same `Queue Contact` used by menu digit `2`. Confirm it still selects `Queue-1` and reaches the **Play Music** wait treatment. In this tenant, HTTP Request has no separate error port. This direct version tests a known order; the subflow below adds a status guard and an `unavailable` result for failures.
 19. Wait for Autosave, turn on **Validation**, resolve blocking errors, and select **Publish**. **Latest** is applied automatically; add the offered **Test** label and a comment such as `Order Desk REST lookup` if you want to identify this checkpoint. Confirm the entry point still routes to `ServiceDesk` on the intended version.
 
 Trace both practice paths: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. Both can reach the human queue. The final AI flow removes the menu and direct REST nodes; the earlier published versions remain in version history.
 
 !!! warning "Temporary Order Desk credential"
-    This manual bearer header is for the assigned synthetic lab sandbox only. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication. When you finish the REST comparison and refactor, remove the old direct HTTP activity or clear its header. At lab cleanup, clear the temporary header in the order-lookup subflow as directed by the facilitator; an unused published subflow still retains its configuration.
+    Use the manual bearer header only in your assigned sandbox. After the REST exercise, remove the direct HTTP activity or clear its header. At lab cleanup, clear the header in the order-lookup subflow too; an unused published subflow retains its configuration. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication.
 
 ### Test the API branch by phone
 
@@ -503,7 +503,7 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
       <figcaption>Entry Point-1 is routed to the published `ServiceDesk` **Latest** version. Routing configuration alone does not verify the order response on a call.</figcaption>
     </figure>
 
-5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or follows the honest fallback. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
+5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
 !!! info "Read the example screenshots by flow version"
     The parser Function passed valid, missing-status, and malformed-shape tests. The separate `OrderLookup` subflow was published as version 1 before it was used by the main flow.
@@ -550,6 +550,6 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
     For the first version, check the full request URL, the temporary `Authorization` header, and the `$.order.status` JSON path. For the refactored version, also check the subflow input/output mappings, the `$` JSON mapping, `HttpStatusIs200`, and Function result paths. Keep the starter IVR connected until Checkpoint 9; the earlier published version preserves the direct-HTTP comparison.
 
 !!! success "Finish Checkpoint 3 after your calls prove the paths"
-    Call the direct REST version and confirm in Debug that digit `1` reaches `GetOrder` and reads the status for `ORD-10482`. Call the refactored version and confirm that digit `1` runs the HTTP subflow and Function, then reads the status or an honest fallback. Confirm that digit `2` enters `Queue-1` without the lookup or placeholder. Compare the completed paths in Debug and Analytics before marking the checkpoint complete.
+    Call the direct REST version and confirm in Debug that digit `1` reaches `GetOrder` and reads the status for `ORD-10482`. Call the refactored version and confirm that digit `1` runs the HTTP subflow and Function, then reads the status or the temporary-unavailability message. Confirm that digit `2` enters `Queue-1` without the lookup or placeholder. Compare the completed paths in Debug and Analytics before marking the checkpoint complete.
 
 [Continue to MCP inspection and testing](lab3_agent_registration.md){ .md-button .md-button--primary }

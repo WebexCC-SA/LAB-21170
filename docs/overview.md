@@ -14,7 +14,7 @@ Final path:
   Caller → AI agent → external Order Desk system → response
          ├─ Handled → end
          ├─ Escalated → human agent queue → queue treatment
-         └─ Errored → honest fallback → safe exit
+         └─ Errored → spoken error message → disconnect
 ```
 
 In the practice flow, digit `1` looks up an order through REST before joining `Queue-1`; digit `2` joins the queue directly. In the final flow, the caller goes straight to the AI agent. A handled request ends, an escalation enters the human queue, and an error plays a clear fallback before disconnecting. The final path has no numbered menu.

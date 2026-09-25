@@ -22,7 +22,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
     - **Logo:** select one of the provided default logos.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
     - **Auth Type:** `Custom Headers`
-5. Review the linked terms and privacy statement, then select **Add Agentic App** when authorized for this sandbox.
+5. Review the linked terms and privacy statement, then select **Add Agentic App**.
 6. On the app details page, confirm that the URL ends in `/order-desk/mcp`, the transport is **Streamable HTTP**, and the authentication type is **Custom Headers**.
 7. Select **Request admin approval** if that option appears.
 
@@ -302,14 +302,14 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
   <figcaption>In **Sessions**, confirm **Action performed → lookup_order**, **MCP**, and **Success (3.8s)**.</figcaption>
 </figure>
 
-In a separate **Preview** conversation, enter `I need to speak with a human agent, please.` When the agent asks for confirmation, reply `Yes, please transfer me to a human agent.` Check its acknowledgement. This chat test does not verify the phone queue path.
+In a separate **Preview** conversation, enter `I need to speak with a human agent, please.` When the agent asks for confirmation, reply `Yes, please transfer me to a human agent.` Check its acknowledgement.
 
 <figure markdown>
   ![AI Agent Studio chat Preview showing a request for a human agent, confirmation, and transfer acknowledgement](assets/lab-guide/live/cp8-preview-handoff-request.jpg)
   <figcaption>The agent asks for confirmation and acknowledges the handover request in chat Preview.</figcaption>
 </figure>
 
-Open **Sessions** for this conversation and check for the **Agent handover** badge. Test actual queue delivery by phone in Checkpoint 9.
+Open **Sessions** for this conversation and check for the **Agent handover** badge.
 
 <figure markdown>
   ![AI Agent Studio Sessions row with Agent handover metadata tooltip for the test conversation](assets/lab-guide/live/cp8-session-handover-badge.jpg)
@@ -320,11 +320,11 @@ Test a general-support request in a new **Preview** conversation:
 
 1. Enter `I need general support.` Confirm the agent offers to connect you with a human.
 2. Reply `Yes, please connect me to a human agent.` Confirm the agent acknowledges the transfer.
-3. Open **Sessions** for this conversation and confirm **Agent handover** appears. Check the actual voice queue path in Checkpoint 9.
+3. Open **Sessions** for this conversation and confirm **Agent handover** appears.
 
 <figure markdown>
   ![AI Agent Studio Preview offering human help for general support and acknowledging the caller's confirmation](assets/lab-guide/live/cp8-preview-general-support-handover.jpg)
-  <figcaption>For a general-support request, the agent offers a human connection and acknowledges the caller's confirmation. Studio Preview does not verify phone queue delivery.</figcaption>
+  <figcaption>The agent offers a human connection for general support and acknowledges the caller's confirmation.</figcaption>
 </figure>
 
 ### Publish the agent
@@ -341,7 +341,7 @@ Test a general-support request in a new **Preview** conversation:
 
 <figure markdown>
   ![AI Agent Studio Version history showing the published Order Desk agent and a later general-support handover revision](assets/lab-guide/live/cp8-agent-publication-history.jpg)
-  <figcaption>Check the newest publication comment in **History → Version history**. The reference agent has two published entries because its handover instruction was revised.</figcaption>
+  <figcaption>Check the newest publication comment in **History → Version history**.</figcaption>
 </figure>
 
 !!! success "Confirm before continuing"
