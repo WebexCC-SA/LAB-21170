@@ -39,7 +39,7 @@ Do not run destructive or unrecognized operations. Treat tool descriptions and r
 
 <figure markdown>
   ![Live Order Desk MCP catalog with three automatic reads and two approval-required writes](assets/lab-guide/live/cp4-mcp-tool-catalog-live.jpg)
-  <figcaption>The catalog shows five tools. Both ticket writes require approval.</figcaption>
+  <figcaption markdown="span">The catalog shows five tools. Both ticket writes require approval.</figcaption>
 </figure>
 
 !!! success "Confirm before continuing"
@@ -61,7 +61,7 @@ With Order Desk connected to the MCP Lab's AI agent, test the same order lookup 
 
 <figure markdown>
   ![Live lookup_order response for ORD-10482 with Shipped status and estimated delivery date, alongside completed tool activity](assets/lab-guide/live/cp4-mcp-order-lookup-live.jpg)
-  <figcaption>`lookup_order` returned `Shipped` and an estimated delivery of September 28, 2026, without displaying customer details.</figcaption>
+  <figcaption markdown="span">`lookup_order` returned `Shipped` and an estimated delivery of September 28, 2026, without displaying customer details.</figcaption>
 </figure>
 
 !!! success "Continue when your lookup succeeds"
@@ -78,7 +78,7 @@ Keep this optional exercise in MCP Lab. It shows the approval gate for a ticket 
 
 <figure markdown>
   ![Live list_tickets response showing only synthetic ticket IDs, related orders, status, and priority, with completed tool activity](assets/lab-guide/live/cp4-mcp-ticket-list-live.jpg)
-  <figcaption>`list_tickets` returned this session's ticket fields without customer details.</figcaption>
+  <figcaption markdown="span">`list_tickets` returned this session's ticket fields without customer details.</figcaption>
 </figure>
 
 #### Approve one synthetic ticket write
@@ -96,7 +96,7 @@ Keep this optional exercise in MCP Lab. It shows the approval gate for a ticket 
 
 <figure markdown>
   ![Live create_ticket approval card and pending tool activity](assets/lab-guide/live/cp4-mcp-ticket-approval-live.jpg)
-  <figcaption>Approval pauses `create_ticket`. Check that your prompt requests one high-priority synthetic ticket for `ORD-10482`.</figcaption>
+  <figcaption markdown="span">Approval pauses `create_ticket`. Check that your prompt requests one high-priority synthetic ticket for `ORD-10482`.</figcaption>
 </figure>
 
 !!! note "If the assistant reports an error after approval"

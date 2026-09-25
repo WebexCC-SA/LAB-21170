@@ -11,9 +11,9 @@ Practice path:
          └─ 2 general support ─────────────────────────→ Queue-1 → wait treatment
 
 Final path:
-  Caller → AI agent → external Order Desk system → response
-         ├─ Handled → end
-         ├─ Escalated → human agent queue → queue treatment
+  Caller → AI agent
+         ├─ order request → Order Desk MCP → response → Handled → end
+         ├─ general support → offer human → Escalated → Queue-1 → wait treatment
          └─ Errored → spoken error message → disconnect
 ```
 
@@ -21,7 +21,7 @@ In the practice flow, digit `1` looks up an order through REST before joining `Q
 
 <figure markdown>
   ![Simplified practice path through welcome, menu, REST lookup and queue treatment, and final AI-agent path with handled and human-escalation outcomes](assets/lab-guide/00-solution-evolution.png)
-  <figcaption>Practice digit 2 bypasses REST and joins the queue. The final path uses the approved Order Desk MCP action; dashed queue links are configured in later checkpoints.</figcaption>
+  <figcaption markdown="span">Practice digit 2 bypasses REST and joins the queue. The final path uses the approved Order Desk MCP action; dashed queue links are configured in later checkpoints.</figcaption>
 </figure>
 
 See [Checkpoint 9's reference topology](lab5_end_to_end.md) for the final outcomes and queue-error path.

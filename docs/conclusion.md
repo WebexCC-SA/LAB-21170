@@ -3,9 +3,9 @@
 The guide shows `ServiceDesk` version 5 published as **Latest** and selected by the entry point. Complete the lab with live calls that confirm both the order response and the route to a human queue.
 
 ```text
-Caller → Flow Designer entry → AI agent → Order Desk MCP → order response
-                           ├─ handled → end
-                           ├─ escalated → human agent queue → queue treatment
+Caller → Flow Designer entry → AI agent
+                           ├─ order → Order Desk MCP → response → handled → end
+                           ├─ general support → human agent queue → queue treatment
                            └─ errored → spoken error message → disconnect
 ```
 
@@ -20,7 +20,7 @@ Caller → Flow Designer entry → AI agent → Order Desk MCP → order respons
 - The `SimpleQueue` practice flow was called live; **Debug** and **Analyze** show the queue path.
 - A live call through the refactored `ServiceDesk` order branch returned `Shipped` for synthetic order `ORD-10482` and entered queue treatment. The earlier direct REST version and callback practice path still need their own phone checks if you want to verify those variants.
 - Order Desk `lookup_order` worked in MCP Lab. The [published AI agent](assets/lab-guide/live/cp8-ai-agent-published.jpg) returned the order result in Preview, and its [Sessions trace](assets/lab-guide/live/cp8-session-lookup-order-success.jpg) recorded success. A Studio **Agent handover** badge shows a test-session request, not voice queue delivery.
-- The final `ServiceDesk` version 5 [passed Validation with 0 errors](assets/lab-guide/live/cp9-ai-flow-zero-errors.jpg) and was published as **Latest**. Complete an order call and human escalation in your own flow; Validation and publication do not establish the phone outcome.
+- The final `ServiceDesk` version 5 [passed Validation with 0 errors](assets/lab-guide/live/cp9-ai-flow-zero-errors.jpg) and was published as **Latest**. A real [phone call followed its Handled path](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg); a same-time [Voice session ran `lookup_order` successfully](lab5_end_to_end.md#compare-your-order-call), and Analyze counted one execution with zero node errors. Confirm the spoken response and test the human queue with a separate call.
 
 ## Beyond the lab
 

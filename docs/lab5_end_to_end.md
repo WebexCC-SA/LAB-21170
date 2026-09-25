@@ -19,14 +19,14 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
     <figure markdown>
       ![EscalationMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the human connection message](assets/lab-guide/live/cp9-escalation-message-settings.jpg)
-      <figcaption>Set the escalation prompt before the queue handoff.</figcaption>
+      <figcaption markdown="span">Set the escalation prompt before the queue handoff.</figcaption>
     </figure>
 
 11. Reuse `QueueContact_4b7` if it remains on the canvas. Remove its old incoming links from menu digit `2` and `OrderStatusMessage`, rename it `HumanAgentQueue`, and set **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If the activity is missing, add **Queue Contact** with those settings. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing.
 
     <figure markdown>
       ![HumanAgentQueue settings showing Voice, Static queue, and Queue-1 in the ServiceDesk draft](assets/lab-guide/live/cp9-human-agent-queue-1.jpg)
-      <figcaption>Set `HumanAgentQueue` to **Voice → Static queue → Queue-1**. Connect **Failure** to `QueueErrorMessage`.</figcaption>
+      <figcaption markdown="span">Set `HumanAgentQueue` to **Voice → Static queue → Queue-1**. Connect **Failure** to `QueueErrorMessage`.</figcaption>
     </figure>
 
 12. From `HumanAgentQueue`'s normal output, connect **Play Music** (`PlayMusic_pgj` in this flow), then the **Play Message** activity `PleaseWait`. Connect `PleaseWait` back to Play Music so treatment repeats while the caller waits for an agent.
@@ -34,14 +34,14 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
     <figure markdown>
       ![QueueErrorMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the queue failure message](assets/lab-guide/live/cp9-queue-error-message-settings.jpg)
-      <figcaption>Set the Queue Contact **Failure** prompt.</figcaption>
+      <figcaption markdown="span">Set the Queue Contact **Failure** prompt.</figcaption>
     </figure>
 
 14. Add another **Play Message** activity and label it `AgentErrorMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `Order support is temporarily unavailable. Please try again later.`
 
     <figure markdown>
       ![AgentErrorMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the AI error message](assets/lab-guide/live/cp9-agent-error-message-settings.jpg)
-      <figcaption>Set the AI agent **Errored** prompt.</figcaption>
+      <figcaption markdown="span">Set the AI agent **Errored** prompt.</figcaption>
     </figure>
 
 15. Connect the `AIAgent` **Errored** outcome to `AgentErrorMessage`, then connect `AgentErrorMessage` to `DisconnectContact`.
@@ -49,22 +49,22 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 <figure markdown>
   ![ServiceDesk draft Virtual Agent V2 activity configured with the autonomous Order Support agent](assets/lab-guide/live/cp9-ai-agent-configured-draft.jpg)
-  <figcaption>Set **Contact Center AI Config** to **Webex AI Agent (Autonomous)** and **Virtual agent** to `LAB-21170 Order Support`.</figcaption>
+  <figcaption markdown="span">Set **Contact Center AI Config** to **Webex AI Agent (Autonomous)** and **Virtual agent** to `LAB-21170 Order Support`.</figcaption>
 </figure>
 
 <figure markdown>
   ![Live ServiceDesk version 5 draft canvas showing Start Flow connected to the AI agent and its outcome branches](assets/lab-guide/live/cp9-ai-flow-draft-topology.jpg)
-  <figcaption>Check the three AI outcomes, queue failure path, and `PlayMusic_pgj → PleaseWait → PlayMusic_pgj` loop.</figcaption>
+  <figcaption markdown="span">Check the three AI outcomes, queue failure path, and `PlayMusic_pgj → PleaseWait → PlayMusic_pgj` loop.</figcaption>
 </figure>
 
 <figure markdown>
   ![Flow Designer validation panel on ServiceDesk version 5 draft reporting zero errors and Ready to publish](assets/lab-guide/live/cp9-ai-flow-zero-errors.jpg)
-  <figcaption>Confirm **0 errors** and **Ready to publish**. The three recommendations do not block publication.</figcaption>
+  <figcaption markdown="span">Confirm **0 errors** and **Ready to publish**. The three recommendations do not block publication.</figcaption>
 </figure>
 
 <figure markdown>
   ![Reference topology for the final caller path with AI-agent handled, human-queue escalation, and error outcomes](assets/lab-guide/02-final-agent-flow.png)
-  <figcaption>Use this branch diagram with the live canvas above. Loop `PleaseWait` back to Play Music.</figcaption>
+  <figcaption markdown="span">Use this branch diagram with the live canvas above. Loop `PleaseWait` back to Play Music.</figcaption>
 </figure>
 
 !!! info "Before you call"
@@ -76,14 +76,14 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
     <figure markdown>
       ![Flow Designer Publish dialog with automatic Latest label, optional Test label, comment, and Publish Flow button](assets/lab-guide/live/cp9-ai-flow-publish-dialog.jpg)
-      <figcaption>Check **Latest**, add an optional label and comment, then select **Publish Flow**.</figcaption>
+      <figcaption markdown="span">Check **Latest**, add an optional label and comment, then select **Publish Flow**.</figcaption>
     </figure>
 
 2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
 
     <figure markdown>
       ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-entry-point-servicedesk-latest.jpg)
-      <figcaption>Set **Routing flow** to `ServiceDesk` and **Version label** to `Latest`.</figcaption>
+      <figcaption markdown="span">Set **Routing flow** to `ServiceDesk` and **Version label** to `Latest`.</figcaption>
     </figure>
 
 3. Call the same inbound phone number used in Checkpoints 2 and 3.
@@ -93,9 +93,34 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 7. Make a second call and say: `I need general support.` When the agent offers a human handoff, say: `Yes, please connect me to a human agent.` Confirm that `EscalationMessage` plays and the call enters `Queue-1`. If a test agent is available, answer in Agent Desktop. Otherwise, listen for the wait treatment.
 8. In **Debug**, inspect both Interaction IDs. Confirm the order call reached `AIAgent` and the general-support call followed `AIAgent → EscalationMessage → HumanAgentQueue`. If the caller waited, confirm the trace continued through `PlayMusic/PleaseWait`. Test Queue Contact **Failure** separately only if you can safely create a controlled failure.
 
+### Compare your order call
+
+The reference call on published `ServiceDesk` version 5 reached `AIAgent` and ended through **Handled**. A same-time AI Agent Studio **Voice** session ran `lookup_order` successfully. Listen to your own call to confirm the spoken order status and delivery date; the Flow Designer trace does not contain that wording.
+
+<figure markdown>
+  ![Flow Designer Debug path for a real version 5 call: NewContact, AIAgent, DisconnectContact, and ContactEnded all succeeded](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg)
+  <figcaption markdown="span">The completed phone call followed `NewContact → AIAgent → DisconnectContact → ContactEnded`.</figcaption>
+</figure>
+
+<figure markdown>
+  ![AI Agent Studio Sessions row showing a Voice session updated at 8:49 PM after the version 5 test call](assets/lab-guide/live/cp9-voice-session-summary-safe.jpg)
+  <figcaption markdown="span">A **Voice** session appears at 8:49 PM, during the completed call's time window. The session identifier is hidden.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Voice session transaction showing Action performed: lookup_order](assets/lab-guide/live/cp9-voice-lookup-action-safe.jpg)
+  ![Voice session transaction showing Output: Success in 0.1 seconds](assets/lab-guide/live/cp9-voice-lookup-output-safe.jpg)
+  <figcaption markdown="span">In that **Voice** session, `lookup_order` returned **Success**. These crops exclude the order details.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Designer Analyze for ServiceDesk version 5 showing one flow execution and zero node errors in the call window](assets/lab-guide/live/cp9-v5-first-call-analyze.jpg)
+  <figcaption markdown="span">For the call's time window, **Analyze** counted one version 5 execution and zero node errors.</figcaption>
+</figure>
+
 <figure markdown>
   ![ServiceDesk version history showing version 5 published as Latest and version 4 retained in history](assets/lab-guide/live/cp9-ai-flow-v5-latest.jpg)
-  <figcaption>Confirm version 5 is **Latest**, published September 24, 2026 at 19:48:14 tenant time. Version 4 remains in history.</figcaption>
+  <figcaption markdown="span">Confirm version 5 is **Latest**, published September 24, 2026 at 19:48:14 tenant time. Version 4 remains in history.</figcaption>
 </figure>
 
 **Target caller path:**
@@ -115,7 +140,7 @@ Caller → ServiceDesk → AIAgent
     - The agent uses `lookup_order` and speaks the returned order and delivery details.
     - A general-support request prompts an offer of a human agent. Accepting it sends the call to `Queue-1` and wait treatment; an available test agent can answer.
     - A controlled Queue Contact failure, if tested, reaches `QueueErrorMessage` and ends safely.
-    - `AgentErrorMessage` provides a clear fallback if the AI agent errors.
+    - The **Errored** branch is connected to `AgentErrorMessage → DisconnectContact`; test it only with a controlled agent error.
 
 !!! warning "Before marking this checkpoint complete"
     Complete both phone calls and inspect their paths in **Debug**. Confirm the order response and the human queue handoff on your published flow. Test Queue Contact **Failure** only with a controlled failure.
