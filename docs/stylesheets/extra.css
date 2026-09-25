@@ -19,12 +19,12 @@
 }
 
 [data-md-color-scheme="default"] {
-    --md-typeset-a-color: #3a7fff;
+    --md-typeset-a-color: #2866d0;
     --md-accent-fg-color: #00bdeb;
 }
 
 [data-md-color-scheme="slate"] {
-    --md-typeset-a-color: #3a7fff;
+    --md-typeset-a-color: #6ea3ff;
     --md-accent-fg-color: #00bdeb;
 }
 copy::after, .copy::after {

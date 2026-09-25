@@ -47,7 +47,7 @@ In the final phone test, you speak as the caller.
 | --- | --- | --- | --- |
 | Organization | **Control Hub** | [admin.webex.com](https://admin.webex.com/) | Check your organization, entry point, and queue. |
 | Runtime | **Flow Designer** | [Open from Control Hub](https://admin.webex.com/) or use the [direct lab URL](https://flow-control.produs1.ciscoccservice.com/) | Build and publish flows, test REST, and connect the AI agent's outcomes. |
-| Conversation | **AI Agent Studio** | [Launch from Control Hub](https://admin.webex.com/) via **Contact Center → Customer Experience → AI Agents** | Set instructions, approved actions, and response behavior. |
+| Conversation | **AI Agent Studio** | [studio.aiagent-us1.cisco.com](https://studio.aiagent-us1.cisco.com/) for this ProdUS1 lab, or launch via **Control Hub → Contact Center → Customer Experience → AI Agents** | Set instructions, approved actions, and response behavior. |
 | Developer access | **Developer Portal** | [developer.webex.com](https://developer.webex.com/) | Register the external MCP. This is not the Flow Designer canvas. |
 
 **MCP Lab** supplies your temporary assignment and the synthetic Order Desk REST and MCP endpoints. MCP Lab and Order Desk are lab services, not Webex products.

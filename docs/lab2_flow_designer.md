@@ -186,6 +186,11 @@ Your starter path should now look like this:
 - **General support:** `SupportMenu → 2 → Queue Contact (Queue-1) → wait treatment` until an agent answers or the call ends
 - **Invalid or missing input:** `SupportMenu → MenuFallbackMessage → DisconnectContact`
 
+<figure markdown>
+  ![Corrected ServiceDesk menu with digit 2 connected to Queue Contact and validation showing zero errors](assets/lab-guide/live/cp3-general-support-queue-validated.jpg)
+  <figcaption markdown="span">Check the digit `2` link into Queue Contact and **0 errors**. This capture includes later order-lookup nodes; your starter canvas has fewer activities.</figcaption>
+</figure>
+
 You will add the final **Virtual Agent V2** activity in Checkpoint 9. The published menu-based version remains available in version history as a recovery and learning reference; remove its starter IVR nodes from the final AI draft after reusing the queue treatment, then confirm zero-error Validation before publishing.
 
 #### Publish the starter IVR
@@ -292,11 +297,21 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
   <figcaption markdown="span">The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
 </figure>
 
-The version 2 screenshot shows the queue-treatment and callback design published. It does not show a call through that version. Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** were still open despite 0 validation errors. Connect them before routing callers. The Part A Debug and Analyze screenshots show version 1.
+The version 2 screenshot shows the queue-treatment and callback design before its error paths were finished. The example flow was later repaired and published as version 3. Its Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** now share a spoken fallback and **Disconnect Contact**. Validation reports **0 errors**. Neither version 2 nor version 3 has a completed phone test; the Part A Debug and Analyze screenshots show version 1.
+
+<figure markdown>
+  ![Practice flow with Menu Undefined Error, Callback Failure, and confirmation-message Undefined Error connected to a spoken fallback and Disconnect Contact; Validation shows zero errors](assets/lab-guide/live/cp2-practice-error-fallback-validated.jpg)
+  <figcaption markdown="span">Connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with **0 errors**.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Practice flow version history with repaired version 3 published as Latest and earlier version 2 retained as Test](assets/lab-guide/live/cp2-practice-v3-latest.jpg)
+  <figcaption markdown="span">The repaired practice flow is published as version 3 **Latest**. This proves publication; the caller test below still needs to be run.</figcaption>
+</figure>
 
 #### Test the queue treatment
 
-1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this version; the version 2 screenshot still shows those ports open.
+1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish; compare with the repaired version 3 screenshots above.
 2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
 3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
@@ -505,14 +520,11 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
 5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
-!!! info "Read the example screenshots by flow version"
-    The parser Function passed valid, missing-status, and malformed-shape tests. The separate `OrderLookup` subflow was published as version 1 before it was used by the main flow.
-
-    - **Version 1:** The direct REST path was published, but its phone response was not captured.
-    - **Version 2:** The refactored `ServiceDesk` flow passed validation and was assigned to the entry point. A call reached `WelcomeMessage`, but `SupportMenu` returned **Error** and `GlobalErrorHandling` ended the call. Debug showed neither a selected digit nor a precise cause.
-    - **Version 3:** The Menu's timeout, unmatched-entry, and undefined-error links gained an audible fallback. A later digit `1` call completed `SupportMenu → LAB21170_OrderLookup_ARUN_pbx → OrderStatusAvailable → OrderStatusMessage → QueueContact_4b7 → PlayMusic → PleaseWait`. Debug showed `Shipped` for `ORD-10482`. Analyze showed two completed version 3 calls in 15 minutes, zero node errors, and one use of the order-lookup activity. Another version 3 digit `2` call reached the old `GeneralSupportMessage` placeholder.
-    - **Version 4:** Digit `2` was connected directly to `QueueContact_4b7` on `Queue-1`. Validation showed 0 errors, and this version was published at 19:01:59 tenant time. A phone call and Debug trace through the corrected digit `2` route are still needed; digit `1` also needs a fresh call after this change.
-    - **Version 5:** Checkpoint 9 replaces the numbered menu with the AI agent. Version 4 stays in version history. Its publication does not fill the version 1 or version 4 phone-test gaps.
+!!! info "Use the reference versions"
+    - **Version 2:** The example call stopped at `SupportMenu` with **Error**. If yours stops there, inspect the prompt, digit links, and fallback outputs before calling again.
+    - **Version 3:** After adding the Menu fallback, a digit `1` call ran the OrderLookup subflow, returned `Shipped` for `ORD-10482`, and reached queue treatment. Analyze showed two completed calls and zero node errors in the selected window.
+    - **Version 4:** Digit `2` was rewired directly to `QueueContact_4b7` on `Queue-1`. Validation showed **0 errors** and the version was published. Make your own digit `2` call to confirm the human queue in **Debug**.
+    - **Version 5:** Checkpoint 9 replaces the numbered menu with the AI agent. The menu versions remain in version history for comparison.
 
 <figure markdown>
   ![Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling](assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg)

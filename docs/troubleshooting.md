@@ -24,7 +24,7 @@
 
 ## Completion checklist
 
-The guide shows `ServiceDesk` version 5 published as **Latest**. Complete the phone and **Debug** checks in your sandbox before marking the final path done.
+Before finishing, call both final paths and check them in **Debug**. The screenshots show `ServiceDesk` version 5 as **Latest**; your version number may differ.
 
 ### Practice flow and REST
 
