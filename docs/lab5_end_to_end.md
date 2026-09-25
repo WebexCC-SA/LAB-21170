@@ -6,7 +6,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 ## Replace the starter caller path
 
-1. Open `ServiceDesk` in Flow Designer and turn **Edit** on.
+1. Open the `ServiceDesk` flow you created in Flow Designer and turn **Edit** on. If you used a unique lab code, keep selecting that named flow and your own published AI agent in the steps below.
 2. Disconnect `NewContact` from `WelcomeMessage`. Keep the queue and wait-treatment nodes for reuse. Delete the direct **HTTP Request** activity so its temporary Authorization header does not remain in the draft.
 3. Find **Virtual Agent V2** under **Contact handling** and drag it onto the canvas.
 4. Set **Activity label** to `AIAgent`.
