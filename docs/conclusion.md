@@ -12,8 +12,8 @@ Caller → Flow Designer entry → AI agent
 ## Make the final calls
 
 1. Call your assigned number and ask for an update on `ORD-10482`. Confirm that the agent uses `lookup_order` and speaks the order status and delivery information.
-2. Call again and ask for a person. Confirm that the caller hears the escalation message and enters `Queue-1` wait treatment. If a test agent is available, confirm that the agent can answer.
-3. In Flow Designer **Debug**, open both Interaction IDs and check the **Handled** and **Escalated** paths. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If either call takes an unexpected path, use [Troubleshooting](troubleshooting.md) before marking the lab complete.
+2. Call again and say `I need general support`. Accept the offer to connect with a person. Listen for the escalation message and `Queue-1` wait treatment. If a test agent is available, confirm that the agent can answer.
+3. In Flow Designer **Debug**, open both Interaction IDs. Confirm the order call reached `AIAgent` and the general-support call followed **Escalated** into `Queue-1`. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If either call takes an unexpected path, use [Troubleshooting](troubleshooting.md) before marking the lab complete.
 
 ## Compare with the reference captures
 

@@ -59,11 +59,11 @@ With Order Desk connected to the MCP Lab AI agent, test the lookup you will add 
 
 <figure markdown>
   ![Live lookup_order response for ORD-10482 with Shipped status and estimated delivery date, alongside completed tool activity](assets/lab-guide/live/cp4-mcp-order-lookup-live.jpg)
-  <figcaption markdown="span">`lookup_order` returned `Shipped` and an estimated delivery of September 28, 2026, without displaying customer details.</figcaption>
+  <figcaption markdown="span">The screenshot shows a completed `lookup_order` read without customer details. Compare your status and delivery date with the current result.</figcaption>
 </figure>
 
 !!! success "Continue when your lookup succeeds"
-    Check **Tool activity** for an automatic `lookup_order` call and confirm the status and delivery data for `ORD-10482`. The screenshot above shows `Shipped` with an estimated delivery of September 28, 2026. In Checkpoint 6, allow only this lookup for the Webex voice agent.
+    Check **Tool activity** for an automatic `lookup_order` call and read the current status and delivery date for `ORD-10482`. In Checkpoint 6, allow only this lookup for the Webex voice agent.
 
 ### Optional: create a test ticket in MCP Lab
 
@@ -90,7 +90,7 @@ Create the test ticket only in MCP Lab. The Webex voice agent uses `lookup_order
 ??? example "Show me: read, approve, and verify"
     ![Live MCP Lab sequence showing lookup_order, list_tickets, create_ticket approval, an assistant response error, and read-back of the created ticket](assets/lab-guide/gifs/cp5-mcp-read-and-approval-live.gif)
 
-    After approval, the assistant returned an invalid-response error. A separate `list_tickets` call found the new ticket. Check the list before retrying a write.
+    After approval, check `list_tickets` for one new ticket before retrying a write, even if the assistant displays an error.
 
 <figure markdown>
   ![Live create_ticket approval card and pending tool activity](assets/lab-guide/live/cp4-mcp-ticket-approval-live.jpg)
@@ -98,11 +98,11 @@ Create the test ticket only in MCP Lab. The Webex voice agent uses `lookup_order
 </figure>
 
 !!! note "If the assistant reports an error after approval"
-    In the example, the assistant reported **“The lab service returned an invalid assistant response”** after approval, but a fresh `list_tickets` read found the new `ORD-10482` ticket as **Open** and **High**. The UI did not show `create_ticket` as completed. Use the ticket read-back to verify the write, and do not repeat the create request because of the assistant message alone.
+    Run `list_tickets` and confirm whether one new ticket exists before retrying. An assistant error does not prove that the write failed. The screenshot shows the synthetic ticket as **Open** and **High** after the assistant reported an error.
 
     ![Live read-back confirms the created synthetic ticket after the assistant response error](assets/lab-guide/live/cp4-mcp-ticket-verified-live.jpg)
 
-!!! success "Optional bonus confirmation"
+!!! success "If you created a ticket"
     - The ticket list is scoped to your attendee session.
     - `create_ticket` pauses for approval. After approval, verify the resulting ticket with `list_tickets` and record its ID before any retry.
 

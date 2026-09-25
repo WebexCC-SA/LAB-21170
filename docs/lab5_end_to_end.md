@@ -95,32 +95,41 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 ### Compare your order call
 
-The reference call on published `ServiceDesk` version 5 reached `AIAgent` and ended through **Handled**. A same-time AI Agent Studio **Voice** session ran `lookup_order` successfully. Listen to your own call to confirm the spoken order status and delivery date; the Flow Designer trace does not contain that wording.
+Compare your order call with the captures below. In this version 5 phone test, the agent spoke **Shipped** and **September 29**. Flow Designer **Debug** and AI Agent Studio **Voice Sessions** showed the same Interaction ID. In Sessions, `lookup_order` received `ORD-10482` and returned **Success** in 0.2 seconds. The caller ended this call after the answer, so Debug shows `NewContact → AIAgent → ContactEnded`, all successful. Your call may instead follow **Handled → DisconnectContact → ContactEnded** if the agent ends it.
 
 <figure markdown>
-  ![Flow Designer Debug path for a real version 5 call: NewContact, AIAgent, DisconnectContact, and ContactEnded all succeeded](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg)
-  <figcaption markdown="span">The completed phone call followed `NewContact → AIAgent → DisconnectContact → ContactEnded`.</figcaption>
+  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-order-lookup-studio-safe.png)
+  <figcaption markdown="span">Before calling, a fresh **Preview** lookup returned **Shipped** and September 29, 2026. Compare your phone answer with the current Order Desk result.</figcaption>
 </figure>
 
 <figure markdown>
-  ![AI Agent Studio Sessions row showing a Voice session updated at 8:49 PM after the version 5 test call](assets/lab-guide/live/cp9-voice-session-summary-safe.jpg)
-  <figcaption markdown="span">A **Voice** session appears at 8:49 PM, during the completed call's time window. The session identifier is hidden.</figcaption>
+  ![AI Agent Studio Voice session transcript shows the agent saying the order shipped and the delivery date is September 29](assets/lab-guide/live/cp9-voice-spoken-order-safe.png)
+  <figcaption markdown="span">In the **Voice** session, the agent said the order had shipped and gave the September 29 delivery date.</figcaption>
 </figure>
 
 <figure markdown>
-  ![Voice session transaction showing Action performed: lookup_order](assets/lab-guide/live/cp9-voice-lookup-action-safe.jpg)
-  ![Voice session transaction showing Output: Success in 0.1 seconds](assets/lab-guide/live/cp9-voice-lookup-output-safe.jpg)
-  <figcaption markdown="span">In that **Voice** session, `lookup_order` returned **Success**. These crops exclude the order details.</figcaption>
+  ![Voice session lookup_order input ORD-10482 returned Success in 0.2 seconds](assets/lab-guide/live/cp9-voice-lookup-success-safe.png)
+  <figcaption markdown="span">The matched **Voice** session ran `lookup_order` for `ORD-10482` successfully. The crop excludes the returned customer details.</figcaption>
 </figure>
 
 <figure markdown>
-  ![Flow Designer Analyze for ServiceDesk version 5 showing one flow execution and zero node errors today](assets/lab-guide/live/cp9-v5-first-call-analyze.jpg)
-  <figcaption markdown="span">For the selected day, **Analyze** counted one version 5 execution and zero node errors.</figcaption>
+  ![Flow Designer Debug shows NewContact, AIAgent, and ContactEnded all succeeded for the completed order call](assets/lab-guide/live/cp9-v5-spoken-order-debug-safe.png)
+  <figcaption markdown="span">In **Debug**, the caller ended this call after the agent answered. Each activity shows **Success**.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Designer Analyze shows one ServiceDesk execution and zero node errors in the order call window](assets/lab-guide/live/cp9-spoken-order-analyze-safe.png)
+  <figcaption markdown="span">For the order-call window, **Analyze** counted one execution and zero node errors.</figcaption>
+</figure>
+
+<figure markdown>
+  ![An earlier version 5 phone call followed NewContact, AIAgent, DisconnectContact, and ContactEnded successfully](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg)
+  <figcaption markdown="span">An earlier call exercised the **Handled → DisconnectContact** branch. Debug records the branch; it does not contain the spoken response.</figcaption>
 </figure>
 
 ### Compare your general-support call
 
-On a separate phone call to published `ServiceDesk` version 5, the caller asked for general support, accepted the human handoff, and heard queue music. **Debug** recorded `NewContact → AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic_pgj → PleaseWait → PlayMusic_pgj → ContactEnded`, with **Success** at each step. The trace verifies queue treatment; it does not show a human agent answering.
+Compare your general-support call with the captures below. The test caller accepted the human handoff and heard queue music. **Debug** recorded `NewContact → AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic_pgj → PleaseWait → PlayMusic_pgj → ContactEnded`, with **Success** at each step. The trace verifies queue treatment; it does not show a human agent answering.
 
 <figure markdown>
   ![Flow Designer Debug shows successful NewContact, AIAgent, EscalationMessage, and HumanAgentQueue activities for the general-support phone call](assets/lab-guide/live/cp9-human-handoff-debug-start-safe.jpg)
@@ -139,7 +148,7 @@ On a separate phone call to published `ServiceDesk` version 5, the caller asked 
 
 <figure markdown>
   ![ServiceDesk version history showing version 5 published as Latest and version 4 retained in history](assets/lab-guide/live/cp9-ai-flow-v5-latest.jpg)
-  <figcaption markdown="span">Confirm version 5 is **Latest**, published September 24, 2026 at 19:48:14 tenant time. Version 4 remains in history.</figcaption>
+  <figcaption markdown="span">In your version history, confirm the newly published flow has **Latest**. This reference image shows version 5 with version 4 retained.</figcaption>
 </figure>
 
 **Target caller path:**
@@ -154,7 +163,7 @@ Caller → ServiceDesk → AIAgent
 ```
 
 !!! success "Check both caller paths"
-    - In **Debug**, confirm the published flow starts `NewContact → AIAgent`. Version 5 no longer contains the Flow Designer `WelcomeMessage`, numbered `SupportMenu`, or direct REST branch.
+    - In **Debug**, confirm the published flow starts `NewContact → AIAgent`. Your final flow no longer contains the Flow Designer `WelcomeMessage`, numbered `SupportMenu`, or direct REST branch.
     - On the order call, listen for the spoken status and delivery information. In **Sessions**, confirm the `lookup_order` action succeeded.
     - On the general-support call, accept the human offer. Listen for `EscalationMessage` and queue treatment, then confirm `AIAgent → EscalationMessage → HumanAgentQueue` in **Debug**. An available test agent can answer.
     - If you test a controlled Queue Contact failure, confirm it reaches `QueueErrorMessage` and ends safely.
