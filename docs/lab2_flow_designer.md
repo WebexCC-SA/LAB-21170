@@ -125,7 +125,7 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
   <figcaption>Screenshot sequence: inspect one call in Debug, then compare completed calls in Analyze.</figcaption>
 </figure>
 
-!!! success "Compare your calls with the worked example"
+!!! success "Compare your calls with the captured trace"
     `LAB21170_SimpleQueue_ARUN` version 1 was assigned to `Entry Point-1` and received at least three calls. Debug showed the welcome, queue, waiting treatment, and EndFlow. The first Analyze refresh showed two completed executions with no node errors: WelcomePrompt and Queue appeared on every path; Music and the waiting message appeared on half. A later Queue view listed three interactions. Your counts will depend on your calls and selected time window.
 
 The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) explains templates, entry point routing, Debug, and Flow Analytics.
@@ -162,7 +162,7 @@ The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) expla
 
 #### Build the starter IVR
 
-The worked example needed a later correction to its general-support branch. Follow the steps below in your first draft so digit `2` enters the queue from the start.
+Build both menu choices before publishing. Digit `2` must enter `Queue-1` directly.
 
 1. Turn **Edit** on.
 2. Under **Voice**, drag **Play Message** onto the canvas. In **General settings**, set **Activity label** to `WelcomeMessage`.
@@ -173,11 +173,12 @@ The worked example needed a later correction to its general-support branch. Foll
 7. In the Menu's **Prompt** settings, turn on **Enable text-to-speech**, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `Press 1 for order support. Press 2 for general support.`
 8. Under **Custom links**, add digit `1` with the label **Order Support** and digit `2` with the label **General Support**.
 9. Add **Queue Contact**, select the assigned `Queue-1` queue, and connect the digit `2` **General Support** output directly to it. This choice is a request for a human agent; it should not play a placeholder message and disconnect.
-10. After **Queue Contact**, add **Play Music** and a short waiting **Play Message**. Follow the simple queued-treatment pattern you inspected in Part A so the caller can hear treatment while waiting. An agent may answer before every treatment activity runs. Route any exposed queue or treatment failure to an honest fallback and safe disconnect.
-11. Add a temporary **Play Message** activity named `OrderSupportPending`. Use Cisco Cloud Text-to-Speech for: `Order support will be added in the next checkpoint.` Connect the digit `1` output from `SupportMenu` to this message. You will replace this link with the HTTP Request in Checkpoint 3.
-12. Add a **Play Message** named `MenuFallbackMessage` with: `I did not get a valid choice. Please call again.` Connect the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs to this safe fallback.
-13. Add **Disconnect Contact** named `DisconnectContact`. Connect the outputs of `OrderSupportPending` and `MenuFallbackMessage` to it. Keep the digit `2` queue route separate from this disconnect path.
-14. Wait for Autosave, then confirm that both Menu choices and every fallback have a valid destination. Validate before publishing.
+10. After **Queue Contact**, add **Play Music** and a **Play Message** labeled `PleaseWait`. Use Cisco Cloud Text-to-Speech for a short prompt such as `Please wait while we connect you.` Connect the Queue Contact normal output to Play Music, Play Music to `PleaseWait`, and `PleaseWait` back to Play Music. An agent may answer before every treatment activity runs.
+11. Add another **Play Message** labeled `QueueErrorMessage`. Use Cisco Cloud Text-to-Speech for: `I can't connect you to a person right now. Please try again later.` Connect Queue Contact **Failure** and any exposed treatment **Undefined Error** output to `QueueErrorMessage`.
+12. Add a temporary **Play Message** activity named `OrderSupportPending`. Use Cisco Cloud Text-to-Speech for: `Order support will be added in the next checkpoint.` Connect the digit `1` output from `SupportMenu` to this message. You will replace this link with the HTTP Request in Checkpoint 3.
+13. Add a **Play Message** named `MenuFallbackMessage` with: `I did not get a valid choice. Please call again.` Connect the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs to this safe fallback.
+14. Add **Disconnect Contact** named `DisconnectContact`. Connect the outputs of `OrderSupportPending`, `MenuFallbackMessage`, and `QueueErrorMessage` to it. Connect `QueueErrorMessage`'s **Undefined Error** output directly to `DisconnectContact` as well. Keep the digit `2` normal queue route separate from this disconnect path.
+15. Wait for Autosave, then confirm that both Menu choices and every fallback have a valid destination. Validate before publishing.
 
 Your starter path should now look like this:
 
@@ -199,7 +200,7 @@ Publish this version so you can hear the flow after the queue-treatment exercise
 
 First inspect the **Comprehensive Call Flow** main-flow template in the gallery. Trace **Queue → GetPositioninQueue → SetPIQvalue → AgentBusy → PlayPIQ → CallerMenu**. From `CallerMenu`, digit `1` goes to **Callback → Disconnect**, digit `2` to a voicemail **Blind Transfer**, and digit `3` through **MusicOnHold → CallLoopCycle** for another wait cycle. No input goes to **ThankYou → Disconnect**; invalid input returns to `CallerMenu`. The visible `FinalMenu` has no inbound link in the native draft, so it is outside the running path.
 
-Use this as a design reference. **Callback** and **Blind Transfer** are absent from the subflow palette, and a cross-flow Callback paste did not create a node in the worked example. Build the audible wait with the **Queue Treatment Subflow** template below. Keep **Queue Contact**, **Callback**, and any voicemail transfer in the main flow. The template was inspected but not call-tested for this comparison.
+Use this as a design reference. **Callback** and **Blind Transfer** are absent from the subflow palette. Build the audible wait with the **Queue Treatment Subflow** template below. Keep **Queue Contact**, **Callback**, and any voicemail transfer in the main flow. Your phone test later in this checkpoint checks the subflow you publish.
 
 <figure markdown>
   ![Connected post-queue branches in the native Comprehensive Call Flow template](assets/lab-guide/live/cp2-comprehensive-postqueue-reference.png)
@@ -244,7 +245,7 @@ On the subflow canvas:
   <figcaption>Screenshot sequence: select the queue-treatment template, inspect its draft, validate, and confirm the published version.</figcaption>
 </figure>
 
-The worked example `LAB21170_QueueTreatment_Ready_ARUN` was published as version 1 with **Latest** and **Test** labels. The validation screenshot shows the draft before publication; no inbound call through this subflow was captured.
+Publish your configured subflow before selecting it in a main flow. The validation screenshot shows a draft; confirm its call behavior after you connect the published subflow below.
 
 #### Offer a callback or another wait cycle in the practice flow
 
@@ -254,7 +255,7 @@ Return to the practice flow from Part A. It already has **Queue Contact** config
 2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 10`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. The example version below uses these defaults. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
 3. Add a **Menu** after the subflow and label it `CallbackOrWait`. Use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**).
 4. Connect digit `2`, **No-Input Timeout**, and **Unmatched Entry** directly back to **Queue Treatment Subflow**. Do not loop to **Queue Contact**; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.
-5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. The worked example passed Callback validation only after **Register callback to different destination?** was turned on and **Static queue** was set explicitly to `Queue-1`, even though Queue Contact used that queue. Follow the validator and your facilitator's queue policy.
+5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. If Validation flags Callback, turn on **Register callback to different destination?** and set **Static queue** explicitly to `Queue-1`, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.
 6. Add a short Cisco Cloud Text-to-Speech confirmation **Play Message**, then **Disconnect Contact**. Connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
 7. For a flow you will route to callers, connect exposed error paths to a safe fallback or an error message followed by **Disconnect Contact**. Check that a successful callback does not return to waiting treatment. Flow Designer may show **0 errors** even when optional error outputs remain open, so inspect those links yourself.
 8. Wait for Autosave, turn on **Validation**, and resolve errors. Publish a new version of the practice flow. The example subflow uses **Latest** with automatic updates enabled; if you change the subflow later, validate the parent flow again and publish a new parent version before relying on the changed behavior.
@@ -539,17 +540,11 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 </figure>
 
 ??? example "Show me: correct the general-support route"
-    <figure markdown>
-      ![ServiceDesk version 4 canvas with general support connected directly to Queue Contact and Validation reporting zero errors](assets/lab-guide/live/cp3-general-support-queue-validated.jpg)
-      <figcaption>Digit `2` now joins the same queue activity as the order path. The edited flow passed structural validation with zero errors.</figcaption>
-    </figure>
+    ![Five-second screenshot sequence: connect general-support digit 2 to Queue Contact, validate, and inspect the resulting ServiceDesk topology](assets/lab-guide/gifs/cp3-general-support-queue-fix.gif)
 
-    <figure markdown>
-      ![ServiceDesk version 4 corrected general-support topology](assets/lab-guide/live/cp3-general-support-v4-published.jpg)
-      <figcaption>This canvas capture shows the corrected general-support topology. The version-history capture in Checkpoint 9 confirms that version 4 was published at 19:01:59 tenant time before version 5 became <strong>Latest</strong>.</figcaption>
-    </figure>
+    Digit `2` joins the same queue activity as the order path. The first frame shows **0 errors**; the second shows the corrected queue and wait-treatment links. Checkpoint 9's version history shows this menu version was published.
 
-    Version 4 was **Latest** at this checkpoint. Version 5 became **Latest** after the AI route was published; version 4's corrected digit `2` branch still needs a phone and Debug test.
+    Publish your corrected menu version, then call again and confirm in **Debug** that digit `2` enters `Queue-1`. Zero-error Validation alone does not confirm what a caller hears.
 
 !!! tip "If the API branch fails"
     For the first version, check the full request URL, the temporary `Authorization` header, and the `$.order.status` JSON path. For the refactored version, also check the subflow input/output mappings, the `$` JSON mapping, `HttpStatusIs200`, and Function result paths. Keep the starter IVR connected until Checkpoint 9; the earlier published version preserves the direct-HTTP comparison.

@@ -57,7 +57,7 @@ In the final phone test, you speak as the caller.
 Work through the checkpoints in order:
 
 1. Redeem the sandbox assignment and bookmark the lab workspaces.
-2. Build and publish a **Simple Flow to Queue** flow, assign it to the entry point, and call the assigned number.
+2. Build and publish a **Simple Inbound Call to Queue** flow, assign it to the entry point, and call the assigned number.
 3. Inspect a call in **Flow Debugging**; make two or three more calls and compare them in **Flow Analytics**.
 4. Build the starter IVR with general support routed to `Queue-1`. Use the **Comprehensive Call Flow** template as a reference for wait treatment and an optional callback; test by phone.
 5. Publish the Order Desk REST branch in Flow Designer, then verify its response by phone, Debugging, and Analytics.

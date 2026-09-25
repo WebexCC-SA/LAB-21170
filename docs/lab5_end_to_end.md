@@ -1,10 +1,8 @@
 # Checkpoint 9: Attach the agent and test end to end
 
-The published `ServiceDesk` version 5 sends callers directly to `LAB-21170 Order Support`. It passed Validation with **0 errors** and is labeled **Latest**. Control Hub shows **Entry Point-1** active and routed to `ServiceDesk` **Latest**. You still need to verify the order lookup and human queue handoff by phone.
+In the reference screenshots, published `ServiceDesk` version 5 sends callers directly to `LAB-21170 Order Support`. It passed Validation with **0 errors**, and Control Hub routes the active **Entry Point-1** to `ServiceDesk` **Latest**. Your version number may differ. Verify the order lookup and human queue handoff by phone after publishing your flow.
 
-Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview and the agent shows **Published**. If the MCP action is missing, finish Checkpoint 6 first.
-
-If an earlier test call said general support was unavailable, you heard the old version 3 menu. Version 4 connected digit `2` to `Queue-1`, though that fix still needs a phone check. Version 5 removes the menu altogether; version 4 remains in history for the menu exercise.
+Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview and the agent shows **Published**. In Preview, ask for general support, accept the offer of a human agent, and check **Sessions** for **Agent handover**. This checks the agent action; the phone test below checks the voice queue. If the MCP action is missing, finish Checkpoint 6 first.
 
 ## Replace the starter caller path
 
@@ -26,7 +24,7 @@ If an earlier test call said general support was unavailable, you heard the old 
     </figure>
 
 12. From `HumanAgentQueue`'s normal output, connect **Play Music** (`PlayMusic_pgj` in this flow), then the **Play Message** activity `PleaseWait`. Connect `PleaseWait` back to Play Music so treatment repeats while the caller waits for an agent.
-13. Add a **Play Message** activity labeled `QueueErrorMessage` with: `I can't connect you to a person right now. Please try again later.` Connect the Queue Contact **Failure** output to this message, then to `DisconnectContact`.
+13. Reuse `QueueErrorMessage` if it is already on the canvas; otherwise add a **Play Message** activity with that label. Set its message to `I can't connect you to a person right now. Please try again later.` Connect the Queue Contact **Failure** output to this message, then to `DisconnectContact`.
 14. Add another **Play Message** activity and label it `AgentErrorMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `Order support is temporarily unavailable. Please try again later.`
 15. Connect the `AIAgent` **Errored** outcome to `AgentErrorMessage`, then connect `AgentErrorMessage` to `DisconnectContact`.
 16. Remove unused starter IVR and API nodes. Wait for **Autosave**, turn on **Validation**, and resolve any errors. Confirm the final canvas has only the connected AI route and **0 errors**.
@@ -52,12 +50,12 @@ If an earlier test call said general support was unavailable, you heard the old 
 </figure>
 
 !!! info "Before you call"
-    Version 5 is published as **Latest**, and **Entry Point-1** routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience.
+    Confirm that your published flow is **Latest** and **Entry Point-1** routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience.
 
 ## Publish and test the final caller path
 
-1. Select **Publish** after validation. **Latest** is applied automatically; add the offered **Test** label and a comment such as `AI agent with human queue` if useful. Confirm that version 5 appears as **Latest** in version history.
-2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on published version 5. If the entry point uses an older fixed label, update the routing assignment before calling.
+1. Select **Publish** after validation. **Latest** is applied automatically; add the offered **Test** label and a comment such as `AI agent with human queue` if useful. Confirm that your newly published version appears as **Latest** in version history.
+2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
 
     <figure markdown>
       ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-entry-point-servicedesk-latest.jpg)
@@ -68,8 +66,8 @@ If an earlier test call said general support was unavailable, you heard the old 
 4. Say: `I need an update on order ORD-10482.`
 5. If the agent asks for the order number, provide `ORD-10482`.
 6. Confirm that the agent retrieves the order data through the external action and explains the status and delivery information.
-7. Make a second call and say: `Please connect me to a human agent.` Confirm that the **Escalated** path plays `EscalationMessage` and enters `Queue-1`. If a test agent is available, answer the call in Agent Desktop. If no agent is available, confirm that the caller hears wait treatment rather than a false claim of transfer completion.
-8. In **Debug**, inspect both Interaction IDs. Confirm the order call reached `AIAgent` and the human-request call followed `AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic/PleaseWait`. Test Queue Contact **Failure** separately only if you can safely create a controlled failure.
+7. Make a second call and say: `I need general support.` When the agent offers a human handoff, say: `Yes, please connect me to a human agent.` Confirm that `EscalationMessage` plays and the call enters `Queue-1`. If a test agent is available, answer in Agent Desktop. Otherwise, listen for the wait treatment.
+8. In **Debug**, inspect both Interaction IDs. Confirm the order call reached `AIAgent` and the general-support call followed `AIAgent → EscalationMessage → HumanAgentQueue`. If the caller waited, confirm the trace continued through `PlayMusic/PleaseWait`. Test Queue Contact **Failure** separately only if you can safely create a controlled failure.
 
 <figure markdown>
   ![ServiceDesk version history showing version 5 published as Latest and version 4 retained in history](assets/lab-guide/live/cp9-ai-flow-v5-latest.jpg)
@@ -80,17 +78,18 @@ If an earlier test call said general support was unavailable, you heard the old 
 
 ```text
 Caller → ServiceDesk → AIAgent
-                          ├─ Order request → lookup_order (MCP) → response → Handled → disconnect
-                          ├─ Human request → Escalated → EscalationMessage → Queue-1 → PlayMusic ↔ PleaseWait → human agent
-                          │                                                 └─ Failure → QueueErrorMessage → disconnect
-                          └─ Errored → AgentErrorMessage → disconnect
+  ├─ Order request → lookup_order (MCP) → response → Handled → disconnect
+  ├─ General support → offer human → caller accepts → Escalated
+  │    → EscalationMessage → Queue-1 → PlayMusic ↔ PleaseWait → human agent
+  │                           └─ Failure → QueueErrorMessage → disconnect
+  └─ Errored → AgentErrorMessage → disconnect
 ```
 
 !!! success "Confirm after publishing and calling"
     - The connected caller path is `NewContact → AIAgent`; the starter menu and REST branch are removed from published version 5.
     - A live caller does not hear the old Flow Designer `WelcomeMessage` or numbered `SupportMenu`; the AI agent's own welcome message may still play.
     - The agent uses `lookup_order` and speaks the returned order and delivery details.
-    - An explicit request for a person reaches `Queue-1` and wait treatment; an available test agent can answer it.
+    - A general-support request prompts an offer of a human agent. Accepting it sends the call to `Queue-1` and wait treatment; an available test agent can answer.
     - A controlled Queue Contact failure, if tested, reaches `QueueErrorMessage` and ends safely.
     - `AgentErrorMessage` provides a clear fallback if the AI agent errors.
 

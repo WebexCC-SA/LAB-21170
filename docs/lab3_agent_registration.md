@@ -3,7 +3,7 @@
 <span id="checkpoint-4-inspect-the-external-mcp-in-mcp-lab"></span>
 ## Checkpoint 4: Connect and inspect Order Desk in MCP Lab
 
-You have used Order Desk through Flow Designer's HTTP Request. Now inspect its MCP tools before attaching the order lookup to the AI agent. In the worked example, the direct REST version was published but not call-tested. A call through refactored `ServiceDesk` version 3 did reach `OrderLookup`: Debug showed `Shipped` for `ORD-10482`, followed by the status message and queue treatment.
+You have used Order Desk through Flow Designer's HTTP Request. Now inspect its MCP tools before attaching the order lookup to the AI agent. Before switching, check your phone call in **Debug**: the captured refactored `ServiceDesk` trace reached `OrderLookup`, returned `Shipped` for `ORD-10482`, then played the status message and queue treatment. The direct REST version still needs its own phone check.
 
 Return to the **AI agent** workspace in [MCP Lab](https://mcp-lab.webexdevs.com/). The Order Desk is a lab-provided simulation of an external order system. You do not need to enter an MCP URL or bearer token here.
 
@@ -65,7 +65,7 @@ With Order Desk connected to the MCP Lab's AI agent, test the same order lookup 
 </figure>
 
 !!! success "Continue when your lookup succeeds"
-    Check **Tool activity** for an automatic `lookup_order` call and confirm the status and delivery data for `ORD-10482`. The worked example returned `Shipped` with an estimated delivery of September 28, 2026. In Checkpoint 6, allow only this lookup for the Webex voice agent.
+    Check **Tool activity** for an automatic `lookup_order` call and confirm the status and delivery data for `ORD-10482`. The screenshot above shows `Shipped` with an estimated delivery of September 28, 2026. In Checkpoint 6, allow only this lookup for the Webex voice agent.
 
 ### Optional MCP Lab bonus: inspect the approval boundary
 
@@ -100,7 +100,7 @@ Keep this optional exercise in MCP Lab. It shows the approval gate for a ticket 
 </figure>
 
 !!! note "If the assistant reports an error after approval"
-    In the worked example, approval was selected once, then the assistant said **“The lab service returned an invalid assistant response.”** A fresh `list_tickets` read found `TKT-7D2AA52EB24243429CA6` for `ORD-10482`, **Open** and **High**, with the requested lab subject. The UI did not show `create_ticket` as completed. Use the ticket read-back to verify the write, and do not repeat the create request because of the assistant message alone.
+    In the captured run, the assistant reported **“The lab service returned an invalid assistant response”** after approval, but a fresh `list_tickets` read found the new `ORD-10482` ticket as **Open** and **High**. The UI did not show `create_ticket` as completed. Use the ticket read-back to verify the write, and do not repeat the create request because of the assistant message alone.
 
     ![Live read-back confirms the created synthetic ticket after the assistant response error](assets/lab-guide/live/cp4-mcp-ticket-verified-live.jpg)
 
