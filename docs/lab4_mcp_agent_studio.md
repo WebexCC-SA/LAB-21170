@@ -332,10 +332,16 @@ Test a general-support request in a new **Preview** conversation:
 1. After the MCP action succeeds in Preview, close Preview and select **Publish**.
 2. Review the publication dialog, enter a short comment such as `Order Desk lookup and human handover` in the required field, then select **Publish**.
 3. Wait for the **Agent published** confirmation and the **Published** badge on the agent configuration page.
+4. Open **History → Version history** and confirm that your publication comment is in the newest row. If you change Instructions later, preview the change and publish again.
 
 <figure markdown>
   ![AI Agent Studio configuration with Published badge for LAB-21170 Order Support](assets/lab-guide/live/cp8-ai-agent-published.jpg)
   <figcaption>Confirm **Published** before you add the agent to Flow Designer.</figcaption>
+</figure>
+
+<figure markdown>
+  ![AI Agent Studio Version history showing the published Order Desk agent and a later general-support handover revision](assets/lab-guide/live/cp8-agent-publication-history.jpg)
+  <figcaption>Check the newest publication comment in **History → Version history**. The reference agent has two published entries because its handover instruction was revised.</figcaption>
 </figure>
 
 !!! success "Confirm before continuing"
