@@ -405,7 +405,7 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
       <figcaption markdown="span">The direct REST build is retained as published version 1 in this example. The version-history row proves publication; test its caller result separately below.</figcaption>
     </figure>
 
-Trace both practice paths: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. Both can reach the human queue. The final AI flow removes the menu and direct REST nodes; the earlier published versions remain in version history.
+Trace both paths in your published flow: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. The retained version 1 reference still sent digit `2` to `GeneralSupportMessage` and then disconnected. Use the direct queue link you built in Checkpoint 2; the reference flow received that correction in version 4. The final AI flow removes the menu and direct REST nodes.
 
 !!! warning "Temporary Order Desk credential"
     Use the manual bearer header only in your assigned sandbox. After the REST exercise, remove the direct HTTP activity or clear its header. At lab cleanup, clear the header in the order-lookup subflow too; an unused published subflow retains its configuration. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication.
@@ -415,7 +415,7 @@ Trace both practice paths: digit `1` runs `GetOrder → OrderStatusMessage → Q
 1. Call the same inbound phone number from Checkpoint 2 after the new `ServiceDesk` version is published and active at the entry point.
 2. Listen to the welcome message and menu, then press `1`.
 3. Confirm that the flow reads the order status returned for `ORD-10482`. If it is blank or the request fails, stop the comparison test and inspect the HTTP activity in Debug. Do not present an empty status as a successful lookup; the refactored subflow adds the failure guard.
-4. Press `2` on a second call and confirm that general support enters `Queue-1` directly, without running the order lookup or playing a placeholder message.
+4. After checking that your menu's digit `2` link goes directly to **Queue Contact**, press `2` on a second call. Confirm that general support enters `Queue-1` without running the order lookup or playing a placeholder message.
 
 ### Explore Flow Debugging and Flow Analytics
 
@@ -538,7 +538,7 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
       <figcaption markdown="span">Entry Point-1 is routed to the published `ServiceDesk` **Latest** version. Routing configuration alone does not verify the order response on a call.</figcaption>
     </figure>
 
-5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
+5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Check that digit `2` links directly to **Queue Contact** before testing that choice. If it still plays `GeneralSupportMessage`, connect it to the queue, validate, and publish again, as shown in reference version 4 below. Then make a second call on digit `2` and confirm that it enters the human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
 !!! info "Use the reference versions"
     - **Version 2:** The example call stopped at `SupportMenu` with **Error**. If yours stops there, inspect the prompt, digit links, and fallback outputs before calling again.
