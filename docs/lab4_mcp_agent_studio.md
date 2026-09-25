@@ -130,7 +130,7 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 2. Select **Build your AI Agent** to open AI Agent Studio.
 3. Select **Create agent**.
 4. Select **Start from scratch**, then choose **Autonomous**. If you choose **Track Package** instead, remove every sample package action and instruction in the steps below.
-5. Set the agent name to `LAB-21170 Order Support`, confirm the generated **System ID**, keep **Webex AI Pro 2.0** as the AI engine, and select **Create**.
+5. Enter `LAB-21170 Order Support`. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
 
 <figure markdown>
   ![AI Agent Studio create-agent wizard with Autonomous selected after Start from scratch](assets/lab-guide/live/cp8-agent-autonomous-selected.jpg)
@@ -139,7 +139,12 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 
 <figure markdown>
   ![AI Agent Studio essential details form with Agent name, System ID, and Webex AI Pro 2.0 fields](assets/lab-guide/live/cp8-agent-essential-details.jpg)
-  <figcaption markdown="span">Enter `LAB-21170 Order Support`, check the generated **System ID**, and keep **Webex AI Pro 2.0**.</figcaption>
+  <figcaption markdown="span">Enter the agent name; **System ID** fills in as you type. Keep its generated suffix and **Webex AI Pro 2.0**.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Saved Order Support profile showing the agent name, generated System ID with a unique suffix, and Webex AI Pro 2.0](assets/lab-guide/live/cp8-agent-system-id-saved-safe.jpg)
+  <figcaption markdown="span">After creation, confirm the saved name, **System ID**, and AI engine. Your suffix will differ from this example.</figcaption>
 </figure>
 
 <figure markdown>

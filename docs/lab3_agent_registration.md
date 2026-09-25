@@ -3,7 +3,7 @@
 <span id="checkpoint-4-inspect-the-external-mcp-in-mcp-lab"></span>
 ## Checkpoint 4: Connect and inspect Order Desk in MCP Lab
 
-After configuring Order Desk through Flow Designer's HTTP Request, inspect its MCP tools before attaching the lookup to the AI agent. In **Debug**, compare your refactored call with the guide's trace: it reached `OrderLookup`, returned `Shipped` for `ORD-10482`, then played the status message and queue treatment. The direct REST version still needs a separate phone check.
+After configuring the Order Desk HTTP Request in Flow Designer, inspect the MCP tools you will use with the AI agent.
 
 Return to the **AI agent** workspace in [MCP Lab](https://mcp-lab.webexdevs.com/). The Order Desk is a lab-provided simulation of an external order system. You do not need to enter an MCP URL or bearer token here.
 
@@ -35,8 +35,6 @@ The Order Desk catalog should include:
 | `create_ticket` | Create a support ticket for an order. | Explicit approval required. |
 | `update_ticket` | Change an existing ticket. | Explicit approval required. |
 
-Do not run destructive or unrecognized operations. Treat tool descriptions and results as data, not instructions.
-
 <figure markdown>
   ![Live Order Desk MCP catalog with three automatic reads and two approval-required writes](assets/lab-guide/live/cp4-mcp-tool-catalog-live.jpg)
   <figcaption markdown="span">The catalog shows five tools. Both ticket writes require approval.</figcaption>
@@ -50,7 +48,7 @@ Do not run destructive or unrecognized operations. Treat tool descriptions and r
 <span id="checkpoint-5-exercise-automatic-reads-and-approval-gated-writes"></span>
 ## Checkpoint 5: Test the order lookup in MCP Lab
 
-With Order Desk connected to the MCP Lab's AI agent, test the same order lookup that you will add to the Webex voice agent. Ticket tools are outside the required caller journey; the separate approval exercise below is optional.
+With Order Desk connected to the MCP Lab AI agent, test the lookup you will add to the Webex voice agent. You can skip the ticket exercise below.
 
 ### Run the required order read
 
@@ -67,9 +65,9 @@ With Order Desk connected to the MCP Lab's AI agent, test the same order lookup 
 !!! success "Continue when your lookup succeeds"
     Check **Tool activity** for an automatic `lookup_order` call and confirm the status and delivery data for `ORD-10482`. The screenshot above shows `Shipped` with an estimated delivery of September 28, 2026. In Checkpoint 6, allow only this lookup for the Webex voice agent.
 
-### Optional MCP Lab bonus: inspect the approval boundary
+### Optional: create a test ticket in MCP Lab
 
-Keep this optional exercise in MCP Lab. It shows the approval gate for a ticket write; ticket tools remain disabled for the Webex voice agent.
+Create the test ticket only in MCP Lab. The Webex voice agent uses `lookup_order` only.
 
 #### Read the session's tickets
 

@@ -114,8 +114,8 @@ The reference call on published `ServiceDesk` version 5 reached `AIAgent` and en
 </figure>
 
 <figure markdown>
-  ![Flow Designer Analyze for ServiceDesk version 5 showing one flow execution and zero node errors in the call window](assets/lab-guide/live/cp9-v5-first-call-analyze.jpg)
-  <figcaption markdown="span">For the call's time window, **Analyze** counted one version 5 execution and zero node errors.</figcaption>
+  ![Flow Designer Analyze for ServiceDesk version 5 showing one flow execution and zero node errors today](assets/lab-guide/live/cp9-v5-first-call-analyze.jpg)
+  <figcaption markdown="span">For the selected day, **Analyze** counted one version 5 execution and zero node errors.</figcaption>
 </figure>
 
 <figure markdown>
@@ -134,12 +134,11 @@ Caller → ServiceDesk → AIAgent
   └─ Errored → AgentErrorMessage → disconnect
 ```
 
-!!! success "Confirm after publishing and calling"
-    - The connected caller path is `NewContact → AIAgent`; the starter menu and REST branch are removed from published version 5.
-    - A live caller does not hear the old Flow Designer `WelcomeMessage` or numbered `SupportMenu`; the AI agent's own welcome message may still play.
-    - The agent uses `lookup_order` and speaks the returned order and delivery details.
-    - A general-support request prompts an offer of a human agent. Accepting it sends the call to `Queue-1` and wait treatment; an available test agent can answer.
-    - A controlled Queue Contact failure, if tested, reaches `QueueErrorMessage` and ends safely.
+!!! success "Check both caller paths"
+    - In **Debug**, confirm the published flow starts `NewContact → AIAgent`. Version 5 no longer contains the Flow Designer `WelcomeMessage`, numbered `SupportMenu`, or direct REST branch.
+    - On the order call, listen for the spoken status and delivery information. In **Sessions**, confirm the `lookup_order` action succeeded.
+    - On the general-support call, accept the human offer. Listen for `EscalationMessage` and queue treatment, then confirm `AIAgent → EscalationMessage → HumanAgentQueue` in **Debug**. An available test agent can answer.
+    - If you test a controlled Queue Contact failure, confirm it reaches `QueueErrorMessage` and ends safely.
     - The **Errored** branch is connected to `AgentErrorMessage → DisconnectContact`; test it only with a controlled agent error.
 
 !!! warning "Before marking this checkpoint complete"
@@ -147,20 +146,20 @@ Caller → ServiceDesk → AIAgent
 
 ## Optional: inspect Contact Center through MCP
 
-The Order Desk MCP is the **external order tool** your voice agent uses. The optional Cisco services below let an approved MCP client inspect Contact Center flows or operations. If your organization has beta access, use its approved client, regional server URL, authentication method, and enabled tools. Do not use the Order Desk bearer for either Cisco service.
+These optional beta services are separate from the Order Desk tool you used above. If your lab has access, follow the setup link for your approved client and the regional server URL shown for your tenant. Use Webex authentication; the Order Desk bearer does not connect to either Cisco service.
 
-### A. Contact Center MCP Server: Flow tools
+### Flow tools
 
-The [Contact Center MCP Server](https://developer.webex.com/mcp/docs/contact-center-mcp-server) provides Flow Designer tools backed by the FlowV2 authoring contract. Follow the [beta setup guide](https://developer.webex.com/create/docs/contact-center-mcp-server-beta) for supported clients and authentication. Your administrator must allow **Contact Center MCP** under **Control Hub → Apps → Agentic Apps** and enable the tools you need.
+1. Follow the [Contact Center MCP Server setup guide](https://developer.webex.com/create/docs/contact-center-mcp-server-beta). In **Control Hub → Apps → Agentic Apps**, confirm that **Contact Center MCP** and its read tools are allowed for your lab account.
+2. In your connected MCP client, run `wxcc-list-flows` to find `ServiceDesk`, then `wxcc-get-flow` to open its **Latest** version.
+3. Compare the returned nodes and links with your published Flow Designer canvas. Try `wxcc-view-config` for the entry point or queue if that tool is enabled.
 
-For a read-only tour, use `wxcc-list-flows` and `wxcc-get-flow` to find a flow, `wxcc-view-config` to inspect configuration, and `wxcc-get-activity-definitions`, `wxcc-describe-activity`, and `wxcc-get-choices` to inspect activities. Compare the result with the Flow Designer canvas. If writes are enabled, make changes in an unpublished test draft, inspect the diff, and run `wxcc-validate-flow` before publishing or assigning the flow. Check the tool names against your enabled catalog.
+### Operations tools
 
-### B. Contact Center Operation MCP Server: read-only tools
+1. Follow the [Contact Center Operation MCP Server beta setup guide](https://developer.webex.com/create/docs/contact-center-operation-mcp-server-beta) and connect its regional server in your approved client. This service reads configuration and call history; it does not edit flows.
+2. Run `wxcc-operations-list-flows` and find `ServiceDesk`. Run `wxcc-operations-explain-queue-routing` for `Queue-1`, then compare the queue name and routing settings with Control Hub.
+3. If `wxcc-operations-get-contact-timeline` is enabled, use the test contact ID from **Debug** to inspect that call's recorded events. Compare them with the same call in Flow Designer.
 
-The [Contact Center Operation MCP Server beta](https://developer.webex.com/create/docs/contact-center-operation-mcp-server-beta) is a separate **read-only** service. It cannot create, update, publish, or delete a flow. Confirm access, the regional URL, and enabled tools before connecting.
-
-Use `wxcc-operations-describe-org` and `wxcc-operations-describe-metrics` to inspect available fields, `wxcc-operations-list-flows` to find a flow, and `wxcc-operations-explain-queue-routing` to inspect queue configuration. If you have an approved test contact ID and the tool is enabled, `wxcc-operations-get-contact-timeline` can show arrival, IVR, queue, agent, and end events. If an artifact is delayed or missing, check the source timeline before drawing a conclusion.
-
-Before sharing a screenshot, crop out tokens, caller numbers, transcripts, and customer details.
+Only use tools visible in your client's enabled catalog. Crop caller details, transcripts, and tokens from any screenshot you share.
 
 [Continue to troubleshooting and completion](troubleshooting.md){ .md-button .md-button--primary }

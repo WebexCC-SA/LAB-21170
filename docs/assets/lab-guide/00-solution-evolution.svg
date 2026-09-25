@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="835" viewBox="0 0 1280 835" role="img" aria-labelledby="diagram-title diagram-description">
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="920" viewBox="0 0 1280 920" role="img" aria-labelledby="diagram-title diagram-description">
   <title id="diagram-title">Two lab paths: starter REST flow and final AI agent flow</title>
-  <desc id="diagram-description">The practice path moves from caller to welcome message, menu, Order Desk REST test, human agent queue, and queue treatment while the caller waits. The final path moves from caller to AI agent, external Order Desk lookup, and response. A handled call ends; an escalated call can enter a configured human agent queue.</desc>
+  <desc id="diagram-description">In the practice flow, menu option 1 runs the Order Desk REST test before queue treatment; option 2 goes directly to the queue. In the final flow, an order request uses the Order Desk MCP lookup, the agent responds, and the handled call ends. General support prompts an offer of human help; after the caller accepts, the escalated call enters the configured human-agent queue and wait treatment.</desc>
   <defs>
     <style>
       @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&amp;family=Geist:wght@400;500;600;700&amp;family=Geist+Mono:wght@400;500;600&amp;display=swap');
@@ -21,16 +21,16 @@
     </marker>
   </defs>
 
-  <rect width="1280" height="835" fill="#fafaf7"/>
+  <rect width="1280" height="920" fill="#fafaf7"/>
   <text class="eyebrow" x="64" y="49" fill="#657078">SOLUTION EVOLUTION · LAB-21170</text>
   <text class="title" x="64" y="99" fill="#181818">Two builds. One complete caller journey.</text>
   <text class="body" x="64" y="128" fill="#4e5961">Prove the data path in Flow Designer, then let the AI agent own the conversation.</text>
   <path d="M64 151H1216" stroke="#d9dcda"/>
 
-  <!-- Practice lane. The dashed extension starts at the queue handoff. -->
+  <!-- Practice lane. The configured queue paths are dashed. -->
   <rect x="64" y="168" width="118" height="27" rx="5" fill="#f0f2f1" stroke="#c9cecc"/>
   <text class="lane-title" x="123" y="186" text-anchor="middle" fill="#4e5961">PRACTICE</text>
-  <text class="body" x="198" y="187" fill="#4e5961">Templates, IVR, REST, then a queue and wait treatment</text>
+  <text class="body" x="198" y="187" fill="#4e5961">Menu branches to order lookup or directly to the human queue</text>
   <text class="tag" x="965" y="186" fill="#657078">CHECKPOINTS 2–3</text>
 
   <path d="M196 276H216" stroke="#657078" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
@@ -38,6 +38,8 @@
   <path d="M538 276H562" stroke="#657078" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
   <path d="M734 276H758" stroke="#657078" stroke-width="1.8" stroke-dasharray="3 5" stroke-linecap="round" marker-end="url(#arrow-gray)"/>
   <path d="M938 276H962" stroke="#657078" stroke-width="1.8" stroke-dasharray="3 5" stroke-linecap="round" marker-end="url(#arrow-gray)"/>
+  <path d="M470 331V350H748V309H758" fill="none" stroke="#657078" stroke-width="1.8" stroke-dasharray="3 5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow-gray)"/>
+  <text class="micro" x="609" y="369" text-anchor="middle" fill="#657078">2 · GENERAL SUPPORT → DIRECT TO QUEUE</text>
 
   <g>
     <rect x="64" y="221" width="132" height="110" rx="8" fill="#fff" stroke="#c6cbca"/>
@@ -57,8 +59,9 @@
     <rect x="402" y="221" width="136" height="110" rx="8" fill="#fff" stroke="#c6cbca"/>
     <rect x="415" y="234" width="38" height="18" rx="4" fill="#f3f5f4" stroke="#c6cbca"/>
     <text class="tag" x="434" y="247" text-anchor="middle" fill="#657078">IVR</text>
-    <text class="node" x="470" y="285" text-anchor="middle" fill="#181818">Menu</text>
-    <text class="micro" x="470" y="309" text-anchor="middle" fill="#657078">order option</text>
+    <text class="node" x="470" y="277" text-anchor="middle" fill="#181818">Menu</text>
+    <text class="micro" x="470" y="301" text-anchor="middle" fill="#657078">1 · order</text>
+    <text class="micro" x="470" y="320" text-anchor="middle" fill="#657078">2 · support</text>
   </g>
   <g>
     <rect x="568" y="221" width="166" height="110" rx="8" fill="#fff" stroke="#c6cbca"/>
@@ -81,21 +84,24 @@
     <text class="node-small" x="1092" y="284" text-anchor="middle" fill="#181818">Queue treatment</text>
     <text class="micro" x="1092" y="309" text-anchor="middle" fill="#657078">plays while caller waits</text>
   </g>
-  <path d="M64 365H1216" stroke="#d9dcda"/>
+  <path d="M64 390H1216" stroke="#d9dcda"/>
 
-  <!-- Final lane. Order data returns through the agent's response; outcomes diverge. -->
+  <!-- Final lane. The two intents leave the agent on separate paths. -->
+  <g transform="translate(0 25)">
   <rect x="64" y="386" width="94" height="27" rx="5" fill="#eaf4ff" stroke="#0672ef"/>
   <text class="lane-title" x="111" y="404" text-anchor="middle" fill="#0672ef">FINAL</text>
-  <text class="body" x="174" y="405" fill="#4e5961">The AI agent answers the order question and chooses an outcome</text>
+  <text class="body" x="174" y="405" fill="#4e5961">The AI agent resolves orders or offers general support a human handoff</text>
   <text class="tag" x="1127" y="404" fill="#0672ef">CHECKPOINT 9</text>
 
   <path d="M196 566H230" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
   <path d="M430 548H463Q473 548 473 538V524Q473 514 483 514H505" fill="none" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
-  <path d="M600 566V596" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
-  <path d="M694 638H763V518H820" fill="none" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
-  <path d="M763 638H820" fill="none" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <path d="M694 518H706" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <path d="M806 518H820" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <path d="M430 610H464Q474 610 474 620V628Q474 638 484 638H500" fill="none" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <path d="M694 638H820" fill="none" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
   <path d="M988 518H1028" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
   <path d="M988 638H1028" stroke="#0672ef" stroke-width="2.2" stroke-dasharray="3 6" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <path d="M1125 681V708" stroke="#0672ef" stroke-width="2.2" stroke-dasharray="3 6" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
 
   <g>
     <rect x="64" y="511" width="132" height="110" rx="8" fill="#fff" stroke="#c6cbca"/>
@@ -110,19 +116,26 @@
     <text class="tag" x="270" y="526" text-anchor="middle" fill="#fff">AI</text>
     <text class="node" x="332" y="565" text-anchor="middle" fill="#181818">AI agent</text>
     <text class="micro" x="332" y="591" text-anchor="middle" fill="#46576a">owns the conversation</text>
-    <text class="micro" x="332" y="610" text-anchor="middle" fill="#46576a">lookup_order via MCP</text>
+    <text class="micro" x="332" y="610" text-anchor="middle" fill="#46576a">lookup_order for orders</text>
   </g>
   <g>
+    <text class="tag" x="600" y="455" text-anchor="middle" fill="#0672ef">ORDER REQUEST</text>
     <rect x="506" y="463" width="188" height="103" rx="8" fill="#f0faff" stroke="#007aa3" stroke-width="1.5" stroke-dasharray="5 4"/>
     <rect x="519" y="476" width="72" height="18" rx="4" fill="#dff4fb" stroke="#007aa3"/>
     <text class="tag" x="555" y="489" text-anchor="middle" fill="#006e94">EXTERNAL</text>
     <text class="node" x="600" y="527" text-anchor="middle" fill="#181818">Order Desk</text>
-    <text class="micro" x="600" y="549" text-anchor="middle" fill="#46576a">same synthetic data</text>
+    <text class="micro" x="600" y="549" text-anchor="middle" fill="#46576a">lookup_order · MCP</text>
   </g>
   <g>
-    <rect x="506" y="601" width="188" height="75" rx="8" fill="#fff" stroke="#89becd"/>
-    <text class="node-small" x="600" y="632" text-anchor="middle" fill="#181818">Response</text>
-    <text class="micro" x="600" y="654" text-anchor="middle" fill="#657078">AI speaks order update</text>
+    <rect x="712" y="475" width="94" height="86" rx="8" fill="#fff" stroke="#89becd"/>
+    <text class="node-small" x="759" y="513" text-anchor="middle" fill="#181818">Response</text>
+    <text class="micro" x="759" y="539" text-anchor="middle" fill="#657078">order update</text>
+  </g>
+  <g>
+    <text class="tag" x="600" y="585" text-anchor="middle" fill="#0672ef">GENERAL SUPPORT</text>
+    <rect x="506" y="595" width="188" height="86" rx="8" fill="#fff" stroke="#89becd"/>
+    <text class="node-small" x="600" y="633" text-anchor="middle" fill="#181818">Offer human help</text>
+    <text class="micro" x="600" y="659" text-anchor="middle" fill="#657078">caller accepts</text>
   </g>
   <g>
     <rect x="826" y="475" width="162" height="86" rx="8" fill="#eaf4ff" stroke="#0672ef"/>
@@ -142,17 +155,22 @@
   <g>
     <rect x="1034" y="595" width="182" height="86" rx="8" fill="#fff" stroke="#0672ef" stroke-width="1.4" stroke-dasharray="5 4"/>
     <text class="node-small" x="1125" y="633" text-anchor="middle" fill="#181818">Human agent queue</text>
-    <text class="micro" x="1125" y="658" text-anchor="middle" fill="#657078">configured handoff</text>
+    <text class="micro" x="1125" y="658" text-anchor="middle" fill="#657078">Queue-1 · configured</text>
   </g>
-  <text class="micro" x="1132" y="705" text-anchor="middle" fill="#657078">Queue treatment runs while waiting.</text>
+  <g>
+    <rect x="1034" y="715" width="182" height="55" rx="8" fill="#fff" stroke="#0672ef" stroke-width="1.4" stroke-dasharray="5 4"/>
+    <text class="node-small" x="1125" y="738" text-anchor="middle" fill="#181818">Queue treatment</text>
+    <text class="micro" x="1125" y="758" text-anchor="middle" fill="#657078">while caller waits</text>
+  </g>
+  </g>
 
-  <path d="M64 741H1216" stroke="#d9dcda"/>
-  <text class="eyebrow" x="64" y="778" fill="#657078">READING THE PATHS</text>
-  <path d="M260 774H302" stroke="#657078" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
-  <text class="body" x="319" y="780" fill="#4e5961">starter validation</text>
-  <path d="M498 774H540" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
-  <text class="body" x="557" y="780" fill="#4e5961">final caller experience</text>
-  <path d="M788 774H830" stroke="#0672ef" stroke-width="2.2" stroke-dasharray="3 6" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
-  <text class="body" x="847" y="780" fill="#4e5961">configured queue path</text>
-  <text class="micro" x="1216" y="817" text-anchor="end" fill="#657078">WEBEXONE 2026 · LAB-21170</text>
+  <path d="M64 825H1216" stroke="#d9dcda"/>
+  <text class="eyebrow" x="64" y="862" fill="#657078">READING THE PATHS</text>
+  <path d="M260 858H302" stroke="#657078" stroke-width="1.8" marker-end="url(#arrow-gray)"/>
+  <text class="body" x="319" y="864" fill="#4e5961">starter validation</text>
+  <path d="M498 858H540" stroke="#0672ef" stroke-width="2.2" marker-end="url(#arrow-blue)"/>
+  <text class="body" x="557" y="864" fill="#4e5961">final caller experience</text>
+  <path d="M788 858H830" stroke="#0672ef" stroke-width="2.2" stroke-dasharray="3 6" stroke-linecap="round" marker-end="url(#arrow-blue)"/>
+  <text class="body" x="847" y="864" fill="#4e5961">configured; verify by phone</text>
+  <text class="micro" x="1216" y="902" text-anchor="end" fill="#657078">WEBEXONE 2026 · LAB-21170</text>
 </svg>

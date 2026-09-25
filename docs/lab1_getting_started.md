@@ -18,7 +18,7 @@
 | --- | --- | --- |
 | Collaboration Control Hub | [admin.webex.com](https://admin.webex.com/) | Sign in to your assigned organization; check the entry point and queue. |
 | Flow Designer | [flow-control.produs1.ciscoccservice.com](https://flow-control.produs1.ciscoccservice.com/) | Open the ProdUS1 canvas, or launch it from Control Hub. |
-| AI Agent Studio | [Launch from Control Hub](https://admin.webex.com/) | Open **Contact Center → Customer Experience → AI Agents**. |
+| AI Agent Studio | [studio.aiagent-us1.cisco.com](https://studio.aiagent-us1.cisco.com/) | Open this ProdUS1 lab's Studio, or launch it from **Control Hub → Contact Center → Customer Experience → AI Agents**. |
 | Webex Developer Portal | [developer.webex.com](https://developer.webex.com/) | Register the MCP as an Agentic App. This is not the Flow Designer canvas. |
 | MCP Lab | [mcp-lab.webexdevs.com](https://mcp-lab.webexdevs.com/) | Open **Test tenant details** and inspect Order Desk tools. |
 
