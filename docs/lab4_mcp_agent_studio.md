@@ -115,7 +115,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Copy your temporary bearer from **Test tenant details**; the value is masked here.</figcaption>
 </figure>
 
-5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. Never paste the event token or a Webex sign-in token here.
+5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load before continuing. Never paste the event token or a Webex sign-in token here.
 {: value="5" }
 
 <figure markdown>

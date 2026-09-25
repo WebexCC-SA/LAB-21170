@@ -112,12 +112,12 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Analyze overview showing two flow executions and no node errors](assets/lab-guide/live/cp2-analyze-overview.png)
-  <figcaption markdown="span">At this refresh, Analyze showed two completed executions, no node errors, and 100% usage for WelcomePrompt and Queue.</figcaption>
+  <figcaption markdown="span">Read the completed-call count, node errors, and path usage. This capture shows two executions; your counts will reflect your test calls.</figcaption>
 </figure>
 
 <figure markdown>
   ![Analyze activity usage showing three call interactions for the Queue activity](assets/lab-guide/live/cp2-analyze-queue-usage.png)
-  <figcaption markdown="span">A later activity-usage view listed three call interactions for Queue. This is a later snapshot than the overview above.</figcaption>
+  <figcaption markdown="span">Select **Queue** to inspect its activity count. This capture shows three call interactions; set the same time window before comparing counts.</figcaption>
 </figure>
 
 <figure markdown>
@@ -248,9 +248,14 @@ The [Queue Treatment Subflow template](https://help.webex.com/article/nhovcy4) p
 On the subflow canvas:
 
 1. Follow the template path from **Start Subflow** through its **Condition**, two **Play Music** activities, **Play Message**, **Set Variable**, and **End Subflow**. The condition and counter bound the internal music/message loop. Keep those links intact.
-2. In the subflow variable definitions, inspect its four exposed inputs: `queueMessage` (String), `queueMusic1` (String), `queueMusic2` (String), and `musicDuration` (Integer). The live template defaults are `Please wait`, `defaultmusic_on_hold.wav` for both music inputs, and `10` seconds. You may change the waiting message to `Please stay on the line while we connect you.` before publishing. The `counter` variable starts at `0` but is internal to this template, so it is not a main-flow input to map. The template exposes no output variable.
+2. In the subflow variable definitions, inspect its four exposed inputs: `queueMessage` (String), `queueMusic1` (String), `queueMusic2` (String), and `musicDuration` (Integer). The live template starts with `Please wait`, `defaultmusic_on_hold.wav` for both music inputs, and `10` seconds for `musicDuration`. Open `musicDuration`, change its **Default value** to `3`, and save. This shortens the wait before the callback-or-wait menu to about 15–20 seconds in the tested flow. You may change the waiting message to `Please stay on the line while we connect you.` before publishing. The `counter` variable starts at `0` but is internal to this template, so it is not a main-flow input to map. The template exposes no output variable.
 3. Check that the **Play Message** activity uses Cisco Cloud Text-to-Speech and reads `queueMessage`. Confirm that each **Play Music** activity uses the intended audio file and duration.
 4. Turn on **Validation**. Resolve errors, then select **Publish Subflow**. Confirm the subflow has a published version before you add it to a main flow.
+
+<figure markdown>
+  ![musicDuration input variable set to an Integer default of 3](assets/lab-guide/live/cp2-short-wait-duration.jpg)
+  <figcaption markdown="span">Set the subflow's `musicDuration` default to `3` seconds before publishing.</figcaption>
+</figure>
 
 <figure markdown>
   ![Queue Treatment Subflow draft showing its music and message loop](assets/lab-guide/live/cp2-queue-treatment-template.png)
@@ -263,18 +268,23 @@ On the subflow canvas:
 </figure>
 
 <figure markdown>
-  ![Screenshot sequence from Queue Treatment Subflow template selection through validation and published version history](assets/lab-guide/gifs/cp2-queue-treatment-subflow.gif)
-  <figcaption markdown="span">Screenshot sequence: select the queue-treatment template, inspect its draft, validate, and confirm the published version.</figcaption>
+  ![Reference screenshot sequence for selecting, inspecting, validating, and publishing the Queue Treatment Subflow template](assets/lab-guide/gifs/cp2-queue-treatment-subflow.gif)
+  <figcaption markdown="span">Use this sequence for the template and publication screens. Set `musicDuration` to `3` as shown above before publishing your copy.</figcaption>
 </figure>
 
 Publish your configured subflow before selecting it in a main flow. The validation screenshot shows a draft; confirm its call behavior after you connect the published subflow below.
+
+<figure markdown>
+  ![Queue Treatment Subflow version 2 published with the Latest label](assets/lab-guide/live/cp2-short-wait-subflow-v2-latest.jpg)
+  <figcaption markdown="span">After changing the duration, confirm the new subflow version has the **Latest** label. This example is version 2.</figcaption>
+</figure>
 
 #### Offer a callback or another wait cycle in the practice flow
 
 Return to the practice flow from Part A. It already has **Queue Contact** configured for `Queue-1`, so you can add treatment without changing `ServiceDesk` or the Order Desk branch used in Checkpoint 3. Webex places the [Courtesy Callback](https://help.webex.com/article/nhovcy4) activity in a main flow after **Queue Contact**; the subflow canvas does not provide that activity. Courtesy Callback requires the queue and enterprise callback feature to be enabled. If your lab queue does not have Callback, build the wait-only path in steps 3–4 and skip steps 5–6. **Schedule Callback** is a different activity for a chosen future time and needs a callback entry point and scheduling inputs.
 
 1. Open the Part A practice flow and turn **Edit** on. Disconnect **Queue Contact** from the template's **Music** activity. Keep the original **Music → PlayMessage** pair while you wire the replacement, then remove it after the new path validates.
-2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 10`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. The example version below uses these defaults. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
+2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 3`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
 3. Add a **Menu** after the subflow and label it `CallbackOrWait`. If Callback is enabled for your lab queue, use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**). Otherwise, use: `Press 2 to keep waiting for an agent.` Add only the digit `2` link; do not offer a callback the queue cannot register.
 4. Connect digit `2`, **No-Input Timeout**, and **Unmatched Entry** directly back to **Queue Treatment Subflow**. Do not loop to **Queue Contact**; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.
 5. If Callback is enabled, add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. If Validation flags Callback, turn on **Register callback to different destination?** and set **Static queue** explicitly to `Queue-1`, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.
@@ -310,8 +320,8 @@ The main-flow path is `Queue Contact → Queue Treatment Subflow → CallbackOrW
     Follow the published parent flow from **Queue Contact** into **Queue Treatment**, inspect its four unmapped inputs, then trace the **CallbackOrWait** branches. The callback settings shown apply only when Callback is enabled. This sequence shows configuration, not a completed call.
 
 <figure markdown>
-  ![Practice flow version history showing version 2 with Test and Latest labels](assets/lab-guide/live/cp2-practice-v2-published.jpg)
-  <figcaption markdown="span">The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
+  ![Practice flow version history showing version 4 with the Latest label](assets/lab-guide/live/cp2-short-wait-practice-v4-latest.jpg)
+  <figcaption markdown="span">After updating the subflow, validate and republish the parent practice flow. This example is version 4 on **Latest**.</figcaption>
 </figure>
 
 <figure markdown>
@@ -319,17 +329,22 @@ The main-flow path is `Queue Contact → Queue Treatment Subflow → CallbackOrW
   <figcaption markdown="span">In the callback-enabled example, connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with **0 errors**.</figcaption>
 </figure>
 
-<figure markdown>
-  ![Practice flow version history with repaired version 3 published as Latest and earlier version 2 retained as Test](assets/lab-guide/live/cp2-practice-v3-latest.jpg)
-  <figcaption markdown="span">In version history, confirm your repaired flow has the **Latest** label. This example is version 3.</figcaption>
-</figure>
-
 #### Test the queue treatment
 
-1. Before a call, connect the Menu **Undefined Error** output to a short fallback message and a **Disconnect Contact**. If you added Callback and its confirmation message, connect their **Failure** and **Undefined Error** outputs to the same fallback. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish; the repaired version 3 screenshots above show the callback-enabled example.
-2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
+1. Before a call, connect the Menu **Undefined Error** output to a short fallback message and a **Disconnect Contact**. If you added Callback and its confirmation message, connect their **Failure** and **Undefined Error** outputs to the same fallback. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish; the error-fallback screenshot above shows the callback-enabled example.
+2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number. With `musicDuration = 3`, the callback-or-wait menu should begin about 15–20 seconds after queue music starts; call timing can vary. At the menu, press `2` and confirm that the wait treatment starts again.
 3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
+
+<figure markdown>
+  ![Practice call Debug trace shows CallbackOrWait followed by another QueueTreatment invocation](assets/lab-guide/live/cp2-short-wait-practice-v4-debug-loop.jpg)
+  <figcaption markdown="span">After digit `2`, **Debug** shows `CallbackOrWait → QueueTreatment` on the completed practice call.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Practice flow Analyze shows one execution and zero node errors in the test window](assets/lab-guide/live/cp2-short-wait-practice-v4-analyze.jpg)
+  <figcaption markdown="span">**Analyze** counted one completed practice call and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
 
 #### Route the entry point to `ServiceDesk`
 
@@ -417,12 +432,50 @@ Before calling, confirm digit `1` connects to `GetOrder → OrderStatusMessage �
 3. Confirm that the flow reads the order status returned for `ORD-10482`. If it is blank or the request fails, stop the comparison test and inspect the HTTP activity in Debug. Do not present an empty status as a successful lookup; the refactored subflow adds the failure guard.
 4. After checking that your menu's digit `2` link goes directly to **Queue Contact**, press `2` on a second call. Confirm that general support enters `Queue-1` without running the order lookup or playing a placeholder message.
 
+!!! tip "If the spoken status is blank"
+    If you hear only “Your order status is,” open that call in **Debug**. Select `GetOrder` and check **Modified Variables** for `orderStatus`. The activity can show **Success** even when an expired bearer returns `401` and leaves the variable empty. Copy the current temporary bearer from MCP Lab **Test tenant details**, replace the `Authorization` value in `GetOrder` with `Bearer ` followed by that bearer, then save, validate, publish, and call again. Continue when `orderStatus` has the returned value and you hear it on the call. If it is still blank, check **Parse settings → JSON** and the `$.order.status` mapping. Debug may mask the HTTP response; do not infer HTTP `200` from the activity's **Success** label.
+
+<figure markdown>
+  ![Order-support Debug trace from NewContact through GetOrder](assets/lab-guide/live/cp3-v1-rest-debug-start.jpg)
+  <figcaption markdown="span">For digit `1`, follow the Debug path from `SupportMenu` into `GetOrder`.</figcaption>
+</figure>
+
+<figure markdown>
+  ![GetOrder modified the orderStatus variable to Shipped](assets/lab-guide/live/cp3-v1-rest-debug-status.jpg)
+  <figcaption markdown="span">Select `GetOrder` and check **Modified Variables**. This completed call set `orderStatus` to `Shipped`.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Order-support Debug trace from OrderStatusMessage through queue treatment and call end](assets/lab-guide/live/cp3-v1-rest-debug-end.jpg)
+  <figcaption markdown="span">The same call continued through `OrderStatusMessage`, queue treatment, and music.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Analytics counts one completed Order Desk REST call with zero node errors](assets/lab-guide/live/cp3-v1-rest-analyze.jpg)
+  <figcaption markdown="span">**Analyze** counted one completed order call and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
+
+<figure markdown>
+  ![General Support call runs NewContact, WelcomeMessage, SupportMenu, and QueueContact successfully](assets/lab-guide/live/cp3-v4-general-support-debug-start.jpg)
+  <figcaption markdown="span">For digit `2`, confirm **Debug** reaches `QueueContact_4b7` directly after `SupportMenu`.</figcaption>
+</figure>
+
+<figure markdown>
+  ![General Support call continues through PlayMusic, PleaseWait, repeated PlayMusic, and ContactEnded successfully](assets/lab-guide/live/cp3-v4-general-support-debug-wait.jpg)
+  <figcaption markdown="span">The same call reached music and the waiting message before it ended. It did not run `GetOrder` or `GeneralSupportMessage`.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Analytics counts one completed corrected-menu call and zero node errors](assets/lab-guide/live/cp3-v4-general-support-analyze.jpg)
+  <figcaption markdown="span">For this completed call, **Analyze** counted one flow execution and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
+
 ### Explore Flow Debugging and Flow Analytics
 
 **Debugging** shows one completed interaction's activity sequence. **Analytics** aggregates completed calls for a selected flow version and time period.
 
 1. Open `ServiceDesk` in Flow Designer and select **Debug**. Find the call that used digit `1` by its timestamp and published version, then open its **Interaction ID**. Keep the caller's number out of screenshots.
-2. Follow the highlighted path from `NewContact` through `SupportMenu`, `GetOrder`, and `OrderStatusMessage`. Select `GetOrder` to inspect its outcome, HTTP status, response shape, and modified `orderStatus` variable where permitted. Leave decryption off when capturing guide media so the authorization header and other sensitive fields stay masked.
+2. Follow the highlighted path from `NewContact` through `SupportMenu`, `GetOrder`, and `OrderStatusMessage`. Select `GetOrder` and check **Modified Variables** for `orderStatus`. The activity outcome alone does not prove the HTTP request returned a usable order. Leave decryption off when capturing guide media so the authorization header and response remain masked.
 3. Open the digit `2` call and compare its path. It should reach **Queue Contact** and wait treatment without invoking `GetOrder`.
 4. Make two or three more short test calls, ending each call cleanly. Select **Analytics**, choose a time range covering those calls, and compare the Menu's digit `1` and digit `2` execution counts. If the totals have not appeared yet, wait for completed-call data to arrive and check the selected flow version and time range.
 

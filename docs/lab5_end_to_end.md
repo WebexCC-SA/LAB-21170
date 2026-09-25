@@ -82,7 +82,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
 
     <figure markdown>
-      ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-entry-point-servicedesk-latest.jpg)
+      ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-final-route-restored.jpg)
       <figcaption markdown="span">Set **Routing flow** to `ServiceDesk` and **Version label** to `Latest`.</figcaption>
     </figure>
 
@@ -98,8 +98,8 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 For the order call, check **Voice Sessions** for a successful `lookup_order` request with `orderNumber` set to `ORD-10482`. In **Debug**, confirm the call reached `AIAgent` and ended after the answer. The reference captures below show **Shipped** and September 29, 2026; compare your call with the current Order Desk result. If the agent ends the call, Debug may show `Handled → DisconnectContact → ContactEnded`.
 
 <figure markdown>
-  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-order-lookup-studio-safe.png)
-  <figcaption markdown="span">Before calling, a fresh **Preview** lookup returned **Shipped** and September 29, 2026. Compare your phone answer with the current Order Desk result.</figcaption>
+  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-ai-preview-after-token-refresh.jpg)
+  <figcaption markdown="span">A fresh **Preview** lookup returned **Shipped** and September 29, 2026 after the temporary bearer was renewed. Compare your phone answer with the current Order Desk result.</figcaption>
 </figure>
 
 <figure markdown>
