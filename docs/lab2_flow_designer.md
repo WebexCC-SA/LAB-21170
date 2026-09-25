@@ -405,7 +405,7 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
       <figcaption markdown="span">The direct REST build is retained as published version 1 in this example. The version-history row proves publication; test its caller result separately below.</figcaption>
     </figure>
 
-Trace both paths in your published flow: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. The retained version 1 reference still sent digit `2` to `GeneralSupportMessage` and then disconnected. Use the direct queue link you built in Checkpoint 2; the reference flow received that correction in version 4. The final AI flow removes the menu and direct REST nodes.
+Before calling, confirm digit `1` connects to `GetOrder → OrderStatusMessage → Queue Contact → Play Music`, and digit `2` connects directly to `Queue Contact → Play Music`. The final AI flow removes the menu and direct REST nodes.
 
 !!! warning "Temporary Order Desk credential"
     Use the manual bearer header only in your assigned sandbox. After the REST exercise, remove the direct HTTP activity or clear its header. At lab cleanup, clear the header in the order-lookup subflow too; an unused published subflow retains its configuration. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication.
@@ -538,13 +538,10 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
       <figcaption markdown="span">Entry Point-1 is routed to the published `ServiceDesk` **Latest** version. Routing configuration alone does not verify the order response on a call.</figcaption>
     </figure>
 
-5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Check that digit `2` links directly to **Queue Contact** before testing that choice. If it still plays `GeneralSupportMessage`, connect it to the queue, validate, and publish again, as shown in reference version 4 below. Then make a second call on digit `2` and confirm that it enters the human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
+5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Before a second call, confirm digit `2` links directly to **Queue Contact**. Press `2` and confirm that it enters the human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
-!!! info "Use the reference versions"
-    - **Version 2:** The example call stopped at `SupportMenu` with **Error**. If yours stops there, inspect the prompt, digit links, and fallback outputs before calling again.
-    - **Version 3:** After adding the Menu fallback, a digit `1` call ran the OrderLookup subflow, returned `Shipped` for `ORD-10482`, and reached queue treatment. Analyze showed two completed calls and zero node errors in the selected window.
-    - **Version 4:** Digit `2` was rewired directly to `QueueContact_4b7` on `Queue-1`. Validation showed **0 errors** and the version was published. Make your own digit `2` call to confirm the human queue in **Debug**.
-    - **Version 5:** Checkpoint 9 replaces the numbered menu with the AI agent. The menu versions remain in version history for comparison.
+!!! tip "Check the menu before calling"
+    Connect **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** from `SupportMenu` to `MenuFallbackMessage → Disconnect Contact`. Confirm digit `2` connects directly to **Queue Contact**, then validate and publish. If **Debug** stops at `SupportMenu` with **Error**, inspect the prompt and links before calling again.
 
 <figure markdown>
   ![Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling](assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg)

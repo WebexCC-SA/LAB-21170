@@ -81,7 +81,7 @@ Create the test ticket only in MCP Lab. The Webex voice agent uses `lookup_order
 
 #### Approve one synthetic ticket write
 
-1. Enter: `Create one high-priority support ticket for synthetic order ORD-10482. Subject: LAB-21170 MCP approval verification. Description: Synthetic lab exercise to verify approval-gated create_ticket. Return only ticket ID, order number, status, and priority; omit customer information.`
+1. Enter: `Create one high-priority support ticket for sample order ORD-10482. Subject: Delivery status follow-up. Description: Please check the delivery status for this order. Return only ticket ID, order number, status, and priority; omit customer information.`
 2. Stop when the **Approval required** card appears.
 3. Review the requested tool name and the prompt you sent. In the current lab UI the card identifies `create_ticket` but does not display the arguments, despite its explanatory text. If the request is ambiguous, cancel and write a more specific prompt.
 4. Select **Approve tool** only if the request is the one you intended to test.

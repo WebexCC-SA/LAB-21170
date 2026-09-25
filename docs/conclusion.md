@@ -15,12 +15,12 @@ Caller → Flow Designer entry → AI agent
 2. Call again and say `I need general support`. Accept the offer to connect with a person. Listen for the escalation message and `Queue-1` wait treatment. If a test agent is available, confirm that the agent can answer.
 3. In Flow Designer **Debug**, open both Interaction IDs. Confirm the order call reached `AIAgent` and the general-support call followed **Escalated** into `Queue-1`. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If either call takes an unexpected path, use [Troubleshooting](troubleshooting.md) before marking the lab complete.
 
-## Compare with the reference captures
+## Check your results
 
-- Compare your first practice call with the queue path shown in [**Debug**](assets/lab-guide/live/cp2-debug-trace.png) and [**Analyze**](assets/lab-guide/live/cp2-analyze-overview.png). For the direct REST version and the callback path, use separate calls and check their traces.
-- Compare your refactored `ServiceDesk` order call with the reference trace: `OrderLookup` returned `Shipped` for synthetic order `ORD-10482`, then the flow played the status message and entered queue treatment.
-- In MCP Lab, `lookup_order` returned the order details. The [published AI agent](assets/lab-guide/live/cp8-ai-agent-published.jpg) returned them in Preview, and [Sessions](assets/lab-guide/live/cp8-session-lookup-order-success.jpg) recorded a successful lookup. A Studio **Agent handover** badge confirms the Preview request; check voice queue delivery with a phone call.
-- The final `ServiceDesk` flow [passed Validation with 0 errors](assets/lab-guide/live/cp9-ai-flow-zero-errors.jpg). A [phone call followed its Handled path](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg), and a same-time [Voice session ran `lookup_order` successfully](lab5_end_to_end.md#compare-your-order-call). Confirm what your caller heard, then test the human queue with a separate call.
+- In the practice flow, check the [queue call in Debug](assets/lab-guide/live/cp2-debug-trace.png) and [completed calls in Analyze](assets/lab-guide/live/cp2-analyze-overview.png).
+- For the REST and refactored versions, confirm the order call speaks the current status for `ORD-10482` and digit `2` reaches `Queue-1`. Open each call in **Debug**.
+- In the final flow, confirm the order call reaches `AIAgent` and [Voice Sessions](lab5_end_to_end.md#compare-your-order-call) shows a successful `lookup_order` action.
+- On a separate general-support call, accept the human handoff and confirm **Debug** shows `EscalationMessage → HumanAgentQueue → PlayMusic`.
 
 ## Beyond the lab
 
