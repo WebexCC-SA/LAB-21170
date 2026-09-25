@@ -2,76 +2,83 @@
 
 ## What you will build
 
-You operate a customer service contact center for an online retailer. A customer calls for an update on order `ORD-10482`. Your job is to build the contact-center experience that handles that request safely and returns current order and delivery information.
-
-You will build two versions of the caller path:
+You run the contact center for a mock online retailer. A caller wants an update on order `ORD-10482`. Build a practice IVR, then replace it with an AI agent that can look up the order and connect the caller to a person when needed.
 
 ```text
-Practice path: Caller → welcome message → menu → Order Desk REST test
-Final path:    Caller → AI agent → external Order Desk system → response
+Practice path:
+  Caller → welcome message → menu
+         ├─ 1 order support → Order Desk REST test → status → Queue-1 → wait treatment
+         └─ 2 general support ─────────────────────────→ Queue-1 → wait treatment
+
+Final path:
+  Caller → AI agent → external Order Desk system → response
+         ├─ Handled → end
+         ├─ Escalated → human agent queue → queue treatment
+         └─ Errored → honest fallback → safe exit
 ```
 
-The starter IVR teaches the core Flow Designer activities and gives you a direct REST response to compare with the finished experience. In the final version, you bypass the menu and connect the caller directly to the AI agent. The completed solution does not use a press-one/press-two menu.
+In the practice flow, digit `1` looks up an order through REST before joining `Queue-1`; digit `2` joins the queue directly. In the final flow, the caller goes straight to the AI agent. A handled request ends, an escalation enters the human queue, and an error plays a clear fallback before disconnecting. The final path has no numbered menu.
 
 <figure markdown>
-  ![The lab begins with a starter IVR and REST lookup, then replaces that caller path with an AI agent and MCP lookup](assets/lab-guide/00-solution-evolution.png)
-  <figcaption>The starter IVR is a temporary learning and data-validation path. The completed call goes directly to the AI agent, which uses the external MCP tool.</figcaption>
+  ![Simplified practice path through welcome, menu, REST lookup and queue treatment, and final AI-agent path with handled and human-escalation outcomes](assets/lab-guide/00-solution-evolution.png)
+  <figcaption>Practice digit 2 bypasses REST and joins the queue. The final path uses the approved Order Desk MCP action; dashed queue links are configured in later checkpoints.</figcaption>
 </figure>
 
-The two stages use the same simulated Order Desk data. The first exposes the mechanics; the second gives the caller a natural conversation without requiring the agent to construct or parse a REST request.
+See [Checkpoint 9's reference topology](lab5_end_to_end.md) for the final outcomes and queue-error path.
+
+Both paths use the same simulated Order Desk data, so you can compare the REST result with the agent's answer.
 
 ## Your role
 
-You are the Webex Contact Center administrator and automation developer. You will:
+You will:
 
-- administer the assigned sandbox in **Control Hub**;
+- check the assigned sandbox in **Control Hub**;
 - build and publish the call flow in **Flow Designer**;
 - prepare the order-support agent in **AI Agent Studio**;
 - confirm the external MCP registration in **Developer Portal**;
-- inspect and test the simulated external service in **MCP Lab**; and
+- test the simulated Order Desk service in **MCP Lab**; and
 - call the assigned phone number to validate each published version.
 
-During the final test, you speak as the caller. The AI agent plays the order-support assistant.
+In the final phone test, you speak as the caller.
 
 ## Product journey
 
-| Layer | Product | What it contributes |
-| --- | --- | --- |
-| Organization | **Control Hub** | Administer the organization and open Contact Center configuration. |
-| Runtime | **Flow Designer** | Build the starter IVR, test the REST branch, and connect the agent's outcomes. |
-| Conversation | **AI Agent Studio** | Set the agent's instructions, response behavior, and approved actions. |
-| Developer access | **Developer Portal** | Register the external MCP data source before the agent uses it. |
+| Layer | Product | Open | What it contributes |
+| --- | --- | --- | --- |
+| Organization | **Control Hub** | [admin.webex.com](https://admin.webex.com/) | Check your organization, entry point, and queue. |
+| Runtime | **Flow Designer** | [Open from Control Hub](https://admin.webex.com/) or use the [direct lab URL](https://flow-control.produs1.ciscoccservice.com/) | Build and publish flows, test REST, and connect the AI agent's outcomes. |
+| Conversation | **AI Agent Studio** | [Launch from Control Hub](https://admin.webex.com/) via **Contact Center → Customer Experience → AI Agents** | Set instructions, approved actions, and response behavior. |
+| Developer access | **Developer Portal** | [developer.webex.com](https://developer.webex.com/) | Register the external MCP. This is not the Flow Designer canvas. |
 
-MCP Lab and Order Desk support the exercise, but they are not Webex products. MCP Lab provides the temporary sandbox assignment and the synthetic Order Desk REST and MCP endpoints.
+**MCP Lab** supplies your temporary assignment and the synthetic Order Desk REST and MCP endpoints. MCP Lab and Order Desk are lab services, not Webex products.
 
 ## Lab sequence
 
-You will build and validate one layer at a time:
+Work through the checkpoints in order:
 
-1. Redeem the sandbox assignment.
-2. Build and call the starter IVR.
-3. Prove the Order Desk REST response in Flow Designer.
-4. Connect Order Desk and inspect its MCP tool contract.
-5. Test the order lookup in MCP Lab.
-6. Register the external MCP in Developer Portal and enable it in Control Hub.
-7. Customize the **Track Package - Autonomous** template for order support.
-8. Add `lookup_order`, preview the agent, and publish it.
-9. Replace the starter caller path with the published AI agent and call the final flow.
-
-This order lets you see the raw API response before the agent uses the same business data through a structured MCP tool.
+1. Redeem the sandbox assignment and bookmark the lab workspaces.
+2. Build and publish a **Simple Flow to Queue** flow, assign it to the entry point, and call the assigned number.
+3. Inspect a call in **Flow Debugging**; make two or three more calls and compare them in **Flow Analytics**.
+4. Build the starter IVR with general support routed to `Queue-1`. Use the **Comprehensive Call Flow** template as a reference for wait treatment and an optional callback; test by phone.
+5. Publish the Order Desk REST branch in Flow Designer, then verify its response by phone, Debugging, and Analytics.
+6. Move the HTTP request into a subflow and use a Function to parse its response.
+7. Connect Order Desk in MCP Lab, inspect its five tools, and test `lookup_order`. The approval-gated ticket write is optional.
+8. Register the external MCP in Developer Portal and enable it in Control Hub.
+9. Create an autonomous order-support agent, replace any starter content, attach the approved MCP `lookup_order` action, preview it, and publish it.
+10. Replace the starter caller path with the published AI agent. Call once for an order update and again for human escalation.
+11. **Optional:** Review the Webex Contact Center Flow and Operations MCP services with your facilitator if the sandbox has access.
 
 ## Before you start
 
-Bring the event-provided **MCP Lab token** and use a supported browser. MCP Lab supplies the sandbox URL, sign-in details, Order Desk endpoints, temporary bearer token, assignment expiration, and sample order number after you redeem the token.
+Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, **Test tenant details** shows your sandbox URL, sign-in details, Order Desk endpoints, temporary bearer token, assignment expiration, and sample order number.
 
-Keep separate browser tabs open for Control Hub, Flow Designer, Developer Portal, AI Agent Studio, and MCP Lab.
+Keep Control Hub, Flow Designer, Developer Portal, AI Agent Studio, and MCP Lab in separate tabs.
 
 !!! warning "Protect your lab credentials"
     Keep credentials inside the assigned sandbox or the lab's **Test tenant details** panel. Never paste a bearer token, client secret, or sandbox password into a slide, chat, ticket, screenshot, or source file.
 
-## Downloadable guide
+## Current guide
 
-- [Word walkthrough](assets/downloads/LAB-21170-flow-lab-walkthrough.docx)
-- [PDF walkthrough](assets/downloads/LAB-21170-flow-lab-walkthrough.pdf)
+Use this online guide. Earlier Word and PDF walkthroughs are archived in the repository and do not include the updated queue-treatment, Function, subflow, and MCP steps.
 
 [Start Checkpoint 1](lab1_getting_started.md){ .md-button .md-button--primary }
