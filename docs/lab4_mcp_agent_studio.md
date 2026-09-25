@@ -36,7 +36,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 {: value="4" }
     - **Module:** `MCP`
     - **Transport Type:** `Streamable HTTP`
-    - **Name:** `LAB21170 Order Desk MCP`
+    - **Name:** `LAB21170 Order Desk MCP` (append your assigned unique lab code if the organization is shared)
     - **Description:** `Sandbox Order Desk MCP server for the LAB-21170 Webex Contact Center and Webex AI Agent lab. The lookup_order tool retrieves the status of a sample order so an AI agent can answer the caller before a human handoff if needed. A temporary bearer credential is configured by the tenant administrator. Use only lab sample data; do not enter real customer information.`
     - **Icon:** select one of the provided default icons.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
@@ -99,7 +99,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Open **Apps**, then select **Agentic Apps**.</figcaption>
 </figure>
 
-3. Find and open `LAB21170 Order Desk MCP`. On **General**, confirm that the new private app starts as **Blocked for all users**. Keep it blocked while you configure authentication and restrict its tools.
+3. Find and open the `LAB21170 Order Desk MCP` app you created, including your lab code if you added one. On **General**, confirm that the new private app starts as **Blocked for all users**. Keep it blocked while you configure authentication and restrict its tools.
 {: value="3" }
 
 <figure markdown>
@@ -193,7 +193,7 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 {: value="3" }
 4. Select **Start from scratch**, then choose **Autonomous**. If you choose **Track Package** instead, remove every sample package action and instruction in the steps below.
 {: value="4" }
-5. Enter `LAB-21170 Order Support`. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
+5. Enter `LAB-21170 Order Support`, appending your assigned unique lab code if the organization is shared. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
 {: value="5" }
 
 <figure markdown>
@@ -328,7 +328,7 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 1. In `LAB-21170 Order Support`, open **Actions**.
 2. Select **Add actions**.
 3. Select **Select available**.
-4. Find the `LAB21170 Order Desk MCP` provider with the **MCP** label.
+4. Find the `LAB21170 Order Desk MCP` provider you registered, including your lab code if applicable, with the **MCP** label.
 5. Check the box next to `lookup_order`, then select **Add**.
 6. Review **General information**: **MCP server name** is `LAB21170 Order Desk MCP`, **Action name** is `lookup_order`, and the description says it returns mock customer, item, delivery, and status details for an order number.
 7. Review **Slot filling → Input parameter schema**. `orderNumber` must be a required string; the example is `ORD-10482`. The sandbox Authorization header belongs in the Control Hub app configuration from Checkpoint 6.

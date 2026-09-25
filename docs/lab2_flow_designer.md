@@ -146,7 +146,7 @@ The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) expla
 
 #### Create the flow
 
-1. Name the flow `ServiceDesk` and select **Create flow**.
+1. Name the flow `ServiceDesk` and select **Create flow**. In a shared organization, append your assigned unique lab code, for example `ServiceDesk_G09`. Use that flow wherever the guide says `ServiceDesk`; the screenshots show the unsuffixed example.
 2. Leave the new flow in **Draft** while you build it.
 
 #### Confirm the blank canvas
@@ -271,18 +271,18 @@ Publish your configured subflow before selecting it in a main flow. The validati
 
 #### Offer a callback or another wait cycle in the practice flow
 
-Return to the practice flow from Part A. It already has **Queue Contact** configured for `Queue-1`, so you can add treatment without changing `ServiceDesk` or the Order Desk branch used in Checkpoint 3. Webex places the [Courtesy Callback](https://help.webex.com/article/nhovcy4) activity in a main flow after **Queue Contact**; the subflow canvas does not provide that activity. Courtesy Callback requires the queue and enterprise callback feature to be enabled. If **Callback** is unavailable in your main flow, ask the facilitator to check that setup before publishing this branch. **Schedule Callback** is a different activity for a chosen future time and needs a callback entry point and scheduling inputs.
+Return to the practice flow from Part A. It already has **Queue Contact** configured for `Queue-1`, so you can add treatment without changing `ServiceDesk` or the Order Desk branch used in Checkpoint 3. Webex places the [Courtesy Callback](https://help.webex.com/article/nhovcy4) activity in a main flow after **Queue Contact**; the subflow canvas does not provide that activity. Courtesy Callback requires the queue and enterprise callback feature to be enabled. If your lab queue does not have Callback, build the wait-only path in steps 3–4 and skip steps 5–6. **Schedule Callback** is a different activity for a chosen future time and needs a callback entry point and scheduling inputs.
 
 1. Open the Part A practice flow and turn **Edit** on. Disconnect **Queue Contact** from the template's **Music** activity. Keep the original **Music → PlayMessage** pair while you wire the replacement, then remove it after the new path validates.
 2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 10`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. The example version below uses these defaults. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
-3. Add a **Menu** after the subflow and label it `CallbackOrWait`. Use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**).
+3. Add a **Menu** after the subflow and label it `CallbackOrWait`. If Callback is enabled for your lab queue, use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**). Otherwise, use: `Press 2 to keep waiting for an agent.` Add only the digit `2` link; do not offer a callback the queue cannot register.
 4. Connect digit `2`, **No-Input Timeout**, and **Unmatched Entry** directly back to **Queue Treatment Subflow**. Do not loop to **Queue Contact**; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.
-5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. If Validation flags Callback, turn on **Register callback to different destination?** and set **Static queue** explicitly to `Queue-1`, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.
-6. Add a short Cisco Cloud Text-to-Speech confirmation **Play Message**, then **Disconnect Contact**. Connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
-7. For a flow you will route to callers, connect exposed error paths to a safe fallback or an error message followed by **Disconnect Contact**. Check that a successful callback does not return to waiting treatment. Flow Designer may show **0 errors** even when optional error outputs remain open, so inspect those links yourself.
+5. If Callback is enabled, add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. If Validation flags Callback, turn on **Register callback to different destination?** and set **Static queue** explicitly to `Queue-1`, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.
+6. If you added Callback, add a short Cisco Cloud Text-to-Speech confirmation **Play Message**, then **Disconnect Contact**. Connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
+7. Connect exposed error paths to a safe fallback or an error message followed by **Disconnect Contact**. If you added Callback, check that its **Failure** output is connected and that a successful callback does not return to waiting treatment. Flow Designer may show **0 errors** even when optional error outputs remain open, so inspect those links yourself.
 8. Wait for Autosave, turn on **Validation**, and resolve errors. Publish a new version of the practice flow. The example subflow uses **Latest** with automatic updates enabled; if you change the subflow later, validate the parent flow again and publish a new parent version before relying on the changed behavior.
 
-The validated main-flow path is `Queue Contact → Queue Treatment Subflow → CallbackOrWait`. Digit `2`, no input, or an unmatched digit returns to the subflow without queueing the caller again; digit `1` goes to `Callback → confirmation → Disconnect Contact`. This follows the [Cisco subflow mapping](https://help.webex.com/article/nhovcy4) and [Courtesy Callback](https://help.webex.com/article/nhovcy4) requirements.
+The main-flow path is `Queue Contact → Queue Treatment Subflow → CallbackOrWait`. Digit `2`, no input, or an unmatched digit returns to the subflow without queueing the caller again. If enabled, digit `1` goes to `Callback → confirmation → Disconnect Contact`. This follows the [Cisco subflow mapping](https://help.webex.com/article/nhovcy4) and [Courtesy Callback](https://help.webex.com/article/nhovcy4) requirements.
 
 <figure markdown>
   ![Published queue-treatment subflow selected on Latest with four unmapped inputs](assets/lab-guide/live/cp2-subflow-inputs-unmapped.jpg)
@@ -301,13 +301,13 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
 
 <figure markdown>
   ![Published caller-choice menu with callback, wait, confirmation, and disconnect branches](assets/lab-guide/live/cp2-practice-v2-callback-branch.jpg)
-  <figcaption markdown="span">Digit 1 is wired to register Courtesy Callback, play a confirmation, and disconnect the original call. Digit 2, no input, and unmatched input are wired back to Queue Treatment without queueing again.</figcaption>
+  <figcaption markdown="span">With Callback enabled, digit 1 registers it, plays a confirmation, and disconnects the original call. Digit 2, no input, and unmatched input return to Queue Treatment without queueing again. For a wait-only flow, omit the digit 1 branch.</figcaption>
 </figure>
 
 ??? example "Show me: wire the parent callback loop"
     ![Live screenshot sequence of Queue Contact, Queue Treatment inputs, the CallbackOrWait menu, and Callback queue settings](assets/lab-guide/gifs/cp2-parent-callback-or-wait.gif)
 
-    Follow the published parent flow from **Queue Contact** into **Queue Treatment**, inspect its four unmapped inputs, then trace the **CallbackOrWait** branches and the explicit callback queue. This sequence shows configuration, not a completed call.
+    Follow the published parent flow from **Queue Contact** into **Queue Treatment**, inspect its four unmapped inputs, then trace the **CallbackOrWait** branches. The callback settings shown apply only when Callback is enabled. This sequence shows configuration, not a completed call.
 
 <figure markdown>
   ![Practice flow version history showing version 2 with Test and Latest labels](assets/lab-guide/live/cp2-practice-v2-published.jpg)
@@ -316,7 +316,7 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
 
 <figure markdown>
   ![Practice flow with Menu Undefined Error, Callback Failure, and confirmation-message Undefined Error connected to a spoken fallback and Disconnect Contact; Validation shows zero errors](assets/lab-guide/live/cp2-practice-error-fallback-validated.jpg)
-  <figcaption markdown="span">Connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with **0 errors**.</figcaption>
+  <figcaption markdown="span">In the callback-enabled example, connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with **0 errors**.</figcaption>
 </figure>
 
 <figure markdown>
@@ -326,7 +326,7 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
 
 #### Test the queue treatment
 
-1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish; compare with the repaired version 3 screenshots above.
+1. Before a call, connect the Menu **Undefined Error** output to a short fallback message and a **Disconnect Contact**. If you added Callback and its confirmation message, connect their **Failure** and **Undefined Error** outputs to the same fallback. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish; the repaired version 3 screenshots above show the callback-enabled example.
 2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
 3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.

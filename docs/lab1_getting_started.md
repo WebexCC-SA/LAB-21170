@@ -7,6 +7,8 @@
 5. Open **Test tenant details**.
 6. Keep this panel open. Later checkpoints use its sandbox sign-in details, expiration, Order Desk REST and MCP addresses, temporary bearer token, and sample order number.
 
+The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Order Support` as example names. If your organization is shared with other attendees, add the unique lab code assigned to you when you create each flow, Agentic App, and AI agent. Select your own named objects in later steps. Use only the entry point and call-test window assigned to you; changing a shared entry point affects the next caller.
+
 <figure markdown>
   ![MCP Lab AI agent workspace with no MCPs connected and the Order Desk card on the left](assets/lab-guide/01-mcp-lab-ai-agent-workspace.png)
   <figcaption markdown="span">The AI agent workspace shows Order Desk on the left. You have not connected an MCP yet.</figcaption>
