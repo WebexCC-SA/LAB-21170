@@ -41,9 +41,9 @@ You will:
 
 In the final phone test, you speak as the caller.
 
-## Product journey
+## Lab tools
 
-| Layer | Product | Open | What it contributes |
+| Layer | Product | Open | What you do |
 | --- | --- | --- | --- |
 | Organization | **Control Hub** | [admin.webex.com](https://admin.webex.com/) | Check your organization, entry point, and queue. |
 | Runtime | **Flow Designer** | [Open from Control Hub](https://admin.webex.com/) or use the [direct lab URL](https://flow-control.produs1.ciscoccservice.com/) | Build and publish flows, test REST, and connect the AI agent's outcomes. |
@@ -76,9 +76,5 @@ Keep Control Hub, Flow Designer, Developer Portal, AI Agent Studio, and MCP Lab 
 
 !!! warning "Protect your lab credentials"
     Keep credentials inside the assigned sandbox or the lab's **Test tenant details** panel. Never paste a bearer token, client secret, or sandbox password into a slide, chat, ticket, screenshot, or source file.
-
-## Current guide
-
-Use this online guide. Earlier Word and PDF walkthroughs are archived in the repository and do not include the updated queue-treatment, Function, subflow, and MCP steps.
 
 [Start Checkpoint 1](lab1_getting_started.md){ .md-button .md-button--primary }

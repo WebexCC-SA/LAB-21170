@@ -13,15 +13,44 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 
 1. Open [Webex Developer Portal](https://developer.webex.com/) and sign in with the assigned sandbox account.
 2. Select **Start Building Apps**. If you are already signed in, you can instead open your profile menu, select **My Webex Apps**, and select **Create a New App**.
+
+<figure markdown>
+  ![My Webex Apps option in the signed-in Developer Portal profile menu](assets/lab-guide/live/cp6-developer-myapps-menu-safe.jpg)
+  <figcaption markdown="span">If you are signed in, open **My Webex Apps** from your profile menu.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Create a New App button on the Developer Portal apps page](assets/lab-guide/live/cp6-developer-create-new-app-safe.jpg)
+  <figcaption markdown="span">Select **Create a New App**.</figcaption>
+</figure>
+
 3. Select **Create an Agentic App**.
+{: value="3" }
+
+<figure markdown>
+  ![Agentic App option with its Create an Agentic App button](assets/lab-guide/live/cp6-developer-agentic-app-choice-safe.jpg)
+  <figcaption markdown="span">Choose **Agentic App** to register the Order Desk MCP server.</figcaption>
+</figure>
+
 4. Complete the form with these values:
+{: value="4" }
     - **Module:** `MCP`
     - **Transport Type:** `Streamable HTTP`
     - **Name:** `LAB21170 Order Desk MCP`
-    - **Description:** `Synthetic order and support-ticket tools for the LAB-21170 WebexOne lab.`
-    - **Logo:** select one of the provided default logos.
+    - **Description:** `Sandbox Order Desk MCP server for the LAB-21170 Webex Contact Center and Webex AI Agent lab. The lookup_order tool retrieves the status of a sample order so an AI agent can answer the caller before a human handoff if needed. A temporary bearer credential is configured by the tenant administrator. Use only lab sample data; do not enter real customer information.`
+    - **Icon:** select one of the provided default icons.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
     - **Auth Type:** `Custom Headers`
+
+<figure markdown>
+  ![Registered Agentic App description explains the sample order lookup and use of lab-only data](assets/lab-guide/live/cp6-developer-description-safe.jpg)
+  <figcaption markdown="span">Use an **App Hub Description** that identifies the sample lookup and lab-only data.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Registered Agentic App with a selected default icon](assets/lab-guide/live/cp6-developer-logo-safe.jpg)
+  <figcaption markdown="span">Choose one of the provided icons for the required **Icon** field.</figcaption>
+</figure>
 
 <figure markdown>
   ![Live Developer Portal form showing MCP, the Order Desk URL, Streamable HTTP, and an available app name](assets/lab-guide/live/cp4-mcp-registration-details-close.jpg)
@@ -54,7 +83,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Confirm the `/order-desk/mcp` URL, **MCP**, **Streamable HTTP**, and **Custom Headers**.</figcaption>
 </figure>
 
-7. Select **Request admin approval** if that option appears.
+7. If **Request admin approval** appears, select it. In the assigned sandbox, this control may be absent; continue to Control Hub.
 {: value="7" }
 
 !!! warning "Keep the sandbox credential in the authentication setting"
@@ -64,7 +93,14 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 
 1. Return to **Control Hub**.
 2. Open **Apps → Agentic Apps**.
+
+<figure markdown>
+  ![Control Hub Apps navigation with the Agentic Apps tab](assets/lab-guide/live/cp6-control-hub-apps-nav-safe.jpg)
+  <figcaption markdown="span">Open **Apps**, then select **Agentic Apps**.</figcaption>
+</figure>
+
 3. Find and open `LAB21170 Order Desk MCP`. On **General**, confirm that the new private app starts as **Blocked for all users**. Keep it blocked while you configure authentication and restrict its tools.
+{: value="3" }
 
 <figure markdown>
   ![New Order Desk MCP app blocked for all users before configuration](assets/lab-guide/live/cp6-control-hub-app-blocked.jpg)
@@ -114,8 +150,8 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 {: value="7" }
 
 <figure markdown>
-  ![Control Hub Tools with only Look up mock order allowed and all signature-change switches off](assets/lab-guide/live/cp6-control-hub-lookup-only.jpg)
-  <figcaption markdown="span">Allow only **Look up mock order**. This tool setting applies across the lab organization.</figcaption>
+  ![Control Hub Tools tab with only Look up mock order allowed and every signature-change switch off](assets/lab-guide/live/cp6-control-hub-lookup-only.jpg)
+  <figcaption markdown="span">Enable only **Look up mock order**. Keep the four ticket tools and all signature-change switches off.</figcaption>
 </figure>
 
 8. Return to **General** and select **Allowed for all users** in the WebexCC Demo Lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and only the lookup remains enabled.
@@ -124,6 +160,11 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 <figure markdown>
   ![Order Desk MCP app allowed for all organization users with automatic server data updates off](assets/lab-guide/live/cp6-control-hub-app-allowed.jpg)
   <figcaption markdown="span">Set **Allowed for all users** and leave automatic server data updates off.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Control Hub shows the Order Desk MCP app allowed with only Look up mock order enabled and every signature-change switch off](assets/lab-guide/live/cp6-lookup-only-tools-safe.png)
+  <figcaption markdown="span">Reopen **Tools**: only **Look up mock order** is allowed. The app now shows **Allowed**.</figcaption>
 </figure>
 
 The MCP tool catalog can be cached for up to one hour. If Studio still shows no available action, recheck the saved app, credential, and tool settings, then refresh after the cache period rather than creating a duplicate app.
@@ -314,7 +355,7 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 2. Enter: `I need help with an order.`
 3. Confirm that the agent asks for the missing order number.
 4. Enter: `ORD-10482`.
-5. Confirm that the agent says the mock order `ORD-10482` **has shipped** and is estimated to arrive on **September 28, 2026**.
+5. Confirm that the agent returns the status and estimated delivery date for `ORD-10482`. Compare both with a fresh `lookup_order` result in MCP Lab; the sample order data can change between sessions.
 6. Open **Sessions**, select the Preview session, and inspect the trace. Confirm **Action performed → lookup_order**, MCP provider `LAB21170 Order Desk MCP`, input `orderNumber: ORD-10482`, and a successful fulfillment output. If the action fails or returns unavailable, fix the registration, header, tool permission, or input mapping before publishing.
 7. Confirm that the response does not mention a package-tracking number or the removed `trackPackage` action.
 
@@ -324,8 +365,8 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 </figure>
 
 <figure markdown>
-  ![Order Support Preview reporting ORD-10482 shipped with a September 28 2026 estimated arrival](assets/lab-guide/live/cp8-preview-order-shipped.jpg)
-  <figcaption markdown="span">The mock order has shipped; estimated arrival is September 28, 2026.</figcaption>
+  ![Order Support Preview returning an order status and estimated delivery date for ORD-10482](assets/lab-guide/live/cp8-preview-order-shipped.jpg)
+  <figcaption markdown="span">This screenshot shows an earlier test. Compare your agent's answer with a fresh `lookup_order` result in MCP Lab; the sample order's date can change.</figcaption>
 </figure>
 
 <figure markdown>

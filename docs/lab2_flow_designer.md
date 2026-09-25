@@ -126,7 +126,7 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 </figure>
 
 !!! success "Compare your calls with the example trace"
-    `LAB21170_SimpleQueue_ARUN` version 1 was assigned to `Entry Point-1` and received at least three calls. Debug showed the welcome, queue, waiting treatment, and EndFlow. The first Analyze refresh showed two completed executions with no node errors: WelcomePrompt and Queue appeared on every path; Music and the waiting message appeared on half. A later Queue view listed three interactions. Your counts will depend on your calls and selected time window.
+    In **Debug**, confirm a completed waiting call passes through the welcome, queue, music, waiting message, and EndFlow. In **Analyze**, compare executions, activity counts, and node errors with your calls. Counts depend on the selected time window.
 
 The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) explains templates, entry point routing, Debug, and Flow Analytics.
 
@@ -314,8 +314,6 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
   <figcaption markdown="span">The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
 </figure>
 
-The version 2 screenshot shows the queue-treatment and callback design before its error paths were finished. The example flow was later repaired and published as version 3. Its Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** now share a spoken fallback and **Disconnect Contact**. Validation reports **0 errors**. Neither version 2 nor version 3 has a completed phone test; the Part A Debug and Analyze screenshots show version 1.
-
 <figure markdown>
   ![Practice flow with Menu Undefined Error, Callback Failure, and confirmation-message Undefined Error connected to a spoken fallback and Disconnect Contact; Validation shows zero errors](assets/lab-guide/live/cp2-practice-error-fallback-validated.jpg)
   <figcaption markdown="span">Connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with **0 errors**.</figcaption>
@@ -323,7 +321,7 @@ The version 2 screenshot shows the queue-treatment and callback design before it
 
 <figure markdown>
   ![Practice flow version history with repaired version 3 published as Latest and earlier version 2 retained as Test](assets/lab-guide/live/cp2-practice-v3-latest.jpg)
-  <figcaption markdown="span">The repaired practice flow is published as version 3 **Latest**. This proves publication; the caller test below still needs to be run.</figcaption>
+  <figcaption markdown="span">In version history, confirm your repaired flow has the **Latest** label. This example is version 3.</figcaption>
 </figure>
 
 #### Test the queue treatment
