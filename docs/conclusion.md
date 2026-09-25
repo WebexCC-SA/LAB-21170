@@ -1,31 +1,29 @@
 # Finish the lab
 
-The lab is complete when an assigned phone call reaches the published autonomous agent, its **MCP** `lookup_order` action returns the order and delivery details for `ORD-10482`, and an escalation reaches the human queue. Inspect the call in Flow Designer Debug and confirm the intended outcomes before marking the final path complete.
+The captured `ServiceDesk` version 5 is published as **Latest**, and the entry point selects it. Your lab is complete when live calls confirm both the order response and the route to a human queue.
 
 ```text
 Caller → Flow Designer entry → AI agent → Order Desk MCP → order response
-                           └─ escalation → human agent queue
+                           ├─ handled → end
+                           ├─ escalated → human agent queue → queue treatment
+                           └─ errored → spoken fallback → safe exit
 ```
 
-## What the captured walkthrough verifies
+## Make the final calls
 
-| Checkpoint | Captured evidence |
-| --- | --- |
-| Practice queue flow, version 1 | `SimpleQueue` was published and exercised by phone; Debug and Analytics screenshots show those calls. |
-| Reusable queue treatment, version 2 | The Queue Treatment subflow and a practice parent flow with a callback-or-wait menu were published. The parent flow passed Validation with 0 errors. No phone call through version 2 was captured; three optional error outputs remained unconnected. |
-| Direct Order Desk branch | `ServiceDesk` version 1 was published with the direct HTTP request. Its phone response has not been captured. |
-| Reusable lookup | The parser Function passed sample tests and was published; the guarded `OrderLookup` subflow was published as version 1. |
-| Refactored caller path | `ServiceDesk` version 2 passed validation and was assigned to Entry Point-1. One live call reached the welcome and menu, then `SupportMenu` errored and global error handling ended the call. Version 3 added an audible menu fallback, passed Validation with 0 errors, and was published as `Latest`; it has not been called. No digit branch or Order Desk response was verified. |
-| AI and MCP path | Order Desk was connected in MCP Lab; `lookup_order` returned order data, and a separate approval-gated ticket write was verified by read-back. An autonomous agent draft and MCP registration form were prepared. The Order Desk Agentic App was not submitted or enabled in the captured tenant, and Studio had no available MCP action. Final agent Preview, publication, and phone call remain to be completed. |
+1. Call your assigned number and ask for an update on `ORD-10482`. Confirm that the agent uses `lookup_order` and speaks the order status and delivery information.
+2. Call again and ask for a person. Confirm that the caller hears the escalation message and enters `Queue-1` wait treatment. If a test agent is available, confirm that the agent can answer.
+3. In Flow Designer **Debug**, open both Interaction IDs and check the **Handled** and **Escalated** paths. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If either call takes an unexpected path, use [Troubleshooting](troubleshooting.md) before marking the lab complete.
 
-Use the [completion checklist](troubleshooting.md) as checks to perform, not as a record that every check already passed. Screenshots identify which steps were exercised live and which still need runtime verification.
+## What the guide verifies
 
-## Lab environment and production use
+- The `SimpleQueue` practice flow was called live; **Debug** and **Analyze** show the queue path.
+- A live call through the refactored `ServiceDesk` order branch returned `Shipped` for synthetic order `ORD-10482` and entered queue treatment. The earlier direct REST version and callback practice path still need their own phone checks if you want to verify those variants.
+- Order Desk `lookup_order` worked in MCP Lab. The [published AI agent](assets/lab-guide/live/cp8-ai-agent-published.jpg) returned the order result in Preview, and its [Sessions trace](assets/lab-guide/live/cp8-session-lookup-order-success.jpg) recorded success. A Studio **Agent handover** badge shows a test-session request, not voice queue delivery.
+- The final `ServiceDesk` version 5 [passed Validation with 0 errors](assets/lab-guide/live/cp9-ai-flow-zero-errors.jpg) and was published as **Latest**. The final agent-led phone call and human escalation are still pending. Validation and publication do not establish the phone outcome.
 
-MCP Lab, Order Desk, the assigned organization, and the supplied credentials are temporary training resources. They demonstrate the integration pattern; they are not a production deployment.
+## Beyond the lab
 
-Before adapting this pattern for production, establish managed credential storage and rotation, app and tool ownership, schema and allowlist review, timeout and retry behavior, operational monitoring, auditable approval for write actions, data-handling rules, and tested error and escalation paths. Do not reuse the lab bearer token, lab URLs, or sandbox configuration. Continue with the [official product references](references.md).
+MCP Lab, Order Desk, the assigned organization, and its credentials are temporary training resources. For production use, plan managed credential storage and rotation, app and tool ownership, schema and allowlist review, timeout and retry behavior, monitoring, approval for write actions, data-handling rules, and tested error and escalation paths. Do not reuse the lab token, URLs, or sandbox configuration. See the [official product references](references.md).
 
-## Current guide
-
-This online guide contains the updated queue-treatment, Function, subflow, and MCP checkpoints. Earlier Word and PDF walkthroughs remain archived in the repository and do not include these updates.
+Use this [online guide](overview.md) for the current lab. Historical Word and PDF snapshots are kept in the repository under `archive/2026-09-23-pre-update-walkthrough/`; they predate the queue-treatment, Function, subflow, and MCP steps.

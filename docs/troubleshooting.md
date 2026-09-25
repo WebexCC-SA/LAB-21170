@@ -1,62 +1,53 @@
 # Troubleshooting and completion
 
-## Troubleshooting
+## If a step fails
 
 | Symptom | Check |
 | --- | --- |
-| Invalid lab token | Re-enter the event-provided token exactly; do not use a sandbox password or Webex login password. |
-| No Order Desk connection appears | Open **Test tenant details** and confirm that the assigned exercise includes an Order Desk endpoint. |
-| MCP Lab tool inspection fails | Return to the AI agent workspace and select **Connect MCP** on the lab-provided **Order Desk** card. If the tool catalog still does not load, ask the facilitator to check your lab assignment. |
-| A read asks for approval | Confirm that the tool name is one of the expected read tools and report the result to the facilitator. |
-| A ticket tool appears in the final voice agent | In Control Hub, leave `list_tickets`, `get_ticket`, `create_ticket`, and `update_ticket` disabled; attach only `lookup_order` in Agent Studio. |
-| The registered app does not appear in Control Hub | Confirm that you registered it with the assigned sandbox account, selected **Request admin approval** if available, and then refresh **Apps → Agentic Apps**. |
-| `lookup_order` does not appear in Agent Studio | If **Select available** says **No actions available**, confirm that the Agentic App was submitted in Developer Portal, is **Allowed** in Control Hub, has its Custom Headers authentication configured, and has `lookup_order` enabled under **Tools**. Refresh Studio after provisioning. |
-| Preview returns unavailable | Preview can open for a draft with no working MCP tool. Confirm that the attached action is the registered **MCP** `lookup_order`, then inspect its trace, input, Control Hub header, and tool permission. |
-| The agent cannot find the order | Confirm that MCP `lookup_order` is attached and receives `ORD-10482`; check the temporary sandbox bearer configured in the app's Control Hub Custom Headers setting. |
-| The agent still talks about packages | If you used the optional Track Package template, replace its Profile and Instructions copy and remove `trackPackage`. |
-| The practice call never enters `Queue-1` | Confirm the published `SimpleQueue` version is selected by the entry point, the welcome message reaches **Queue Contact**, and the queue choice is `Queue-1`. A saved draft alone will not handle the call. |
-| Queue treatment does not play or repeat | Confirm that the published **Queue Treatment Subflow** is selected in the main flow and the link reaches it after **Queue Contact**. Its four exposed inputs may use their published defaults; any mapped override needs a matching variable type. Check that digit `2`, no-input, and unmatched menu links return to the subflow rather than Queue Contact. |
-| Callback cannot be added or does not register | **Callback** is a main-flow activity and depends on queue and enterprise Courtesy Callback setup. Keep it outside the subflow; ask the facilitator to verify entitlement and caller number policy before testing the callback branch. |
-| A menu selection goes nowhere | For direct `ServiceDesk` v1, check digit `1` to `GetOrder`; for refactored v2, check digit `1` to `OrderLookup`. Digit `2` should reach `GeneralSupportMessage`. |
-| `ServiceDesk` Debug shows `SupportMenu` Error | Check the selected digit in Debug, if any, and the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs. Route them to a spoken fallback and safe disconnect, validate, publish, and retest. The captured version 2 trace did not expose a specific cause; version 3 repaired the fallback wiring but still needs a call. |
-| The phone number does not reach the intended flow | Confirm that the inbound entry point is **Active**, has the assigned Calling Location and PSTN number, and routes to the published flow's **Latest** version. The practice call uses `SimpleQueue`; later `ServiceDesk` versions require reassignment. |
-| The API call returns unauthorized | Confirm that the header key is `Authorization` and the value starts with `Bearer ` followed by the current temporary token. |
-| The order status is not spoken | Confirm that `orderStatus` exists as a custom **String** flow variable, the response parse content type is **JSON**, and its JSON path is `$.order.status`. |
-| Flow Designer cannot run the agent | Confirm that the agent is **Published**, **Contact Center AI Config** is **Webex AI Agent (Autonomous)**, **Virtual agent** is `LAB-21170 Order Support`, and all three activity outcomes are connected. |
+| MCP Lab rejects the token | Re-enter the event-provided **MCP Lab token**. Do not use a sandbox or Webex password. |
+| **Order Desk** is missing | Open **Test tenant details** and confirm that your assignment includes Order Desk. If **Connect MCP** does not load its tools, ask the facilitator to check the assignment. |
+| An Order Desk read asks for approval | Confirm the tool name and ask the facilitator to check the lab approval policy. The ticket-write exercise is separate and optional. |
+| The Agentic App is missing in Control Hub | In Developer Portal, check that you used the assigned sandbox account and selected **Request admin approval** if offered. Refresh **Apps → Agentic Apps** in the assigned organization. |
+| `lookup_order` is missing in AI Agent Studio | In **Apps → Agentic Apps**, open `LAB21170 Order Desk MCP`. Check **General → Allowed for all users**, a saved **Authentication → Custom Headers** `Authorization` value, and **Tools → Look up mock order** enabled. Keep the four ticket tools off. Refresh Studio. [Webex's provisioning guide](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) says tool lists can be cached for up to one hour. |
+| Preview says the order is unavailable | Confirm that the attached action is the registered MCP `lookup_order`. In **Sessions**, inspect its input and result. Check the Control Hub header and tool permission; enter `ORD-10482` again after fixing them. |
+| The agent mentions packages | Replace any Track Package template Profile and Instructions text, and remove `trackPackage`. |
+| The practice call does not reach `Queue-1` | Check that the entry point selects your published practice flow on **Latest**, **Queue Contact** selects `Queue-1`, and the welcome activity connects to the queue. A saved draft does not handle calls. |
+| Wait treatment does not play or repeat | Put **Queue Treatment Subflow** after **Queue Contact** in the main flow. Check its input types and return links for digit `2`, no input, and unmatched entries. |
+| Callback is unavailable | **Callback** stays in the main flow. Ask the facilitator to confirm Courtesy Callback entitlement, queue setup, and caller-number policy before testing digit `1`. |
+| An earlier menu choice goes nowhere | In the corrected menu-based `ServiceDesk` practice flow, digit `1` goes to `GetOrder` or `OrderLookup`; digit `2` goes directly to `Queue-1`. If **Debug** shows `SupportMenu` Error, check **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** links, then validate, publish, and call again. Final version 5 has no numbered menu. |
+| The number reaches the wrong flow | In Control Hub, check that the inbound entry point is **Active**, has the assigned Calling Location and PSTN number, and selects the intended **Routing flow** and **Latest** version label. |
+| REST returns unauthorized | In **HTTP Request**, check that the header key is `Authorization` and its value begins with `Bearer ` plus the current temporary token. Keep that value out of screenshots and source files. |
+| The REST order status is not spoken | Check the custom **String** `orderStatus` variable, **JSON** response parsing, and `$.order.status` path. Confirm the spoken message uses that variable. |
+| The final flow cannot run the agent | Check that the agent is **Published**; **Contact Center AI Config** is **Webex AI Agent (Autonomous)**; **Virtual agent** selects `LAB-21170 Order Support`; and **Handled**, **Escalated**, and **Errored** are connected. Publish the final `ServiceDesk` version and confirm the entry point uses **Latest**. |
+| A human request does not enter the queue | In **Debug**, follow **Escalated → EscalationMessage → HumanAgentQueue**. Check that **HumanAgentQueue** selects **Voice → Static queue → Queue-1** and its normal route enters wait treatment. A Studio **Agent handover** badge alone does not verify voice queue delivery. |
 
 ## Completion checklist
 
-- [ ] Control Hub organization and Contact Center area identified.
-- [ ] Native `SimpleQueue` template published, assigned to the entry point, and verified by phone, Debug, and Analyze.
-- [ ] Native **Comprehensive Call Flow** post-queue path inspected and the reusable **Queue Treatment Subflow** published.
-- [ ] Practice flow invokes the published queue-treatment subflow after **Queue Contact**; menu digit `2` repeats wait treatment by phone.
-- [ ] If Courtesy Callback is enabled, practice menu digit `1` registers a callback and the original call ends; Debug evidence is captured.
-- [ ] `ServiceDesk` Flow Designer draft created from scratch.
-- [ ] `NewContact` is the voice start event.
-- [ ] Starter IVR contains `WelcomeMessage` and `SupportMenu`.
-- [ ] Starter IVR published and assigned to an active inbound telephony channel using the assigned Webex Calling Location, PSTN number, and **Latest** version label.
-- [ ] Live call reaches the welcome prompt, menu, and digit `2` general-support message.
-- [ ] Menu digit `1` reaches the Order Desk HTTP test and digit `2` reaches `GeneralSupportMessage`.
-- [ ] HTTP request uses the full Order Desk URL, bearer header, Application/JSON request content type, and JSON response parsing.
-- [ ] Custom **String** variable `orderStatus` exists, reads `$.order.status`, and is spoken to the caller.
-- [ ] Direct REST branch is verified by phone and Debug for `ORD-10482`; check the parsed status against the Order Desk response.
-- [ ] The parser Function and guarded `OrderLookup` subflow are published, mapped into `ServiceDesk`, and verified by phone and Debug.
-- [ ] External Order Desk MCP discovered in MCP Lab.
-- [ ] `lookup_order` returns data for `ORD-10482`.
-- [ ] Automatic read behavior observed.
-- [ ] Optional MCP Lab ticket exercise: `create_ticket` pauses for approval; verify the result by reading the ticket list before retrying a failed assistant response.
-- [ ] `list_tickets`, `get_ticket`, `create_ticket`, and `update_ticket` are disabled for the final voice agent.
-- [ ] `LAB21170 Order Desk MCP` registered as a Streamable HTTP MCP Agentic App with Custom Headers authentication.
-- [ ] Private Agentic App allowed in Control Hub and `lookup_order` enabled.
-- [ ] `LAB-21170 Order Support` created as an autonomous Start Fresh agent, or the optional Track Package template fully cleaned up.
-- [ ] Profile and Instructions copy replaced with the provided order-support text.
-- [ ] No package-template action remains.
-- [ ] Registered `lookup_order` MCP action attached to the agent.
-- [ ] Agent Preview successfully returns data for `ORD-10482`.
-- [ ] Agent published before Flow Designer configuration.
-- [ ] Virtual Agent V2 uses **Webex AI Agent (Autonomous)** and the published `LAB-21170 Order Support` agent.
-- [ ] Virtual Agent V2 is connected directly after `NewContact`, with **Handled**, **Escalated**, and **Errored** paths connected.
-- [ ] End-to-end phone test completed.
-- [ ] No secrets included in screenshots, notes, or shared artifacts.
+The guide's captured `ServiceDesk` version 5 is published as **Latest**. Complete the phone and **Debug** checks below in your own sandbox before marking the final path done.
+
+### Practice flow and REST
+
+- ☐ Open your assigned Control Hub organization, entry point, and `Queue-1`.
+- ☐ Publish a **Simple Flow to Queue** practice flow, route the entry point to it, and verify calls in **Debug** and **Analyze**.
+- ☐ Publish **Queue Treatment Subflow** and connect it after **Queue Contact**. Call and press digit `2` at `CallbackOrWait` to repeat wait treatment.
+- ☐ If Courtesy Callback is enabled, call again, press digit `1` at `CallbackOrWait`, and confirm the callback and original-call outcome in **Debug**.
+- ☐ Publish the menu-based `ServiceDesk` practice flow. Confirm digit `1` reaches the order branch and digit `2` reaches `Queue-1`.
+- ☐ Configure the Order Desk **HTTP Request** with the full URL, `Authorization` bearer header, **Application/JSON** request content type, and **JSON** response parsing. Map `$.order.status` to the custom **String** `orderStatus` variable.
+- ☐ Call the direct REST branch and compare the spoken result with Order Desk and **Debug**.
+- ☐ Publish the parser Function and `OrderLookup` subflow, map its output into `ServiceDesk`, republish the parent, and verify the order and general-support branches by phone and **Debug**.
+
+### MCP and AI agent
+
+- ☐ Connect Order Desk in MCP Lab, inspect its five tools, and confirm that `lookup_order` returns `ORD-10482` data without write approval.
+- ☐ If you try the optional ticket write, approve it once and read the ticket list before retrying any uncertain result.
+- ☐ Register `LAB21170 Order Desk MCP` as a **Streamable HTTP** Agentic App with **Custom Headers** authentication. Allow it in Control Hub and enable only **Look up mock order** (`lookup_order`). Leave `list_tickets`, `get_ticket`, `create_ticket`, and `update_ticket` off.
+- ☐ Create `LAB-21170 Order Support` as an autonomous agent. Replace the Profile and Instructions text, remove any package-template action, attach `lookup_order`, confirm the Preview result, and publish the agent.
+
+### Final phone path
+
+- ☐ Connect `NewContact` directly to **Virtual Agent V2** using **Webex AI Agent (Autonomous)**. Wire **Handled**, **Escalated**, and **Errored**, including `Queue-1` wait treatment and spoken error fallbacks.
+- ☐ Validate and publish the final `ServiceDesk` flow. Confirm the published version is **Latest** (version 5 in this guide) and the active entry point selects `ServiceDesk` **Latest**.
+- ☐ Make an order-status call and a human-escalation call. In **Debug**, confirm the first follows **AIAgent → Handled** and the second enters `Queue-1` and wait treatment. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If a test agent is available, confirm the agent can answer.
+- ☐ Keep bearer tokens, passwords, caller numbers, and customer details out of shared screenshots, GIFs, notes, and source files.
 
 [Finish the lab](conclusion.md){ .md-button .md-button--primary }
