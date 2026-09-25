@@ -1,0 +1,1810 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action">
+      
+      
+        <meta name="author" content="Adam Weeks and Arunabh Bhattacharjee">
+      
+      
+      
+        <link rel="prev" href="../lab1_getting_started/">
+      
+      
+        <link rel="next" href="../lab3_agent_registration/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../template_assets/webex75.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Checkpoints 2-3 - Flow Designer - LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#checkpoints-2-3-build-and-call-the-starter-flow" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-header__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Checkpoints 2-3 - Flow Designer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../welcome/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lab
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-nav__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../welcome/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Welcome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1_getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 1 - Lab access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 2-3 - Flow Designer
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 2-3 - Flow Designer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-2-learn-flow-designer-with-a-queue-template-then-build-servicedesk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint 2: Learn Flow Designer with a queue template, then build ServiceDesk
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint 2: Learn Flow Designer with a queue template, then build ServiceDesk">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#part-a-publish-your-first-flow-from-a-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part A: Publish your first flow from a template
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part A: Publish your first flow from a template">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-flow-designer-and-choose-the-template" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Flow Designer and choose the template
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-the-caller-path-and-configure-the-queue" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect the caller path and configure the queue
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-and-publish-the-practice-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validate and publish the practice flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-an-entry-point-to-the-flow-and-make-test-calls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route an entry point to the flow and make test calls
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-a-single-call-in-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read a single call in Debug
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare-the-calls-in-analyze" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare the calls in Analyze
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#part-b-build-servicedesk-and-add-queue-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part B: Build ServiceDesk and add queue treatment
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Part B: Build ServiceDesk and add queue treatment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#open-the-flow-workspace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open the flow workspace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create the flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#confirm-the-blank-canvas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Confirm the blank canvas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-starter-ivr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build the starter IVR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#publish-the-starter-ivr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publish the starter IVR
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-reusable-queue-treatment-subflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a reusable queue-treatment subflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#offer-a-callback-or-another-wait-cycle-in-the-practice-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Offer a callback or another wait cycle in the practice flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-queue-treatment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test the queue treatment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-the-entry-point-to-servicedesk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Route the entry point to ServiceDesk
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#call-the-starter-ivr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Call the starter IVR
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checkpoint-3-call-the-order-desk-rest-api-from-flow-designer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checkpoint 3: Call the Order Desk REST API from Flow Designer
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checkpoint 3: Call the Order Desk REST API from Flow Designer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-the-api-branch-by-phone" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Test the API branch by phone
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#explore-flow-debugging-and-flow-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Explore Flow Debugging and Flow Analytics
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-a-function-to-read-the-order-desk-response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create a Function to read the Order Desk response
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#refactor-getorder-into-a-subflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Refactor GetOrder into a subflow
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-the-subflow-from-servicedesk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Use the subflow from ServiceDesk
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3_agent_registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 4-5 - Connect and test MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4_mcp_agent_studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 6-8 - Register MCP and build agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5_end_to_end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 9 - End-to-end test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting and completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Official references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="checkpoints-2-3-build-and-call-the-starter-flow">Checkpoints 2-3: Build and call the starter flow</h1>
+<h2 id="checkpoint-2-learn-flow-designer-with-a-queue-template-then-build-servicedesk">Checkpoint 2: Learn Flow Designer with a queue template, then build <code>ServiceDesk</code></h2>
+<h3 id="part-a-publish-your-first-flow-from-a-template">Part A: Publish your first flow from a template</h3>
+<p>Start with a small, working voice flow. You will inspect the Flow Designer canvas, replace the template's sample queue with your lab queue, publish the flow, and then use <strong>Debug</strong> and <strong>Analyze</strong> to understand what happened on test calls. Keep this practice flow separate from the <code>ServiceDesk</code> flow you will build in Part B.</p>
+<h4 id="open-flow-designer-and-choose-the-template">Open Flow Designer and choose the template</h4>
+<ol>
+<li>Sign in to <a href="https://admin.webex.com">Control Hub</a> with your lab account.</li>
+<li>Open <strong>Contact Center → Customer Experience → Flows</strong>. Select <strong>Manage Flows → Create Flows</strong>. Flow Designer opens in a new tab. You can also bookmark the <a href="https://flow-control.produs1.ciscoccservice.com/flow">ProdUS1 Flow Designer</a> for this lab tenant.</li>
+<li>Choose <strong>Flow</strong>, then <strong>Use a template</strong>. Find <strong>Simple Inbound Call to Queue</strong> and select it.</li>
+<li>Give the new flow a unique name without spaces, such as <code>LAB21170_SimpleQueue_&lt;your_initials&gt;</code>, then select <strong>Create flow</strong>. The screenshots below use <code>LAB21170_SimpleQueue_ARUN</code> as the example name; create your own flow if you are sharing the tenant.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-template-gallery.png" data-title="Flow template gallery with Simple Inbound Call to Queue selected" data-desc-position="top"><img alt="Flow template gallery with Simple Inbound Call to Queue selected" src="../assets/lab-guide/live/cp2-template-gallery.png"></a>
+  </p>
+<figcaption>Select the Simple Inbound Call to Queue template.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-template-config.png" data-title="Flow creation screen showing the chosen template and flow name" data-desc-position="top"><img alt="Flow creation screen showing the chosen template and flow name" src="../assets/lab-guide/live/cp2-template-config.png"></a>
+  </p>
+<figcaption>Name your practice flow before creating it.</figcaption>
+</figure>
+<h4 id="inspect-the-caller-path-and-configure-the-queue">Inspect the caller path and configure the queue</h4>
+<ol>
+<li>Trace the connected activities on the canvas: <strong>WelcomePrompt → Queue Contact → Music → PlayMessage</strong>. The queue step places the caller in a human-agent queue; the music and follow-up message are treatment while the caller waits.</li>
+<li>Select <strong>WelcomePrompt</strong>. In its prompt settings, confirm that text-to-speech is enabled and the connector is <strong>Cisco Cloud Text-to-Speech</strong>. Play or read the configured greeting so you know what to expect on the call.</li>
+<li>Select <strong>Queue Contact</strong>. The template's sample queue <code>Q_arubhatt</code> is not the queue for this lab tenant. Replace it with <strong>Queue-1</strong>. Confirm the selected queue is saved before you publish.</li>
+<li>Inspect the <strong>Music</strong> and <strong>PlayMessage</strong> activities. Follow the outgoing links so you can see how the waiting treatment repeats or ends. An agent may answer before every waiting activity plays.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-welcome-prompt.png" data-title="WelcomePrompt settings with Cisco Cloud Text-to-Speech selected" data-desc-position="top"><img alt="WelcomePrompt settings with Cisco Cloud Text-to-Speech selected" src="../assets/lab-guide/live/cp2-welcome-prompt.png"></a>
+  </p>
+<figcaption>Check the greeting and text-to-speech connector.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-queue-target.png" data-title="Queue Contact settings changed from the sample queue to Queue-1" data-desc-position="top"><img alt="Queue Contact settings changed from the sample queue to Queue-1" src="../assets/lab-guide/live/cp2-queue-target.png"></a>
+  </p>
+<figcaption>Route this lab flow to Queue-1.</figcaption>
+</figure>
+<h4 id="validate-and-publish-the-practice-flow">Validate and publish the practice flow</h4>
+<ol>
+<li>Turn on <strong>Validation</strong>. Resolve any errors shown on the canvas. The example flow shows <strong>0 errors</strong> after selecting <code>Queue-1</code>.</li>
+<li>Select <strong>Publish</strong>. In the publish dialog, <strong>Latest</strong> is applied automatically. You may also select the offered <strong>Test</strong> version label and enter a short publish comment. The version label is selected from the dialog; it is not a free-text field.</li>
+<li>Publish and confirm that the flow is <strong>Published</strong> at version <code>v1</code>. You can now open <strong>Debug</strong> and <strong>Analyze</strong> for this flow.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-validation.png" data-title="Flow Designer validation showing zero errors before publishing" data-desc-position="top"><img alt="Flow Designer validation showing zero errors before publishing" src="../assets/lab-guide/live/cp2-validation.png"></a>
+  </p>
+<figcaption>Publish only after Validation shows 0 errors.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-publish-dialog.png" data-title="Publish dialog showing Latest and optional Test version labels" data-desc-position="top"><img alt="Publish dialog showing Latest and optional Test version labels" src="../assets/lab-guide/live/cp2-publish-dialog.png"></a>
+  </p>
+<figcaption>Latest is automatic; Test and a comment are optional.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-published-v1.png" data-title="Published practice flow at version one with Debug and Analyze available" data-desc-position="top"><img alt="Published practice flow at version one with Debug and Analyze available" src="../assets/lab-guide/live/cp2-published-v1.png"></a>
+  </p>
+<figcaption>The practice flow is published as version 1.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp2-template-to-publish.gif" data-title="Screenshot sequence from Simple Inbound Call to Queue template selection through queue setup, validation, and publishing" data-desc-position="top"><img alt="Screenshot sequence from Simple Inbound Call to Queue template selection through queue setup, validation, and publishing" src="../assets/lab-guide/gifs/cp2-template-to-publish.gif"></a>
+  </p>
+<figcaption>Screenshot sequence: choose the template, set the queue and greeting, validate, then publish.</figcaption>
+</figure>
+<h4 id="route-an-entry-point-to-the-flow-and-make-test-calls">Route an entry point to the flow and make test calls</h4>
+<ol>
+<li>Return to <strong>Control Hub → Contact Center → Customer Experience → Entry Points</strong>. Open the inbound voice entry point assigned to your lab sandbox and note its phone number. This area may be called <strong>Channels</strong> in other versions of Control Hub.</li>
+<li>In that entry point's routing configuration, select your newly published practice flow and the <strong>Latest</strong> version label, then save. Confirm the entry point now shows the practice flow before dialing. If the assigned entry point already serves another lab participant, use the entry point your facilitator assigned to you.</li>
+<li>Call the entry point's phone number. Listen for the welcome prompt, then confirm that the call reaches <code>Queue-1</code>. If no agent is available, listen for the queue music and follow-up message. End the call after you have heard enough to identify the path.</li>
+<li>Make two or three additional calls. Allow each call to finish so it can appear in Flow Analytics. Try changing how long you remain in queue to see whether the waiting treatment executes.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-entry-point-route.png" data-title="Inbound entry point routing configuration with the published practice flow selected" data-desc-position="top"><img alt="Inbound entry point routing configuration with the published practice flow selected" src="../assets/lab-guide/live/cp2-entry-point-route.png"></a>
+  </p>
+<figcaption>Assign the published practice flow to your lab entry point.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-entry-point-saved.png" data-title="Saved entry point showing the practice flow as its routing flow" data-desc-position="top"><img alt="Saved entry point showing the practice flow as its routing flow" src="../assets/lab-guide/live/cp2-entry-point-saved.png"></a>
+  </p>
+<figcaption>Confirm the routing assignment was saved before calling.</figcaption>
+</figure>
+<h4 id="read-a-single-call-in-debug">Read a single call in Debug</h4>
+<ol>
+<li>Reopen your practice flow and select <strong>Debug</strong>. Flow Debugging is a postcall view, so look for a completed test interaction.</li>
+<li>Find the call by its time or interaction ID and select it. Follow the highlighted path on the canvas from <strong>WelcomePrompt</strong> through <strong>Queue Contact</strong> and any waiting activities that ran.</li>
+<li>Select an activity in the execution list to inspect its outcome, inputs, outputs, and modified variables. Compare two calls that spent different amounts of time in queue. When capturing a screenshot, hide caller numbers and other personal data.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-debug-interactions.png" data-title="Debug interactions list populated by test calls" data-desc-position="top"><img alt="Debug interactions list populated by test calls" src="../assets/lab-guide/live/cp2-debug-interactions.png"></a>
+  </p>
+<figcaption>Completed test calls appear as separate interactions in Debug.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-debug-trace.png" data-title="Successful Debug trace through welcome, queue, waiting treatment, and end flow" data-desc-position="top"><img alt="Successful Debug trace through welcome, queue, waiting treatment, and end flow" src="../assets/lab-guide/live/cp2-debug-trace.png"></a>
+  </p>
+<figcaption>One observed call followed NewPhoneContact → WelcomePrompt → Queue → Music → PlayMessage_c24 → Music → ContactEnded → EndFlow.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-debug-queue-detail.png" data-title="Debug details for the Queue activity in a completed test call" data-desc-position="top"><img alt="Debug details for the Queue activity in a completed test call" src="../assets/lab-guide/live/cp2-debug-queue-detail.png"></a>
+  </p>
+<figcaption>Inspect the Queue activity's outcome and details for the selected call.</figcaption>
+</figure>
+<h4 id="compare-the-calls-in-analyze">Compare the calls in Analyze</h4>
+<ol>
+<li>Select <strong>Analyze</strong> on the same flow. Choose a time window that includes your completed calls; <strong>Last 15 minutes</strong> is the default in the current Flow Analytics documentation.</li>
+<li>Compare total flow executions and the counts or percentages on the canvas links. A loop may execute an activity more than once during one call, so an activity count can exceed the number of calls.</li>
+<li>Check whether the welcome, queue, and waiting paths match what you heard and what Debug showed for each individual call. Analytics counts completed calls in the selected period; an active or unfinished call may not appear yet.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-analyze-overview.png" data-title="Analyze overview showing two flow executions and no node errors" data-desc-position="top"><img alt="Analyze overview showing two flow executions and no node errors" src="../assets/lab-guide/live/cp2-analyze-overview.png"></a>
+  </p>
+<figcaption>Read the completed-call count, node errors, and path usage. This capture shows two executions; your counts will reflect your test calls.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-analyze-queue-usage.png" data-title="Analyze activity usage showing three call interactions for the Queue activity" data-desc-position="top"><img alt="Analyze activity usage showing three call interactions for the Queue activity" src="../assets/lab-guide/live/cp2-analyze-queue-usage.png"></a>
+  </p>
+<figcaption>Select <strong>Queue</strong> to inspect its activity count. This capture shows three call interactions; set the same time window before comparing counts.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp2-debug-to-analyze.gif" data-title="Screenshot sequence showing a completed interaction in Debug followed by aggregate path and Queue usage in Analyze" data-desc-position="top"><img alt="Screenshot sequence showing a completed interaction in Debug followed by aggregate path and Queue usage in Analyze" src="../assets/lab-guide/gifs/cp2-debug-to-analyze.gif"></a>
+  </p>
+<figcaption>Screenshot sequence: inspect one call in Debug, then compare completed calls in Analyze.</figcaption>
+</figure>
+<div class="admonition success">
+<p class="admonition-title">Compare your calls with the example trace</p>
+<p>In <strong>Debug</strong>, confirm a completed waiting call passes through the welcome, queue, music, waiting message, and EndFlow. In <strong>Analyze</strong>, compare executions, activity counts, and node errors with your calls. Counts depend on the selected time window.</p>
+</div>
+<p>The detailed <a href="https://help.webex.com/article/nhovcy4">Flow Designer guide</a> explains templates, entry point routing, Debug, and Flow Analytics.</p>
+<h3 id="part-b-build-servicedesk-and-add-queue-treatment">Part B: Build <code>ServiceDesk</code> and add queue treatment</h3>
+<h4 id="open-the-flow-workspace">Open the flow workspace</h4>
+<ol>
+<li>Sign in to the Webex sandbox listed in <strong>Test tenant details</strong>.</li>
+<li>In <strong>Control Hub</strong>, open <strong>Contact Center → Customer Experience → Flows</strong>.</li>
+<li>Select <strong>Manage Flows → Create Flows</strong>.</li>
+<li>On the <strong>Flow creation</strong> screen, select <strong>Flow</strong> and <strong>Start from scratch</strong>, then select <strong>Next</strong>.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/02-flow-creation.png" data-title="Flow creation options with Flow and Start from scratch selected" data-desc-position="top"><img alt="Flow creation options with Flow and Start from scratch selected" src="../assets/lab-guide/02-flow-creation.png"></a>
+  </p>
+<figcaption>Create a voice flow from a blank canvas.</figcaption>
+</figure>
+<h4 id="create-the-flow">Create the flow</h4>
+<ol>
+<li>Name the flow <code>ServiceDesk</code> and select <strong>Create flow</strong>. In a shared organization, append your assigned unique lab code, for example <code>ServiceDesk_G09</code>. Use that flow wherever the guide says <code>ServiceDesk</code>; the screenshots show the unsuffixed example.</li>
+<li>Leave the new flow in <strong>Draft</strong> while you build it.</li>
+</ol>
+<h4 id="confirm-the-blank-canvas">Confirm the blank canvas</h4>
+<ol>
+<li>Confirm that the canvas contains the <code>NewContact</code> start event.</li>
+<li>Select <code>NewContact</code> and confirm that its channel type is <strong>Voice</strong>.</li>
+<li>Confirm that <strong>Autosave</strong> is on. Flow Designer saves draft changes automatically; wait for the saved status before leaving the page.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-servicedesk-blank.png" data-title="Live blank ServiceDesk flow with the NewContact voice start event" data-desc-position="top"><img alt="Live blank ServiceDesk flow with the NewContact voice start event" src="../assets/lab-guide/live/cp2-servicedesk-blank.png"></a>
+  </p>
+<figcaption>The new ServiceDesk draft starts with NewContact on the Voice channel.</figcaption>
+</figure>
+<h4 id="build-the-starter-ivr">Build the starter IVR</h4>
+<p>Build both menu choices before publishing. Digit <code>2</code> must enter <code>Queue-1</code> directly.</p>
+<ol>
+<li>Turn <strong>Edit</strong> on.</li>
+<li>Under <strong>Voice</strong>, drag <strong>Play Message</strong> onto the canvas. In <strong>General settings</strong>, set <strong>Activity label</strong> to <code>WelcomeMessage</code>.</li>
+<li>Connect <code>NewContact</code> to <code>WelcomeMessage</code>.</li>
+<li>
+<p>In the activity's <strong>Prompt</strong> settings, turn on <strong>Enable text-to-speech</strong>, set <strong>Connector</strong> to <strong>Cisco Cloud Text-to-Speech</strong>, select <strong>Add text-to-speech message</strong>, and enter: <code>Welcome to the order support lab.</code></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-servicedesk-welcome-prompt-v4.jpg" data-title="Published ServiceDesk WelcomeMessage settings showing Cisco Cloud Text-to-Speech and the welcome text" data-desc-position="top"><img alt="Published ServiceDesk WelcomeMessage settings showing Cisco Cloud Text-to-Speech and the welcome text" src="../assets/lab-guide/live/cp2-servicedesk-welcome-prompt-v4.jpg"></a>
+  <figcaption markdown="span">Check the welcome text and Cisco Cloud Text-to-Speech connector. This read-only capture is from the later menu version.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Drag <strong>Menu</strong> onto the canvas. In <strong>General settings</strong>, set <strong>Activity label</strong> to <code>SupportMenu</code>.</p>
+</li>
+<li>Connect <code>WelcomeMessage</code> to <code>SupportMenu</code>.</li>
+<li>In the Menu's <strong>Prompt</strong> settings, turn on <strong>Enable text-to-speech</strong>, select <strong>Cisco Cloud Text-to-Speech</strong>, add a text-to-speech message, and enter: <code>Press 1 for order support. Press 2 for general support.</code></li>
+<li>
+<p>Under <strong>Custom links</strong>, add digit <code>1</code> with the label <strong>Order Support</strong> and digit <code>2</code> with the label <strong>General Support</strong>.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-servicedesk-menu-prompt-v4.jpg" data-title="Published SupportMenu settings showing the text-to-speech prompt for order and general support" data-desc-position="top"><img alt="Published SupportMenu settings showing the text-to-speech prompt for order and general support" src="../assets/lab-guide/live/cp2-servicedesk-menu-prompt-v4.jpg"></a>
+  <figcaption markdown="span">Set the spoken Menu prompt for both choices.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-servicedesk-menu-links-v4.jpg" data-title="Published SupportMenu settings showing custom links 1 Order Support and 2 General Support" data-desc-position="top"><img alt="Published SupportMenu settings showing custom links 1 Order Support and 2 General Support" src="../assets/lab-guide/live/cp2-servicedesk-menu-links-v4.jpg"></a>
+  <figcaption markdown="span">Add the two digit links before connecting their outgoing paths.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Add <strong>Queue Contact</strong>, select the assigned <code>Queue-1</code> queue, and connect the digit <code>2</code> <strong>General Support</strong> output directly to it. This choice is a request for a human agent; it should not play a placeholder message and disconnect.</p>
+</li>
+<li>After <strong>Queue Contact</strong>, add <strong>Play Music</strong> and a <strong>Play Message</strong> labeled <code>PleaseWait</code>. Use Cisco Cloud Text-to-Speech for a short prompt such as <code>Please wait while we connect you.</code> Connect the Queue Contact normal output to Play Music, Play Music to <code>PleaseWait</code>, and <code>PleaseWait</code> back to Play Music. An agent may answer before every treatment activity runs.</li>
+<li>Add another <strong>Play Message</strong> labeled <code>QueueErrorMessage</code>. Use Cisco Cloud Text-to-Speech for: <code>I can't connect you to a person right now. Please try again later.</code> Connect Queue Contact <strong>Failure</strong> and any exposed treatment <strong>Undefined Error</strong> output to <code>QueueErrorMessage</code>.</li>
+<li>Add a temporary <strong>Play Message</strong> activity named <code>OrderSupportPending</code>. Use Cisco Cloud Text-to-Speech for: <code>Order support will be added in the next checkpoint.</code> Connect the digit <code>1</code> output from <code>SupportMenu</code> to this message. You will replace this link with the HTTP Request in Checkpoint 3.</li>
+<li>Add a <strong>Play Message</strong> named <code>MenuFallbackMessage</code> with: <code>I did not get a valid choice. Please call again.</code> Connect the Menu's <strong>No-Input Timeout</strong>, <strong>Unmatched Entry</strong>, and <strong>Undefined Error</strong> outputs to this safe fallback.</li>
+<li>Add <strong>Disconnect Contact</strong> named <code>DisconnectContact</code>. Connect the outputs of <code>OrderSupportPending</code>, <code>MenuFallbackMessage</code>, and <code>QueueErrorMessage</code> to it. Connect <code>QueueErrorMessage</code>'s <strong>Undefined Error</strong> output directly to <code>DisconnectContact</code> as well. Keep the digit <code>2</code> normal queue route separate from this disconnect path.</li>
+<li>Wait for Autosave, then confirm that both Menu choices and every fallback have a valid destination. Validate before publishing.</li>
+</ol>
+<p>Your starter path should now look like this:</p>
+<ul>
+<li><strong>Order support:</strong> <code>NewContact → WelcomeMessage → SupportMenu → 1 → OrderSupportPending → DisconnectContact</code></li>
+<li><strong>General support:</strong> <code>SupportMenu → 2 → Queue Contact (Queue-1) → wait treatment</code> until an agent answers or the call ends</li>
+<li><strong>Invalid or missing input:</strong> <code>SupportMenu → MenuFallbackMessage → DisconnectContact</code></li>
+</ul>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-general-support-queue-validated.jpg" data-title="Corrected ServiceDesk menu with digit 2 connected to Queue Contact and validation showing zero errors" data-desc-position="top"><img alt="Corrected ServiceDesk menu with digit 2 connected to Queue Contact and validation showing zero errors" src="../assets/lab-guide/live/cp3-general-support-queue-validated.jpg"></a>
+  </p>
+<figcaption>Check the digit <code>2</code> link into Queue Contact and <strong>0 errors</strong>. This capture includes later order-lookup nodes; your starter canvas has fewer activities.</figcaption>
+</figure>
+<p>You will add the final <strong>Virtual Agent V2</strong> activity in Checkpoint 9. The published menu-based version remains available in version history as a recovery and learning reference; remove its starter IVR nodes from the final AI draft after reusing the queue treatment, then confirm zero-error Validation before publishing.</p>
+<h4 id="publish-the-starter-ivr">Publish the starter IVR</h4>
+<p>Publish this version so you can hear the flow after the queue-treatment exercise and before adding the API branch.</p>
+<ol>
+<li>Turn on <strong>Validation</strong> and resolve any errors that prevent publication.</li>
+<li>Select <strong>Publish</strong>. In the publish dialog, <strong>Latest</strong> is applied automatically. You can also select the offered <strong>Test</strong> label and add a comment. There is no free-text version-label field.</li>
+<li>Publish and confirm that <code>ServiceDesk</code> has a published version. Do not change the entry-point routing yet; keep it on the practice flow for the queue-treatment exercise below.</li>
+</ol>
+<h4 id="create-a-reusable-queue-treatment-subflow">Create a reusable queue-treatment subflow</h4>
+<p>First inspect the <strong>Comprehensive Call Flow</strong> main-flow template in the gallery. Trace <strong>Queue → GetPositioninQueue → SetPIQvalue → AgentBusy → PlayPIQ → CallerMenu</strong>. From <code>CallerMenu</code>, digit <code>1</code> goes to <strong>Callback → Disconnect</strong>, digit <code>2</code> to a voicemail <strong>Blind Transfer</strong>, and digit <code>3</code> through <strong>MusicOnHold → CallLoopCycle</strong> for another wait cycle. No input goes to <strong>ThankYou → Disconnect</strong>; invalid input returns to <code>CallerMenu</code>. The visible <code>FinalMenu</code> has no inbound link in the native draft, so it is outside the running path.</p>
+<p>Use this as a design reference. <strong>Callback</strong> and <strong>Blind Transfer</strong> are absent from the subflow palette. Build the audible wait with the <strong>Queue Treatment Subflow</strong> template below. Keep <strong>Queue Contact</strong>, <strong>Callback</strong>, and any voicemail transfer in the main flow. Your phone test later in this checkpoint checks the subflow you publish.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-comprehensive-postqueue-reference.png" data-title="Connected post-queue branches in the native Comprehensive Call Flow template" data-desc-position="top"><img alt="Connected post-queue branches in the native Comprehensive Call Flow template" src="../assets/lab-guide/live/cp2-comprehensive-postqueue-reference.png"></a>
+  </p>
+<figcaption>The native template's <code>CallerMenu</code> offers callback, voicemail transfer, or another music loop. It is a design reference; the reusable subflow below contains only the supported waiting treatment.</figcaption>
+</figure>
+<p>The <a href="https://help.webex.com/article/nhovcy4">Queue Treatment Subflow template</a> provides an audible wait: music, a text-to-speech message, more music, and a bounded repeat. It does not place the call in a queue. The <strong>Queue Contact</strong> activity stays in the main flow, before the subflow.</p>
+<ol>
+<li>Return to <strong>Control Hub → Contact Center → Customer Experience → Flows → Subflows</strong>. Select <strong>Manage Subflows → Create Subflow</strong>.</li>
+<li>Choose <strong>Subflow → Use a template</strong>, select <strong>Queue Treatment Subflow</strong>, and continue. The gallery also offers <strong>Collect Callback Info Subflow</strong>; this exercise uses a simple callback menu in the main flow instead.</li>
+<li>Enter a unique name without spaces, such as <code>LAB21170_QueueTreatment_&lt;your_initials&gt;</code>, then select <strong>Create subflow</strong>.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-subflow-templates.png" data-title="Subflow template gallery showing Queue Treatment and Collect Callback Info" data-desc-position="top"><img alt="Subflow template gallery showing Queue Treatment and Collect Callback Info" src="../assets/lab-guide/live/cp2-subflow-templates.png"></a>
+  </p>
+<figcaption>Choose Queue Treatment Subflow for the reusable waiting path.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-subflow-create.png" data-title="Subflow configuration form with a unique no-space name" data-desc-position="top"><img alt="Subflow configuration form with a unique no-space name" src="../assets/lab-guide/live/cp2-subflow-create.png"></a>
+  </p>
+<figcaption>Name the subflow before opening its canvas.</figcaption>
+</figure>
+<p>On the subflow canvas:</p>
+<ol>
+<li>Follow the template path from <strong>Start Subflow</strong> through its <strong>Condition</strong>, two <strong>Play Music</strong> activities, <strong>Play Message</strong>, <strong>Set Variable</strong>, and <strong>End Subflow</strong>. The condition and counter bound the internal music/message loop. Keep those links intact.</li>
+<li>In the subflow variable definitions, inspect its four exposed inputs: <code>queueMessage</code> (String), <code>queueMusic1</code> (String), <code>queueMusic2</code> (String), and <code>musicDuration</code> (Integer). The live template starts with <code>Please wait</code>, <code>defaultmusic_on_hold.wav</code> for both music inputs, and <code>10</code> seconds for <code>musicDuration</code>. Open <code>musicDuration</code>, change its <strong>Default value</strong> to <code>3</code>, and save. This shortens the wait before the callback-or-wait menu to about 15–20 seconds in the tested flow. You may change the waiting message to <code>Please stay on the line while we connect you.</code> before publishing. The <code>counter</code> variable starts at <code>0</code> but is internal to this template, so it is not a main-flow input to map. The template exposes no output variable.</li>
+<li>Check that the <strong>Play Message</strong> activity uses Cisco Cloud Text-to-Speech and reads <code>queueMessage</code>. Confirm that each <strong>Play Music</strong> activity uses the intended audio file and duration.</li>
+<li>Turn on <strong>Validation</strong>. Resolve errors, then select <strong>Publish Subflow</strong>. Confirm the subflow has a published version before you add it to a main flow.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-short-wait-duration.jpg" data-title="musicDuration input variable set to an Integer default of 3" data-desc-position="top"><img alt="musicDuration input variable set to an Integer default of 3" src="../assets/lab-guide/live/cp2-short-wait-duration.jpg"></a>
+  </p>
+<figcaption>Set the subflow's <code>musicDuration</code> default to <code>3</code> seconds before publishing.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-queue-treatment-template.png" data-title="Queue Treatment Subflow draft showing its music and message loop" data-desc-position="top"><img alt="Queue Treatment Subflow draft showing its music and message loop" src="../assets/lab-guide/live/cp2-queue-treatment-template.png"></a>
+  </p>
+<figcaption>The template draft repeats music and a message before End Subflow.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-queue-treatment-validation.png" data-title="Queue Treatment Subflow draft with zero validation errors" data-desc-position="top"><img alt="Queue Treatment Subflow draft with zero validation errors" src="../assets/lab-guide/live/cp2-queue-treatment-validation.png"></a>
+  </p>
+<figcaption>The inspected draft showed 0 validation errors and one optional description recommendation. Publish your own configured copy.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp2-queue-treatment-subflow.gif" data-title="Reference screenshot sequence for selecting, inspecting, validating, and publishing the Queue Treatment Subflow template" data-desc-position="top"><img alt="Reference screenshot sequence for selecting, inspecting, validating, and publishing the Queue Treatment Subflow template" src="../assets/lab-guide/gifs/cp2-queue-treatment-subflow.gif"></a>
+  </p>
+<figcaption>Use this sequence for the template and publication screens. Set <code>musicDuration</code> to <code>3</code> as shown above before publishing your copy.</figcaption>
+</figure>
+<p>Publish your configured subflow before selecting it in a main flow. The validation screenshot shows a draft; confirm its call behavior after you connect the published subflow below.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-short-wait-subflow-v2-latest.jpg" data-title="Queue Treatment Subflow version 2 published with the Latest label" data-desc-position="top"><img alt="Queue Treatment Subflow version 2 published with the Latest label" src="../assets/lab-guide/live/cp2-short-wait-subflow-v2-latest.jpg"></a>
+  </p>
+<figcaption>After changing the duration, confirm the new subflow version has the <strong>Latest</strong> label. This example is version 2.</figcaption>
+</figure>
+<h4 id="offer-a-callback-or-another-wait-cycle-in-the-practice-flow">Offer a callback or another wait cycle in the practice flow</h4>
+<p>Return to the practice flow from Part A. It already has <strong>Queue Contact</strong> configured for <code>Queue-1</code>, so you can add treatment without changing <code>ServiceDesk</code> or the Order Desk branch used in Checkpoint 3. Webex places the <a href="https://help.webex.com/article/nhovcy4">Courtesy Callback</a> activity in a main flow after <strong>Queue Contact</strong>; the subflow canvas does not provide that activity. Courtesy Callback requires the queue and enterprise callback feature to be enabled. If your lab queue does not have Callback, build the wait-only path in steps 3–4 and skip steps 5–6. <strong>Schedule Callback</strong> is a different activity for a chosen future time and needs a callback entry point and scheduling inputs.</p>
+<ol>
+<li>Open the Part A practice flow and turn <strong>Edit</strong> on. Disconnect <strong>Queue Contact</strong> from the template's <strong>Music</strong> activity. Keep the original <strong>Music → PlayMessage</strong> pair while you wire the replacement, then remove it after the new path validates.</li>
+<li>Open the <strong>Subflows</strong> tab of the main-flow activity library, add your published queue-treatment subflow, and select its <strong>Latest</strong> version label. Its four exposed inputs can remain unmapped when you want the published defaults: <code>musicDuration = 3</code>, <code>queueMessage = Please wait</code>, and <code>queueMusic1</code> and <code>queueMusic2</code> both use <code>defaultmusic_on_hold.wav</code>. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's <code>counter</code> is internal; it is not a fifth input. The subflow has no output to map. Connect <strong>Queue Contact → Queue Treatment Subflow</strong>.</li>
+<li>Add a <strong>Menu</strong> after the subflow and label it <code>CallbackOrWait</code>. If Callback is enabled for your lab queue, use Cisco Cloud Text-to-Speech for: <code>Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.</code> Add custom links for digit <code>1</code> (<strong>Callback</strong>) and digit <code>2</code> (<strong>Keep Waiting</strong>). Otherwise, use: <code>Press 2 to keep waiting for an agent.</code> Add only the digit <code>2</code> link; do not offer a callback the queue cannot register.</li>
+<li>Connect digit <code>2</code>, <strong>No-Input Timeout</strong>, and <strong>Unmatched Entry</strong> directly back to <strong>Queue Treatment Subflow</strong>. Do not loop to <strong>Queue Contact</strong>; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.</li>
+<li>If Callback is enabled, add <strong>Callback</strong> from the main-flow <strong>Voice</strong> activities and connect digit <code>1</code> to it. Set <strong>Callback dial number</strong> to <code>NewPhoneContact.ANI</code> so the return call goes to the caller. Select the lab's approved <strong>Static Callback ANI</strong> for the outbound return call. If Validation flags Callback, turn on <strong>Register callback to different destination?</strong> and set <strong>Static queue</strong> explicitly to <code>Queue-1</code>, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.</li>
+<li>If you added Callback, add a short Cisco Cloud Text-to-Speech confirmation <strong>Play Message</strong>, then <strong>Disconnect Contact</strong>. Connect <strong>Callback → confirmation → Disconnect Contact</strong>. The disconnect is required after registering a Courtesy Callback.</li>
+<li>Connect exposed error paths to a safe fallback or an error message followed by <strong>Disconnect Contact</strong>. If you added Callback, check that its <strong>Failure</strong> output is connected and that a successful callback does not return to waiting treatment. Flow Designer may show <strong>0 errors</strong> even when optional error outputs remain open, so inspect those links yourself.</li>
+<li>Wait for Autosave, turn on <strong>Validation</strong>, and resolve errors. Publish a new version of the practice flow. The example subflow uses <strong>Latest</strong> with automatic updates enabled; if you change the subflow later, validate the parent flow again and publish a new parent version before relying on the changed behavior.</li>
+</ol>
+<p>The main-flow path is <code>Queue Contact → Queue Treatment Subflow → CallbackOrWait</code>. Digit <code>2</code>, no input, or an unmatched digit returns to the subflow without queueing the caller again. If enabled, digit <code>1</code> goes to <code>Callback → confirmation → Disconnect Contact</code>. This follows the <a href="https://help.webex.com/article/nhovcy4">Cisco subflow mapping</a> and <a href="https://help.webex.com/article/nhovcy4">Courtesy Callback</a> requirements.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-subflow-inputs-unmapped.jpg" data-title="Published queue-treatment subflow selected on Latest with four unmapped inputs" data-desc-position="top"><img alt="Published queue-treatment subflow selected on Latest with four unmapped inputs" src="../assets/lab-guide/live/cp2-subflow-inputs-unmapped.jpg"></a>
+  </p>
+<figcaption>The example parent flow maps no inputs. Flow Designer uses the four defaults configured in the published subflow; <code>counter</code> is internal.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-callback-settings-queue.jpg" data-title="Courtesy Callback settings using caller ANI and an explicit Queue-1 destination" data-desc-position="top"><img alt="Courtesy Callback settings using caller ANI and an explicit Queue-1 destination" src="../assets/lab-guide/live/cp2-callback-settings-queue.jpg"></a>
+  </p>
+<figcaption><code>NewPhoneContact.ANI</code> supplies the return-call number. In this example, Callback also requires an explicit <code>Queue-1</code> destination; the outbound Callback ANI is selected separately.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-practice-v2-queue-treatment.jpg" data-title="Published practice flow from welcome prompt through Queue Contact and Queue Treatment" data-desc-position="top"><img alt="Published practice flow from welcome prompt through Queue Contact and Queue Treatment" src="../assets/lab-guide/live/cp2-practice-v2-queue-treatment.jpg"></a>
+  </p>
+<figcaption>In the published practice flow, Queue Contact enters the reusable treatment subflow. The queue failure and subflow error paths lead to the existing End Flow activities.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-practice-v2-callback-branch.jpg" data-title="Published caller-choice menu with callback, wait, confirmation, and disconnect branches" data-desc-position="top"><img alt="Published caller-choice menu with callback, wait, confirmation, and disconnect branches" src="../assets/lab-guide/live/cp2-practice-v2-callback-branch.jpg"></a>
+  </p>
+<figcaption>With Callback enabled, digit 1 registers it, plays a confirmation, and disconnects the original call. Digit 2, no input, and unmatched input return to Queue Treatment without queueing again. For a wait-only flow, omit the digit 1 branch.</figcaption>
+</figure>
+<details class="example">
+<summary>Show me: wire the parent callback loop</summary>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp2-parent-callback-or-wait.gif" data-title="Live screenshot sequence of Queue Contact, Queue Treatment inputs, the CallbackOrWait menu, and Callback queue settings" data-desc-position="top"><img alt="Live screenshot sequence of Queue Contact, Queue Treatment inputs, the CallbackOrWait menu, and Callback queue settings" src="../assets/lab-guide/gifs/cp2-parent-callback-or-wait.gif"></a></p>
+<p>Follow the published parent flow from <strong>Queue Contact</strong> into <strong>Queue Treatment</strong>, inspect its four unmapped inputs, then trace the <strong>CallbackOrWait</strong> branches. The callback settings shown apply only when Callback is enabled. This sequence shows configuration, not a completed call.</p>
+</details>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-short-wait-practice-v4-latest.jpg" data-title="Practice flow version history showing version 4 with the Latest label" data-desc-position="top"><img alt="Practice flow version history showing version 4 with the Latest label" src="../assets/lab-guide/live/cp2-short-wait-practice-v4-latest.jpg"></a>
+  </p>
+<figcaption>After updating the subflow, validate and republish the parent practice flow. This example is version 4 on <strong>Latest</strong>.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-practice-error-fallback-validated.jpg" data-title="Practice flow with Menu Undefined Error, Callback Failure, and confirmation-message Undefined Error connected to a spoken fallback and Disconnect Contact; Validation shows zero errors" data-desc-position="top"><img alt="Practice flow with Menu Undefined Error, Callback Failure, and confirmation-message Undefined Error connected to a spoken fallback and Disconnect Contact; Validation shows zero errors" src="../assets/lab-guide/live/cp2-practice-error-fallback-validated.jpg"></a>
+  </p>
+<figcaption>In the callback-enabled example, connect all three open error outputs to a short fallback message, then disconnect. The repaired draft passed Validation with <strong>0 errors</strong>.</figcaption>
+</figure>
+<h4 id="test-the-queue-treatment">Test the queue treatment</h4>
+<ol>
+<li>Before a call, connect the Menu <strong>Undefined Error</strong> output to a short fallback message and a <strong>Disconnect Contact</strong>. If you added Callback and its confirmation message, connect their <strong>Failure</strong> and <strong>Undefined Error</strong> outputs to the same fallback. Connect the fallback message's own error output directly to <strong>Disconnect Contact</strong>. Validate and publish; the error-fallback screenshot above shows the callback-enabled example.</li>
+<li>Check that your assigned entry point routes to the Part A practice flow on <strong>Latest</strong>. If it now routes to <code>ServiceDesk</code> or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number. With <code>musicDuration = 3</code>, the callback-or-wait menu should begin about 15–20 seconds after queue music starts; call timing can vary. At the menu, press <code>2</code> and confirm that the wait treatment starts again.</li>
+<li>On a second call, press <code>1</code> only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.</li>
+<li>In <strong>Debug</strong>, compare the completed main-flow interaction paths. In <strong>Analyze</strong>, check the subflow invocation and the chosen menu branch. <a href="https://help.webex.com/article/nhovcy4">Flow Analytics</a> does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.</li>
+</ol>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-short-wait-practice-v4-debug-loop.jpg" data-title="Practice call Debug trace shows CallbackOrWait followed by another QueueTreatment invocation" data-desc-position="top"><img alt="Practice call Debug trace shows CallbackOrWait followed by another QueueTreatment invocation" src="../assets/lab-guide/live/cp2-short-wait-practice-v4-debug-loop.jpg"></a>
+  </p>
+<figcaption>After digit <code>2</code>, <strong>Debug</strong> shows <code>CallbackOrWait → QueueTreatment</code> on the completed practice call.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp2-short-wait-practice-v4-analyze.jpg" data-title="Practice flow Analyze shows one execution and zero node errors in the test window" data-desc-position="top"><img alt="Practice flow Analyze shows one execution and zero node errors in the test window" src="../assets/lab-guide/live/cp2-short-wait-practice-v4-analyze.jpg"></a>
+  </p>
+<figcaption><strong>Analyze</strong> counted one completed practice call and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
+<h4 id="route-the-entry-point-to-servicedesk">Route the entry point to <code>ServiceDesk</code></h4>
+<ol>
+<li>Return to <strong>Control Hub → Contact Center → Customer Experience → Entry Points</strong>. Open the inbound voice entry point assigned to your sandbox. This area may be called <strong>Channels</strong> in another Control Hub version.</li>
+<li>In its routing configuration, select the published <code>ServiceDesk</code> flow and the <strong>Latest</strong> version label, then save. Reassigning a shared entry point changes which flow receives its next call, so coordinate with other lab participants.</li>
+<li>Confirm the entry point displays <code>ServiceDesk</code> as its routing flow and note its assigned phone number. Use that number for the starter IVR test and the Checkpoint 3 API test.</li>
+</ol>
+<h4 id="call-the-starter-ivr">Call the starter IVR</h4>
+<ol>
+<li>Call the phone number assigned to your lab entry point.</li>
+<li>Confirm that you hear the welcome message followed by the two menu options.</li>
+<li>Press <code>2</code> and confirm that the call reaches <code>Queue-1</code>; if no agent answers immediately, listen for music and the waiting message. The menu must not play a general-support placeholder and disconnect.</li>
+<li>On a second call, press <code>1</code> and confirm that the temporary <code>OrderSupportPending</code> message plays before the call ends. Checkpoint 3 replaces this branch with the Order Desk lookup.</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">Checkpoint 2 complete when your calls confirm both paths</p>
+<p>In the separate practice flow, digit <code>2</code> on <code>CallbackOrWait</code> should repeat the waiting treatment; if Courtesy Callback is enabled, digit <code>1</code> should register a callback and end the original call. After routing the entry point to <code>ServiceDesk</code>, the front-door menu's digit <code>1</code> should reach the temporary order-support message, while digit <code>2</code> should enter <code>Queue-1</code> directly. Check each result in Debug before proceeding.</p>
+</div>
+<h2 id="checkpoint-3-call-the-order-desk-rest-api-from-flow-designer">Checkpoint 3: Call the Order Desk REST API from Flow Designer</h2>
+<p>Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you will use the same business data through MCP and an AI agent. This REST path is temporary; publication alone does not prove that the HTTP request ran on a call. If you published the starter IVR in Checkpoint 2, your direct-REST version will have a later number than the version 1 reference screenshot below.</p>
+<ol>
+<li>Return to <code>ServiceDesk</code> in Flow Designer and turn <strong>Edit</strong> on.</li>
+<li>Open <strong>Global Flow Properties</strong> from the canvas controls.</li>
+<li>Scroll to <strong>Configuration → Custom variables → Flow variables</strong>, then select <strong>+ Create flow variable</strong>.</li>
+<li>
+<p>Create a variable named <code>orderStatus</code>, set its type to <strong>String</strong>, leave its default value blank, and add it to the flow.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-flow-variable.png" data-title="Live Create a flow variable dialog with orderStatus set to String and blank default value" data-desc-position="top"><img alt="Live Create a flow variable dialog with orderStatus set to String and blank default value" src="../assets/lab-guide/live/cp3-flow-variable.png"></a>
+  <figcaption markdown="span">Create <code>orderStatus</code> as a String variable. Leave the default value blank so the API response supplies it.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Wait for Autosave, then close <strong>Global Flow Properties</strong>.</p>
+</li>
+<li>Find <strong>HTTP Request</strong> under <strong>Utilities</strong> and drag it onto the canvas.</li>
+<li>In <strong>General settings</strong>, set <strong>Activity label</strong> to <code>GetOrder</code>.</li>
+<li>Disconnect the digit <code>1</code> <strong>Order Support</strong> output from <code>OrderSupportPending</code> and connect it to <code>GetOrder</code>. Remove the temporary message and its end link after the replacement path validates.</li>
+<li>Open <strong>Test tenant details</strong> in MCP Lab and find the Order Desk REST API details and temporary bearer token.</li>
+<li>In <code>GetOrder</code>, turn <strong>Use authenticated endpoint</strong> off. When it is on, Flow Designer asks for a configured connector and <strong>Request path</strong>; turning it off reveals the full <strong>Request URL</strong> field used for this temporary lab endpoint.</li>
+<li>
+<p>Set <strong>Method</strong> to <code>GET</code> and <strong>Request URL</strong> to <code>https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482</code>. Use the assigned URL from <strong>Test tenant details</strong> if it differs.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-getorder-settings-focused.jpg" data-title="Published ServiceDesk version 1 GetOrder HTTP Request settings with URL field and GET method" data-desc-position="top"><img alt="Published ServiceDesk version 1 GetOrder HTTP Request settings with URL field and GET method" src="../assets/lab-guide/live/cp3-getorder-settings-focused.jpg"></a>
+  <figcaption markdown="span">The published version 1 activity is named <code>GetOrder</code>. Turning off the authenticated endpoint option exposes the Request URL field. The complete URL is in step 11; keep the Authorization value out of screenshots and GIFs.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Under <strong>HTTP request headers</strong>, add <strong>Key</strong> <code>Authorization</code> and <strong>Value</strong> <code>Bearer &lt;temporary Order Desk token&gt;</code>. Include the word <code>Bearer</code>, one space, and then the token copied from <strong>Test tenant details</strong>. Keep this temporary value only in the assigned sandbox; never put it in a screenshot, GIF, source file, or notes.</p>
+</li>
+<li>Set the request <strong>Content type</strong> to <strong>Application/JSON</strong>.</li>
+<li>Under <strong>Parse settings</strong>, set <strong>Content type</strong> to <strong>JSON</strong>.</li>
+<li>
+<p>Under <strong>Parse settings</strong>, select <strong>+ Add new</strong>. Set <strong>Output variable</strong> to <code>orderStatus</code> and <strong>Path expression</strong> to <code>$.order.status</code>.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-json-parse-clean.png" data-title="Live HTTP Request JSON parsing settings mapping order status to the orderStatus variable" data-desc-position="top"><img alt="Live HTTP Request JSON parsing settings mapping order status to the orderStatus variable" src="../assets/lab-guide/live/cp3-json-parse-clean.png"></a>
+  <figcaption markdown="span">Parse the JSON response and map <code>$.order.status</code> into the flow's String <code>orderStatus</code> variable.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Add a <strong>Play Message</strong> activity and set <strong>Activity label</strong> to <code>OrderStatusMessage</code>.</p>
+</li>
+<li>
+<p>In its <strong>Prompt</strong> settings, enable text to speech, select <strong>Cisco Cloud Text-to-Speech</strong>, add a text-to-speech message, and enter: <code>Your order status is {{orderStatus}}.</code> Open <strong>Test expression</strong>, enter <code>processing</code> as a sample <code>orderStatus</code>, and confirm the resolved sentence before applying the changes.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-status-expression-test.png" data-title="Live Flow Designer expression preview showing orderStatus processing becomes a spoken sentence" data-desc-position="top"><img alt="Live Flow Designer expression preview showing orderStatus processing becomes a spoken sentence" src="../assets/lab-guide/live/cp3-status-expression-test.png"></a>
+  <figcaption markdown="span">The expression preview resolves sample <code>orderStatus</code> to “Your order status is processing.” This checks the prompt expression; the phone call test comes after publication.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp3-direct-http-setup.gif" data-title="Screenshot sequence of the direct Order Desk HTTP setup, JSON parsing, and prompt expression preview" data-desc-position="top"><img alt="Screenshot sequence of the direct Order Desk HTTP setup, JSON parsing, and prompt expression preview" src="../assets/lab-guide/gifs/cp3-direct-http-setup.gif"></a>
+  <figcaption markdown="span">Screenshot sequence: create <code>orderStatus</code>, configure the direct GET, map <code>$.order.status</code>, and preview the spoken expression. These setup screens do not show a successful HTTP response.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Connect the single outgoing <code>GetOrder</code> port to <code>OrderStatusMessage</code>, then connect the message to the same <code>Queue Contact</code> used by menu digit <code>2</code>. Confirm it still selects <code>Queue-1</code> and reaches the <strong>Play Music</strong> wait treatment. In this tenant, HTTP Request has no separate error port. This direct version tests a known order; the subflow below adds a status guard and an <code>unavailable</code> result for failures.</p>
+</li>
+<li>
+<p>Wait for Autosave, turn on <strong>Validation</strong>, resolve blocking errors, and select <strong>Publish</strong>. <strong>Latest</strong> is applied automatically; add the offered <strong>Test</strong> label and a comment such as <code>Order Desk REST lookup</code> if you want to identify this checkpoint. Confirm the entry point still routes to <code>ServiceDesk</code> on the intended version.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-direct-rest-v1-history-safe.jpg" data-title="ServiceDesk version history showing published version 1 retained with a Test label alongside later versions" data-desc-position="top"><img alt="ServiceDesk version history showing published version 1 retained with a Test label alongside later versions" src="../assets/lab-guide/live/cp3-direct-rest-v1-history-safe.jpg"></a>
+  <figcaption markdown="span">The direct REST build is retained as published version 1 in this example. The version-history row proves publication; test its caller result separately below.</figcaption>
+</figure><p></p>
+</li>
+</ol>
+<p>Before calling, confirm digit <code>1</code> connects to <code>GetOrder → OrderStatusMessage → Queue Contact → Play Music</code>, and digit <code>2</code> connects directly to <code>Queue Contact → Play Music</code>. The final AI flow removes the menu and direct REST nodes.</p>
+<div class="admonition warning">
+<p class="admonition-title">Temporary Order Desk credential</p>
+<p>Use the manual bearer header only in your assigned sandbox. After the REST exercise, remove the direct HTTP activity or clear its header. At lab cleanup, clear the header in the order-lookup subflow too; an unused published subflow retains its configuration. A production HTTP integration should use a <a href="https://help.webex.com/article/n4u702ab">Control Hub custom connector</a> to manage authentication.</p>
+</div>
+<h3 id="test-the-api-branch-by-phone">Test the API branch by phone</h3>
+<ol>
+<li>Call the same inbound phone number from Checkpoint 2 after the new <code>ServiceDesk</code> version is published and active at the entry point.</li>
+<li>Listen to the welcome message and menu, then press <code>1</code>.</li>
+<li>Confirm that the flow reads the order status returned for <code>ORD-10482</code>. If it is blank or the request fails, stop the comparison test and inspect the HTTP activity in Debug. Do not present an empty status as a successful lookup; the refactored subflow adds the failure guard.</li>
+<li>After checking that your menu's digit <code>2</code> link goes directly to <strong>Queue Contact</strong>, press <code>2</code> on a second call. Confirm that general support enters <code>Queue-1</code> without running the order lookup or playing a placeholder message.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">If the spoken status is blank</p>
+<p>If you hear only “Your order status is,” open that call in <strong>Debug</strong>. Select <code>GetOrder</code> and check <strong>Modified Variables</strong> for <code>orderStatus</code>. The activity can show <strong>Success</strong> even when an expired bearer returns <code>401</code> and leaves the variable empty. Copy the current temporary bearer from MCP Lab <strong>Test tenant details</strong>, replace the <code>Authorization</code> value in <code>GetOrder</code> with <code>Bearer</code> followed by that bearer, then save, validate, publish, and call again. Continue when <code>orderStatus</code> has the returned value and you hear it on the call. If it is still blank, check <strong>Parse settings → JSON</strong> and the <code>$.order.status</code> mapping. Debug may mask the HTTP response; do not infer HTTP <code>200</code> from the activity's <strong>Success</strong> label.</p>
+</div>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v1-rest-debug-start.jpg" data-title="Order-support Debug trace from NewContact through GetOrder" data-desc-position="top"><img alt="Order-support Debug trace from NewContact through GetOrder" src="../assets/lab-guide/live/cp3-v1-rest-debug-start.jpg"></a>
+  </p>
+<figcaption>For digit <code>1</code>, follow the Debug path from <code>SupportMenu</code> into <code>GetOrder</code>.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v1-rest-debug-status.jpg" data-title="GetOrder modified the orderStatus variable to Shipped" data-desc-position="top"><img alt="GetOrder modified the orderStatus variable to Shipped" src="../assets/lab-guide/live/cp3-v1-rest-debug-status.jpg"></a>
+  </p>
+<figcaption>Select <code>GetOrder</code> and check <strong>Modified Variables</strong>. This completed call set <code>orderStatus</code> to <code>Shipped</code>.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v1-rest-debug-end.jpg" data-title="Order-support Debug trace from OrderStatusMessage through queue treatment and call end" data-desc-position="top"><img alt="Order-support Debug trace from OrderStatusMessage through queue treatment and call end" src="../assets/lab-guide/live/cp3-v1-rest-debug-end.jpg"></a>
+  </p>
+<figcaption>The same call continued through <code>OrderStatusMessage</code>, queue treatment, and music.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v1-rest-analyze.jpg" data-title="Flow Analytics counts one completed Order Desk REST call with zero node errors" data-desc-position="top"><img alt="Flow Analytics counts one completed Order Desk REST call with zero node errors" src="../assets/lab-guide/live/cp3-v1-rest-analyze.jpg"></a>
+  </p>
+<figcaption><strong>Analyze</strong> counted one completed order call and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v4-general-support-debug-start.jpg" data-title="General Support call runs NewContact, WelcomeMessage, SupportMenu, and QueueContact successfully" data-desc-position="top"><img alt="General Support call runs NewContact, WelcomeMessage, SupportMenu, and QueueContact successfully" src="../assets/lab-guide/live/cp3-v4-general-support-debug-start.jpg"></a>
+  </p>
+<figcaption>For digit <code>2</code>, confirm <strong>Debug</strong> reaches <code>QueueContact_4b7</code> directly after <code>SupportMenu</code>.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v4-general-support-debug-wait.jpg" data-title="General Support call continues through PlayMusic, PleaseWait, repeated PlayMusic, and ContactEnded successfully" data-desc-position="top"><img alt="General Support call continues through PlayMusic, PleaseWait, repeated PlayMusic, and ContactEnded successfully" src="../assets/lab-guide/live/cp3-v4-general-support-debug-wait.jpg"></a>
+  </p>
+<figcaption>The same call reached music and the waiting message before it ended. It did not run <code>GetOrder</code> or <code>GeneralSupportMessage</code>.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-v4-general-support-analyze.jpg" data-title="Flow Analytics counts one completed corrected-menu call and zero node errors" data-desc-position="top"><img alt="Flow Analytics counts one completed corrected-menu call and zero node errors" src="../assets/lab-guide/live/cp3-v4-general-support-analyze.jpg"></a>
+  </p>
+<figcaption>For this completed call, <strong>Analyze</strong> counted one flow execution and zero node errors in the selected 15-minute window.</figcaption>
+</figure>
+<h3 id="explore-flow-debugging-and-flow-analytics">Explore Flow Debugging and Flow Analytics</h3>
+<p><strong>Debugging</strong> shows one completed interaction's activity sequence. <strong>Analytics</strong> aggregates completed calls for a selected flow version and time period.</p>
+<ol>
+<li>Open <code>ServiceDesk</code> in Flow Designer and select <strong>Debug</strong>. Find the call that used digit <code>1</code> by its timestamp and published version, then open its <strong>Interaction ID</strong>. Keep the caller's number out of screenshots.</li>
+<li>Follow the highlighted path from <code>NewContact</code> through <code>SupportMenu</code>, <code>GetOrder</code>, and <code>OrderStatusMessage</code>. Select <code>GetOrder</code> and check <strong>Modified Variables</strong> for <code>orderStatus</code>. The activity outcome alone does not prove the HTTP request returned a usable order. Leave decryption off when capturing guide media so the authorization header and response remain masked.</li>
+<li>Open the digit <code>2</code> call and compare its path. It should reach <strong>Queue Contact</strong> and wait treatment without invoking <code>GetOrder</code>.</li>
+<li>Make two or three more short test calls, ending each call cleanly. Select <strong>Analytics</strong>, choose a time range covering those calls, and compare the Menu's digit <code>1</code> and digit <code>2</code> execution counts. If the totals have not appeared yet, wait for completed-call data to arrive and check the selected flow version and time range.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Read the right evidence</p>
+<p>Debugging follows one Interaction ID. Analytics counts completed flow executions and activity ports; ongoing calls and callback calls may be excluded. After you move the lookup into a subflow, Analytics shows the subflow activity in the main flow but not the subflow's internal nodes.</p>
+</div>
+<h3 id="create-a-function-to-read-the-order-desk-response">Create a Function to read the Order Desk response</h3>
+<p>The direct HTTP activity uses JSONPath to select one field. Next, move that lookup into a subflow and use a Function there to read the parsed response, check whether it contains a usable status, and return a small result contract. Publish the direct-HTTP flow version first so you can compare both designs.</p>
+<ol>
+<li>In Control Hub, open <strong>Contact Center → Customer Experience → Functions</strong> and select <strong>Create a function</strong>. Choose <strong>Start Fresh</strong>, name it <code>LAB21170_ParseOrderStatus_&lt;your_initials&gt;</code>, and choose <strong>Python</strong> with the runtime offered by your sandbox.</li>
+<li>Add an input variable named <code>order_data</code> with type <strong>JSON</strong>. In <strong>Output variable definition</strong>, enter the sample JSON <code>{"status":"processing","lookupSucceeded":true}</code>. This area is a JSON example, not two separate typed-variable forms; its keys and value types must match the code and output mappings below.</li>
+<li>
+<p>Replace the starter code with this parser. It extracts <code>order.status</code> from the parsed JSON, returns <code>unavailable</code> when the field is missing, and does not make a network call or use a credential:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Request</span><span class="p">,</span> <span class="n">Response</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">handle</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">Request</span><span class="p">,</span> <span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">):</span>
+    <span class="n">payload</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">'inputs'</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'order_data'</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'order'</span><span class="p">,</span> <span class="p">{})</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="p">{}</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">order</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'status'</span><span class="p">,</span> <span class="s1">''</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="k">else</span> <span class="s1">''</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="n">status</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s1">''</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">'status'</span><span class="p">:</span> <span class="n">status</span> <span class="ow">or</span> <span class="s1">'unavailable'</span><span class="p">,</span>
+        <span class="s1">'lookupSucceeded'</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">status</span><span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">response</span>
+</code></pre></div>
+</li>
+<li>
+<p>In the Function test panel, use <code>{"order":{"status":"processing"}}</code> for <code>order_data</code> and select <strong>Test</strong>. Confirm that the result has <code>statusCode: 200</code>, <code>data.status: processing</code>, and <code>data.lookupSucceeded: true</code>. Test <code>{}</code> as well; <code>data.status</code> should be <code>unavailable</code> and <code>data.lookupSucceeded</code> should be <code>false</code>. Then test the valid JSON object <code>{"order":{"status":42}}</code>: a non-string status must also return <code>unavailable</code> and <code>false</code>. If you type malformed JSON syntax such as <code>{bad</code>, the JSON input rejects it and disables <strong>Test</strong>; correct the input before testing the Function. Fix code or output definitions before publishing.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-function-valid-test.png" data-title="Live Function test with an Order Desk JSON input and processing status in the result" data-desc-position="top"><img alt="Live Function test with an Order Desk JSON input and processing status in the result" src="../assets/lab-guide/live/cp3-function-valid-test.png"></a>
+  <figcaption markdown="span">The dedicated Function's live test returns a typed status and lookup flag from the sample order JSON. Repeat with <code>{}</code> to verify the missing-field fallback.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp3-function-local-tests.gif" data-title="Screenshot sequence of valid and empty JSON Function tests followed by the Function publish dialog" data-desc-position="top"><img alt="Screenshot sequence of valid and empty JSON Function tests followed by the Function publish dialog" src="../assets/lab-guide/gifs/cp3-function-local-tests.gif"></a>
+  <figcaption markdown="span">Screenshot sequence: local Function tests return <code>processing</code> for sample order JSON and <code>unavailable</code> for <code>{}</code>, then the Function publish dialog opens. This is not a caller test.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-function-malformed-input.jpg" data-title="Function test input with an order status set to the number 42" data-desc-position="top"><img alt="Function test input with an order status set to the number 42" src="../assets/lab-guide/live/cp3-function-malformed-input.jpg"></a>
+  <figcaption markdown="span">Malformed-shape input: valid JSON with a numeric <code>status</code> field.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-function-malformed-result.jpg" data-title="Function test result with unavailable status and false lookup success" data-desc-position="top"><img alt="Function test result with unavailable status and false lookup success" src="../assets/lab-guide/live/cp3-function-malformed-result.jpg"></a>
+  <figcaption markdown="span">The same live test returns <code>unavailable</code> and <code>lookupSucceeded: false</code> without a runtime error. Syntactically invalid JSON is stopped by the test form before the Function runs.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Select <strong>Publish Function</strong> and note the published version label. A draft Function is not available for use by the subflow.</p>
+</li>
+</ol>
+<h3 id="refactor-getorder-into-a-subflow">Refactor <code>GetOrder</code> into a subflow</h3>
+<ol>
+<li>In <strong>Control Hub → Contact Center → Customer Experience → Flows → Subflows</strong>, select <strong>Manage Subflows → Create Subflow</strong>. Start from a blank subflow and name it <code>LAB21170_OrderLookup_&lt;your_initials&gt;</code>; subflow names cannot contain spaces.</li>
+<li>In the subflow's variable definitions, create <code>orderNumber</code> as a <strong>String input</strong> with sample value <code>ORD-10482</code>, <code>orderStatus</code> as a <strong>String output</strong>, <code>lookupSucceeded</code> as a <strong>Boolean output</strong>, and <code>orderResponseJson</code> as a local <strong>JSON</strong> variable. The String <code>orderStatus</code> output is the required contract with <code>ServiceDesk</code>; the Boolean output can be used where a tenant offers it in the parent-flow mapping selector.</li>
+<li>Add an <strong>HTTP Request</strong> activity, label it <code>FetchOrderRecord</code>, and connect it from <strong>Start Subflow</strong>. Turn <strong>Use authenticated endpoint</strong> off, set <strong>Method</strong> to <code>GET</code>, and set <strong>Request URL</strong> to <code>https://mcp-lab.webexdevs.com/order-desk/api/orders/{{orderNumber}}</code>. Flow Designer's URL field accepts <code>{{variable}}</code>; its expression preview should resolve the sample order number to <code>/ORD-10482</code>.</li>
+<li>
+<p>Add the same temporary Order Desk <strong>Authorization</strong> header from <strong>Test tenant details</strong>, set request content type to <strong>Application/JSON</strong>, then set <strong>Parse settings → Content type</strong> to <strong>JSON</strong>. Select <strong>+ Add new</strong>, choose local <strong>Output variable</strong> <code>orderResponseJson</code>, and enter <code>$</code> as the <strong>Path expression</strong>. This makes the whole response object available to the Function without mixing up the HTTP String body and a JSON input.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-order-subflow-json-map.png" data-title="Live order-lookup subflow HTTP parsing maps the whole response through dollar-sign path to a JSON variable" data-desc-position="top"><img alt="Live order-lookup subflow HTTP parsing maps the whole response through dollar-sign path to a JSON variable" src="../assets/lab-guide/live/cp3-order-subflow-json-map.png"></a>
+  <figcaption markdown="span">During draft assembly, <code>$</code> maps the whole response into local JSON <code>orderResponseJson</code>. Complete the links and status guard before publishing.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Add a <strong>Condition</strong> activity labeled <code>HttpStatusIs200</code> between <code>FetchOrderRecord</code> and the parser Function. Enter <code>{{FetchOrderRecord.httpStatusCode == 200}}</code> as the <strong>Condition expression</strong>. In <strong>Test expression</strong>, sample <code>200</code> must resolve to <code>true</code> and <code>404</code> to <code>false</code>. HTTP Request exposes one outgoing canvas port in this tenant, so this Condition prevents a non-200 response from reaching the parser.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-order-status-condition-test.png" data-title="Live Condition expression preview shows HTTP status 404 evaluates to false" data-desc-position="top"><img alt="Live Condition expression preview shows HTTP status 404 evaluates to false" src="../assets/lab-guide/live/cp3-order-status-condition-test.png"></a>
+  <figcaption markdown="span">The expression preview checks the guard with sample status <code>404</code>. It is a local expression test, not an Order Desk HTTP result.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Open the subflow's <strong>Functions</strong> tab, drag your published <code>LAB21170_ParseOrderStatus_&lt;your_initials&gt;</code> Function onto the canvas, and choose its published version. Connect the <code>HttpStatusIs200</code> <strong>True</strong> output to the Function. Map its JSON input <code>order_data</code> to <code>orderResponseJson</code>.</p>
+</li>
+<li>Map Function output <code>$.status</code> to subflow output <code>orderStatus</code> and <code>$.lookupSucceeded</code> to subflow output <code>lookupSucceeded</code>. Connect the Function's successful output to <strong>End Subflow</strong>. Add a <strong>Set Variable</strong> activity labeled <code>SetLookupUnavailable</code> that sets <code>orderStatus</code> to <code>unavailable</code> and <code>lookupSucceeded</code> to Boolean <code>false</code>; connect the Condition's <strong>False</strong> and <strong>Undefined Errors</strong> outputs and the Function's <strong>Undefined Errors</strong> output to it, then connect it to a second <strong>End Subflow</strong>. A non-200 status or parser failure follows this fallback. Check timeout and network-error behavior with Debug rather than assuming those failures use the same port.</li>
+<li>
+<p>Turn on <strong>Validation</strong>, resolve blocking errors, and <strong>Publish Subflow</strong>. Keep the earlier direct-HTTP main-flow version as a recovery point.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-order-subflow-validation.png" data-title="Live order-lookup subflow with status guard, parser Function, fallback, and zero validation errors" data-desc-position="top"><img alt="Live order-lookup subflow with status guard, parser Function, fallback, and zero validation errors" src="../assets/lab-guide/live/cp3-order-subflow-validation.png"></a>
+  <figcaption markdown="span">The complete draft routes status <code>200</code> through the parser and other status codes through <code>SetLookupUnavailable</code>. Flow Designer reports zero structural errors and “Ready to publish”; the phone test still verifies runtime behavior.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-order-subflow-published.png" data-title="Live order-lookup subflow version history showing version 1 with Test and Latest labels" data-desc-position="top"><img alt="Live order-lookup subflow version history showing version 1 with Test and Latest labels" src="../assets/lab-guide/live/cp3-order-subflow-published.png"></a>
+  <figcaption markdown="span">The validated OrderLookup subflow was published as version 1 with <code>Test</code> and automatic <code>Latest</code> labels. The parent <code>ServiceDesk</code> flow must still be republished after it invokes this subflow.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp3-order-subflow-refactor.gif" data-title="Screenshot sequence of OrderLookup JSON mapping, status guard, Function output mapping, validation, and version history" data-desc-position="top"><img alt="Screenshot sequence of OrderLookup JSON mapping, status guard, Function output mapping, validation, and version history" src="../assets/lab-guide/gifs/cp3-order-subflow-refactor.gif"></a>
+  <figcaption markdown="span">Screenshot sequence: map the whole response, test the HTTP status guard, map the Function result, validate, and publish OrderLookup. The validation and version screens prove structure and publication; a phone call still has to verify the runtime lookup.</figcaption>
+</figure><p></p>
+</li>
+</ol>
+<h3 id="use-the-subflow-from-servicedesk">Use the subflow from <code>ServiceDesk</code></h3>
+<ol>
+<li>In <code>ServiceDesk</code>, add a String flow variable <code>orderNumber</code> with default <code>ORD-10482</code>. Keep the existing String <code>orderStatus</code> variable and set its default to <code>unavailable</code> for this refactored version so an unset result cannot be spoken as a successful status. A Boolean <code>lookupSucceeded</code> variable may appear in Global Flow Properties, but this tenant did not offer the subflow's Boolean output in the parent mapping selector; do not depend on it.</li>
+<li>Open the <strong>Subflows</strong> tab, drag the published order-lookup subflow onto the canvas, and choose its published version. Map main-flow <code>orderNumber</code> to the subflow input and map the subflow's String <code>orderStatus</code> output to the parent String <code>orderStatus</code> variable. If your tenant also offers <code>lookupSucceeded</code> as a matching Boolean output mapping, you may map it to a parent Boolean variable, but the path below uses <code>orderStatus</code>.</li>
+<li>
+<p>Move the digit <code>1</code> link from the direct <code>GetOrder</code> activity to the new subflow. After it returns, add a <strong>Condition</strong> on <code>{{orderStatus != "unavailable"}}</code>: <strong>True</strong> reaches <code>OrderStatusMessage</code>; <strong>False</strong> plays a short message such as <code>Order information is temporarily unavailable.</code> Both paths can then reach the assigned human queue and its wait treatment. Remove the now-disconnected direct <code>GetOrder</code> activity if validation requires it; the earlier published version still preserves the comparison exercise.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-parent-condition-test.png" data-title="Live parent-flow condition expression preview shows unavailable status evaluates to false" data-desc-position="top"><img alt="Live parent-flow condition expression preview shows unavailable status evaluates to false" src="../assets/lab-guide/live/cp3-parent-condition-test.png"></a>
+  <figcaption markdown="span">The parent Condition's expression preview rejects sample <code>unavailable</code>; it is a local expression check, not a phone result.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Validate and publish <code>ServiceDesk</code> again. Publishing only the subflow does not update the routed main flow. Check that the entry point uses the intended <code>ServiceDesk</code> version before calling.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-parent-subflow-validation.png" data-title="Live refactored ServiceDesk draft with OrderLookup subflow, status condition, queue treatment, and zero validation errors" data-desc-position="top"><img alt="Live refactored ServiceDesk draft with OrderLookup subflow, status condition, queue treatment, and zero validation errors" src="../assets/lab-guide/live/cp3-parent-subflow-validation.png"></a>
+  <figcaption markdown="span">The refactored parent draft passed structural validation with zero errors before publication. This does not show a completed call.</figcaption>
+</figure><p></p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-entry-point-route.png" data-title="Live entry point routing set to the published ServiceDesk Latest version" data-desc-position="top"><img alt="Live entry point routing set to the published ServiceDesk Latest version" src="../assets/lab-guide/live/cp3-servicedesk-entry-point-route.png"></a>
+  <figcaption markdown="span">Entry Point-1 is routed to the published <code>ServiceDesk</code> <strong>Latest</strong> version. Routing configuration alone does not verify the order response on a call.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Call the assigned number, press <code>1</code>, and compare the spoken status with the earlier direct-HTTP design. In <strong>Debug</strong>, confirm the path enters the order-lookup subflow and returns a non-<code>unavailable</code> <code>orderStatus</code>, or plays the temporary-unavailability message. Before a second call, confirm digit <code>2</code> links directly to <strong>Queue Contact</strong>. Press <code>2</code> and confirm that it enters the human queue without running OrderLookup. Use <strong>Analytics</strong> to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Check the menu before calling</p>
+<p>Connect <strong>No-Input Timeout</strong>, <strong>Unmatched Entry</strong>, and <strong>Undefined Error</strong> from <code>SupportMenu</code> to <code>MenuFallbackMessage → Disconnect Contact</code>. Confirm digit <code>2</code> connects directly to <strong>Queue Contact</strong>, then validate and publish. If <strong>Debug</strong> stops at <code>SupportMenu</code> with <strong>Error</strong>, inspect the prompt and links before calling again.</p>
+</div>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg" data-title="Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling" data-desc-position="top"><img alt="Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling" src="../assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg"></a>
+  </p>
+<figcaption>Version 2 stopped at <code>SupportMenu</code> with <strong>Error</strong>. Debug did not identify the cause or a selected digit.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-v3-menu-fallback.jpg" data-title="Published ServiceDesk version 3 menu with three error outputs wired to MenuFallbackMessage and MenuFallbackDisconnect" data-desc-position="top"><img alt="Published ServiceDesk version 3 menu with three error outputs wired to MenuFallbackMessage and MenuFallbackDisconnect" src="../assets/lab-guide/live/cp3-servicedesk-v3-menu-fallback.jpg"></a>
+  </p>
+<figcaption>Version 3 connects menu timeout, unmatched entry, and undefined error to a spoken fallback and disconnect. The next trace shows a separate digit <code>1</code> call.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-v3-order-path.jpg" data-title="Live version 3 Debug trace showing successful menu, order-lookup subflow, and availability condition" data-desc-position="top"><img alt="Live version 3 Debug trace showing successful menu, order-lookup subflow, and availability condition" src="../assets/lab-guide/live/cp3-servicedesk-v3-order-path.jpg"></a>
+  </p>
+<figcaption>A version 3 call completed the order-lookup subflow. The crop omits caller and interaction IDs.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-v3-order-result.jpg" data-title="Live version 3 subflow output for ORD-10482 showing orderStatus Shipped" data-desc-position="top"><img alt="Live version 3 subflow output for ORD-10482 showing orderStatus Shipped" src="../assets/lab-guide/live/cp3-servicedesk-v3-order-result.jpg"></a>
+  </p>
+<figcaption>The subflow returned <code>Shipped</code> for <code>ORD-10482</code>; the same call later reached the status message and queue treatment.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp3-servicedesk-v3-analyze.jpg" data-title="Live Flow Analytics for ServiceDesk version 3 showing two completed executions and zero node errors" data-desc-position="top"><img alt="Live Flow Analytics for ServiceDesk version 3 showing two completed executions and zero node errors" src="../assets/lab-guide/live/cp3-servicedesk-v3-analyze.jpg"></a>
+  </p>
+<figcaption>Analyze shows two completed version 3 calls in 15 minutes. One used the order path; zero node errors does not mean both menu choices were tested.</figcaption>
+</figure>
+<details class="example">
+<summary>Show me: correct the general-support route</summary>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/gifs/cp3-general-support-queue-fix.gif" data-title="Five-second screenshot sequence: connect general-support digit 2 to Queue Contact, validate, and inspect the resulting ServiceDesk topology" data-desc-position="top"><img alt="Five-second screenshot sequence: connect general-support digit 2 to Queue Contact, validate, and inspect the resulting ServiceDesk topology" src="../assets/lab-guide/gifs/cp3-general-support-queue-fix.gif"></a></p>
+<p>Digit <code>2</code> joins the same queue activity as the order path. The first frame shows <strong>0 errors</strong>; the second shows the corrected queue and wait-treatment links. Checkpoint 9's version history shows this menu version was published.</p>
+<p>Publish your corrected menu version, then call again and confirm in <strong>Debug</strong> that digit <code>2</code> enters <code>Queue-1</code>. Zero-error Validation alone does not confirm what a caller hears.</p>
+</details>
+<div class="admonition tip">
+<p class="admonition-title">If the API branch fails</p>
+<p>For the first version, check the full request URL, the temporary <code>Authorization</code> header, and the <code>$.order.status</code> JSON path. For the refactored version, also check the subflow input/output mappings, the <code>$</code> JSON mapping, <code>HttpStatusIs200</code>, and Function result paths. Keep the starter IVR connected until Checkpoint 9; the earlier published version preserves the direct-HTTP comparison.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Finish Checkpoint 3 after your calls prove the paths</p>
+<p>Call the direct REST version and confirm in Debug that digit <code>1</code> reaches <code>GetOrder</code> and reads the status for <code>ORD-10482</code>. Call the refactored version and confirm that digit <code>1</code> runs the HTTP subflow and Function, then reads the status or the temporary-unavailability message. Confirm that digit <code>2</code> enters <code>Queue-1</code> without the lookup or placeholder. Compare the completed paths in Debug and Analytics before marking the checkpoint complete.</p>
+</div>
+<p><a class="md-button md-button--primary" href="../lab3_agent_registration/">Continue to MCP inspection and testing</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab1_getting_started/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Checkpoint 1 - Lab access">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Checkpoint 1 - Lab access
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../lab3_agent_registration/" class="md-footer__link md-footer__link--next" aria-label="Next: Checkpoints 4-5 - Connect and test MCP">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Checkpoints 4-5 - Connect and test MCP
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cisco
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "search.suggest", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../template_assets/js/newLoad.js"></script>
+      
+        <script src="../template_assets/js/setInfo.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "fade", "closeEffect": "fade", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
