@@ -118,6 +118,25 @@ The reference call on published `ServiceDesk` version 5 reached `AIAgent` and en
   <figcaption markdown="span">For the selected day, **Analyze** counted one version 5 execution and zero node errors.</figcaption>
 </figure>
 
+### Compare your general-support call
+
+On a separate phone call to published `ServiceDesk` version 5, the caller asked for general support, accepted the human handoff, and heard queue music. **Debug** recorded `NewContact → AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic_pgj → PleaseWait → PlayMusic_pgj → ContactEnded`, with **Success** at each step. The trace verifies queue treatment; it does not show a human agent answering.
+
+<figure markdown>
+  ![Flow Designer Debug shows successful NewContact, AIAgent, EscalationMessage, and HumanAgentQueue activities for the general-support phone call](assets/lab-guide/live/cp9-human-handoff-debug-start-safe.jpg)
+  <figcaption markdown="span">The accepted handoff reached `HumanAgentQueue`. Caller and interaction identifiers are excluded.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Designer Debug shows successful PlayMusic, PleaseWait, repeated PlayMusic, and ContactEnded activities for the general-support phone call](assets/lab-guide/live/cp9-human-handoff-debug-queue-safe.jpg)
+  <figcaption markdown="span">Queue music and the waiting message ran before the call ended.</figcaption>
+</figure>
+
+<figure markdown>
+  ![Flow Designer Analyze shows one flow execution and zero node errors during the general-support test-call window](assets/lab-guide/live/cp9-human-handoff-analyze-safe.jpg)
+  <figcaption markdown="span">During the general-support call window, **Analyze** showed one execution and zero node errors.</figcaption>
+</figure>
+
 <figure markdown>
   ![ServiceDesk version history showing version 5 published as Latest and version 4 retained in history](assets/lab-guide/live/cp9-ai-flow-v5-latest.jpg)
   <figcaption markdown="span">Confirm version 5 is **Latest**, published September 24, 2026 at 19:48:14 tenant time. Version 4 remains in history.</figcaption>

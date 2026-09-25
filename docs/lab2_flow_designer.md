@@ -168,10 +168,27 @@ Build both menu choices before publishing. Digit `2` must enter `Queue-1` direct
 2. Under **Voice**, drag **Play Message** onto the canvas. In **General settings**, set **Activity label** to `WelcomeMessage`.
 3. Connect `NewContact` to `WelcomeMessage`.
 4. In the activity's **Prompt** settings, turn on **Enable text-to-speech**, set **Connector** to **Cisco Cloud Text-to-Speech**, select **Add text-to-speech message**, and enter: `Welcome to the order support lab.`
+
+    <figure markdown>
+      ![Published ServiceDesk WelcomeMessage settings showing Cisco Cloud Text-to-Speech and the welcome text](assets/lab-guide/live/cp2-servicedesk-welcome-prompt-v4.jpg)
+      <figcaption markdown="span">Check the welcome text and Cisco Cloud Text-to-Speech connector. This read-only capture is from the later menu version.</figcaption>
+    </figure>
+
 5. Drag **Menu** onto the canvas. In **General settings**, set **Activity label** to `SupportMenu`.
 6. Connect `WelcomeMessage` to `SupportMenu`.
 7. In the Menu's **Prompt** settings, turn on **Enable text-to-speech**, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `Press 1 for order support. Press 2 for general support.`
 8. Under **Custom links**, add digit `1` with the label **Order Support** and digit `2` with the label **General Support**.
+
+    <figure markdown>
+      ![Published SupportMenu settings showing the text-to-speech prompt for order and general support](assets/lab-guide/live/cp2-servicedesk-menu-prompt-v4.jpg)
+      <figcaption markdown="span">Set the spoken Menu prompt for both choices.</figcaption>
+    </figure>
+
+    <figure markdown>
+      ![Published SupportMenu settings showing custom links 1 Order Support and 2 General Support](assets/lab-guide/live/cp2-servicedesk-menu-links-v4.jpg)
+      <figcaption markdown="span">Add the two digit links before connecting their outgoing paths.</figcaption>
+    </figure>
+
 9. Add **Queue Contact**, select the assigned `Queue-1` queue, and connect the digit `2` **General Support** output directly to it. This choice is a request for a human agent; it should not play a placeholder message and disconnect.
 10. After **Queue Contact**, add **Play Music** and a **Play Message** labeled `PleaseWait`. Use Cisco Cloud Text-to-Speech for a short prompt such as `Please wait while we connect you.` Connect the Queue Contact normal output to Play Music, Play Music to `PleaseWait`, and `PleaseWait` back to Play Music. An agent may answer before every treatment activity runs.
 11. Add another **Play Message** labeled `QueueErrorMessage`. Use Cisco Cloud Text-to-Speech for: `I can't connect you to a person right now. Please try again later.` Connect Queue Contact **Failure** and any exposed treatment **Undefined Error** output to `QueueErrorMessage`.
@@ -384,6 +401,11 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 
 18. Connect the single outgoing `GetOrder` port to `OrderStatusMessage`, then connect the message to the same `Queue Contact` used by menu digit `2`. Confirm it still selects `Queue-1` and reaches the **Play Music** wait treatment. In this tenant, HTTP Request has no separate error port. This direct version tests a known order; the subflow below adds a status guard and an `unavailable` result for failures.
 19. Wait for Autosave, turn on **Validation**, resolve blocking errors, and select **Publish**. **Latest** is applied automatically; add the offered **Test** label and a comment such as `Order Desk REST lookup` if you want to identify this checkpoint. Confirm the entry point still routes to `ServiceDesk` on the intended version.
+
+    <figure markdown>
+      ![ServiceDesk version history showing published version 1 retained with a Test label alongside later versions](assets/lab-guide/live/cp3-direct-rest-v1-history-safe.jpg)
+      <figcaption markdown="span">The direct REST build is retained as published version 1 in this example. The version-history row proves publication; test its caller result separately below.</figcaption>
+    </figure>
 
 Trace both practice paths: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. Both can reach the human queue. The final AI flow removes the menu and direct REST nodes; the earlier published versions remain in version history.
 

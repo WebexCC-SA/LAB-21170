@@ -22,16 +22,27 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
     - **Logo:** select one of the provided default logos.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
     - **Auth Type:** `Custom Headers`
-5. Review the linked terms and privacy statement, then select **Add Agentic App**.
-6. On the app details page, confirm that the URL ends in `/order-desk/mcp`, the transport is **Streamable HTTP**, and the authentication type is **Custom Headers**.
-7. Select **Request admin approval** if that option appears.
 
 <figure markdown>
   ![Live Developer Portal form showing MCP, the Order Desk URL, Streamable HTTP, and an available app name](assets/lab-guide/live/cp4-mcp-registration-details-close.jpg)
   <figcaption markdown="span">Check the MCP URL, transport, app name, and **Custom Headers** before you submit.</figcaption>
 </figure>
 
-Open the focused views of [Custom Headers](assets/lab-guide/live/cp4-mcp-registration-auth-close.jpg) and the [pre-submit terms notice](assets/lab-guide/live/cp4-mcp-registration-submit-close.jpg) if you need to inspect those controls closely.
+<figure markdown>
+  ![Developer Portal Agentic App form with Custom Headers selected as the authentication type](assets/lab-guide/live/cp4-mcp-registration-auth-close.jpg)
+  <figcaption markdown="span">Select **Custom Headers**. Enter the bearer later in Control Hub **Authentication**.</figcaption>
+</figure>
+
+5. Review the linked terms and privacy statement, then select **Add Agentic App**.
+{: value="5" }
+
+<figure markdown>
+  ![Developer Portal pre-submit notice with terms, privacy statement, and Add Agentic App control](assets/lab-guide/live/cp4-mcp-registration-submit-close.jpg)
+  <figcaption markdown="span">Read the terms and privacy statement before selecting **Add Agentic App**.</figcaption>
+</figure>
+
+6. On the app details page, confirm that the URL ends in `/order-desk/mcp`, the transport is **Streamable HTTP**, and the authentication type is **Custom Headers**.
+{: value="6" }
 
 <figure markdown>
   ![Post-creation Developer Portal details page showing the LAB21170 Order Desk MCP name without its generated identifier](assets/lab-guide/live/cp6-developer-app-created.jpg)
@@ -42,6 +53,9 @@ Open the focused views of [Custom Headers](assets/lab-guide/live/cp4-mcp-registr
   ![Post-created Agentic App configuration with Order Desk MCP URL, MCP module, Streamable HTTP transport, and Custom Headers authentication](assets/lab-guide/live/cp6-developer-app-config-safe.jpg)
   <figcaption markdown="span">Confirm the `/order-desk/mcp` URL, **MCP**, **Streamable HTTP**, and **Custom Headers**.</figcaption>
 </figure>
+
+7. Select **Request admin approval** if that option appears.
+{: value="7" }
 
 !!! warning "Keep the sandbox credential in the authentication setting"
     Use the temporary **Order Desk bearer** only in Control Hub **Authentication → Custom headers**. It is different from your MCP Lab event token and Webex sign-in token. Do not put it in the app description, agent instructions, screenshots, or source files.
@@ -128,9 +142,18 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 
 1. In Control Hub, open **Contact Center → Customer Experience → AI Agents**.
 2. Select **Build your AI Agent** to open AI Agent Studio.
+
+<figure markdown>
+  ![Control Hub AI Agents area](assets/lab-guide/03-control-hub-ai-agents.png)
+  <figcaption markdown="span">Open AI Agent Studio from Control Hub **AI Agents**.</figcaption>
+</figure>
+
 3. Select **Create agent**.
+{: value="3" }
 4. Select **Start from scratch**, then choose **Autonomous**. If you choose **Track Package** instead, remove every sample package action and instruction in the steps below.
+{: value="4" }
 5. Enter `LAB-21170 Order Support`. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
+{: value="5" }
 
 <figure markdown>
   ![AI Agent Studio create-agent wizard with Autonomous selected after Start from scratch](assets/lab-guide/live/cp8-agent-autonomous-selected.jpg)
@@ -145,11 +168,6 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 <figure markdown>
   ![Saved Order Support profile showing the agent name, generated System ID with a unique suffix, and Webex AI Pro 2.0](assets/lab-guide/live/cp8-agent-system-id-saved-safe.jpg)
   <figcaption markdown="span">After creation, confirm the saved name, **System ID**, and AI engine. Your suffix will differ from this example.</figcaption>
-</figure>
-
-<figure markdown>
-  ![Control Hub AI Agents area](assets/lab-guide/03-control-hub-ai-agents.png)
-  <figcaption markdown="span">Open AI Agent Studio from Control Hub **AI Agents**.</figcaption>
 </figure>
 
 ### Profile tab
