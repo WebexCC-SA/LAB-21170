@@ -9,7 +9,7 @@
 
 <figure markdown>
   ![MCP Lab AI agent workspace with no MCPs connected and the Order Desk card on the left](assets/lab-guide/01-mcp-lab-ai-agent-workspace.png)
-  <figcaption>The AI agent workspace shows Order Desk on the left. You have not connected an MCP yet.</figcaption>
+  <figcaption markdown="span">The AI agent workspace shows Order Desk on the left. You have not connected an MCP yet.</figcaption>
 </figure>
 
 ## Useful links and bookmarks

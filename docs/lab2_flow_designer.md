@@ -15,12 +15,12 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Flow template gallery with Simple Inbound Call to Queue selected](assets/lab-guide/live/cp2-template-gallery.png)
-  <figcaption>Select the Simple Inbound Call to Queue template.</figcaption>
+  <figcaption markdown="span">Select the Simple Inbound Call to Queue template.</figcaption>
 </figure>
 
 <figure markdown>
   ![Flow creation screen showing the chosen template and flow name](assets/lab-guide/live/cp2-template-config.png)
-  <figcaption>Name your practice flow before creating it.</figcaption>
+  <figcaption markdown="span">Name your practice flow before creating it.</figcaption>
 </figure>
 
 #### Inspect the caller path and configure the queue
@@ -32,12 +32,12 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![WelcomePrompt settings with Cisco Cloud Text-to-Speech selected](assets/lab-guide/live/cp2-welcome-prompt.png)
-  <figcaption>Check the greeting and text-to-speech connector.</figcaption>
+  <figcaption markdown="span">Check the greeting and text-to-speech connector.</figcaption>
 </figure>
 
 <figure markdown>
   ![Queue Contact settings changed from the sample queue to Queue-1](assets/lab-guide/live/cp2-queue-target.png)
-  <figcaption>Route this lab flow to Queue-1.</figcaption>
+  <figcaption markdown="span">Route this lab flow to Queue-1.</figcaption>
 </figure>
 
 #### Validate and publish the practice flow
@@ -48,22 +48,22 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Flow Designer validation showing zero errors before publishing](assets/lab-guide/live/cp2-validation.png)
-  <figcaption>Publish only after Validation shows 0 errors.</figcaption>
+  <figcaption markdown="span">Publish only after Validation shows 0 errors.</figcaption>
 </figure>
 
 <figure markdown>
   ![Publish dialog showing Latest and optional Test version labels](assets/lab-guide/live/cp2-publish-dialog.png)
-  <figcaption>Latest is automatic; Test and a comment are optional.</figcaption>
+  <figcaption markdown="span">Latest is automatic; Test and a comment are optional.</figcaption>
 </figure>
 
 <figure markdown>
   ![Published practice flow at version one with Debug and Analyze available](assets/lab-guide/live/cp2-published-v1.png)
-  <figcaption>The practice flow is published as version 1.</figcaption>
+  <figcaption markdown="span">The practice flow is published as version 1.</figcaption>
 </figure>
 
 <figure markdown>
   ![Screenshot sequence from Simple Inbound Call to Queue template selection through queue setup, validation, and publishing](assets/lab-guide/gifs/cp2-template-to-publish.gif)
-  <figcaption>Screenshot sequence: choose the template, set the queue and greeting, validate, then publish.</figcaption>
+  <figcaption markdown="span">Screenshot sequence: choose the template, set the queue and greeting, validate, then publish.</figcaption>
 </figure>
 
 #### Route an entry point to the flow and make test calls
@@ -75,12 +75,12 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Inbound entry point routing configuration with the published practice flow selected](assets/lab-guide/live/cp2-entry-point-route.png)
-  <figcaption>Assign the published practice flow to your lab entry point.</figcaption>
+  <figcaption markdown="span">Assign the published practice flow to your lab entry point.</figcaption>
 </figure>
 
 <figure markdown>
   ![Saved entry point showing the practice flow as its routing flow](assets/lab-guide/live/cp2-entry-point-saved.png)
-  <figcaption>Confirm the routing assignment was saved before calling.</figcaption>
+  <figcaption markdown="span">Confirm the routing assignment was saved before calling.</figcaption>
 </figure>
 
 #### Read a single call in Debug
@@ -91,17 +91,17 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Debug interactions list populated by test calls](assets/lab-guide/live/cp2-debug-interactions.png)
-  <figcaption>Completed test calls appear as separate interactions in Debug.</figcaption>
+  <figcaption markdown="span">Completed test calls appear as separate interactions in Debug.</figcaption>
 </figure>
 
 <figure markdown>
   ![Successful Debug trace through welcome, queue, waiting treatment, and end flow](assets/lab-guide/live/cp2-debug-trace.png)
-  <figcaption>One observed call followed NewPhoneContact → WelcomePrompt → Queue → Music → PlayMessage_c24 → Music → ContactEnded → EndFlow.</figcaption>
+  <figcaption markdown="span">One observed call followed NewPhoneContact → WelcomePrompt → Queue → Music → PlayMessage_c24 → Music → ContactEnded → EndFlow.</figcaption>
 </figure>
 
 <figure markdown>
   ![Debug details for the Queue activity in a completed test call](assets/lab-guide/live/cp2-debug-queue-detail.png)
-  <figcaption>Inspect the Queue activity's outcome and details for the selected call.</figcaption>
+  <figcaption markdown="span">Inspect the Queue activity's outcome and details for the selected call.</figcaption>
 </figure>
 
 #### Compare the calls in Analyze
@@ -112,20 +112,20 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 <figure markdown>
   ![Analyze overview showing two flow executions and no node errors](assets/lab-guide/live/cp2-analyze-overview.png)
-  <figcaption>At this refresh, Analyze showed two completed executions, no node errors, and 100% usage for WelcomePrompt and Queue.</figcaption>
+  <figcaption markdown="span">At this refresh, Analyze showed two completed executions, no node errors, and 100% usage for WelcomePrompt and Queue.</figcaption>
 </figure>
 
 <figure markdown>
   ![Analyze activity usage showing three call interactions for the Queue activity](assets/lab-guide/live/cp2-analyze-queue-usage.png)
-  <figcaption>A later activity-usage view listed three call interactions for Queue. This is a later snapshot than the overview above.</figcaption>
+  <figcaption markdown="span">A later activity-usage view listed three call interactions for Queue. This is a later snapshot than the overview above.</figcaption>
 </figure>
 
 <figure markdown>
   ![Screenshot sequence showing a completed interaction in Debug followed by aggregate path and Queue usage in Analyze](assets/lab-guide/gifs/cp2-debug-to-analyze.gif)
-  <figcaption>Screenshot sequence: inspect one call in Debug, then compare completed calls in Analyze.</figcaption>
+  <figcaption markdown="span">Screenshot sequence: inspect one call in Debug, then compare completed calls in Analyze.</figcaption>
 </figure>
 
-!!! success "Compare your calls with the worked example"
+!!! success "Compare your calls with the example trace"
     `LAB21170_SimpleQueue_ARUN` version 1 was assigned to `Entry Point-1` and received at least three calls. Debug showed the welcome, queue, waiting treatment, and EndFlow. The first Analyze refresh showed two completed executions with no node errors: WelcomePrompt and Queue appeared on every path; Music and the waiting message appeared on half. A later Queue view listed three interactions. Your counts will depend on your calls and selected time window.
 
 The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) explains templates, entry point routing, Debug, and Flow Analytics.
@@ -141,7 +141,7 @@ The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) expla
 
 <figure markdown>
   ![Flow creation options with Flow and Start from scratch selected](assets/lab-guide/02-flow-creation.png)
-  <figcaption>Create a voice flow from a blank canvas.</figcaption>
+  <figcaption markdown="span">Create a voice flow from a blank canvas.</figcaption>
 </figure>
 
 #### Create the flow
@@ -157,12 +157,12 @@ The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) expla
 
 <figure markdown>
   ![Live blank ServiceDesk flow with the NewContact voice start event](assets/lab-guide/live/cp2-servicedesk-blank.png)
-  <figcaption>The new ServiceDesk draft starts with NewContact on the Voice channel.</figcaption>
+  <figcaption markdown="span">The new ServiceDesk draft starts with NewContact on the Voice channel.</figcaption>
 </figure>
 
 #### Build the starter IVR
 
-The worked example needed a later correction to its general-support branch. Follow the steps below in your first draft so digit `2` enters the queue from the start.
+Build both menu choices before publishing. Digit `2` must enter `Queue-1` directly.
 
 1. Turn **Edit** on.
 2. Under **Voice**, drag **Play Message** onto the canvas. In **General settings**, set **Activity label** to `WelcomeMessage`.
@@ -173,11 +173,12 @@ The worked example needed a later correction to its general-support branch. Foll
 7. In the Menu's **Prompt** settings, turn on **Enable text-to-speech**, select **Cisco Cloud Text-to-Speech**, add a text-to-speech message, and enter: `Press 1 for order support. Press 2 for general support.`
 8. Under **Custom links**, add digit `1` with the label **Order Support** and digit `2` with the label **General Support**.
 9. Add **Queue Contact**, select the assigned `Queue-1` queue, and connect the digit `2` **General Support** output directly to it. This choice is a request for a human agent; it should not play a placeholder message and disconnect.
-10. After **Queue Contact**, add **Play Music** and a short waiting **Play Message**. Follow the simple queued-treatment pattern you inspected in Part A so the caller can hear treatment while waiting. An agent may answer before every treatment activity runs. Route any exposed queue or treatment failure to an honest fallback and safe disconnect.
-11. Add a temporary **Play Message** activity named `OrderSupportPending`. Use Cisco Cloud Text-to-Speech for: `Order support will be added in the next checkpoint.` Connect the digit `1` output from `SupportMenu` to this message. You will replace this link with the HTTP Request in Checkpoint 3.
-12. Add a **Play Message** named `MenuFallbackMessage` with: `I did not get a valid choice. Please call again.` Connect the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs to this safe fallback.
-13. Add **Disconnect Contact** named `DisconnectContact`. Connect the outputs of `OrderSupportPending` and `MenuFallbackMessage` to it. Keep the digit `2` queue route separate from this disconnect path.
-14. Wait for Autosave, then confirm that both Menu choices and every fallback have a valid destination. Validate before publishing.
+10. After **Queue Contact**, add **Play Music** and a **Play Message** labeled `PleaseWait`. Use Cisco Cloud Text-to-Speech for a short prompt such as `Please wait while we connect you.` Connect the Queue Contact normal output to Play Music, Play Music to `PleaseWait`, and `PleaseWait` back to Play Music. An agent may answer before every treatment activity runs.
+11. Add another **Play Message** labeled `QueueErrorMessage`. Use Cisco Cloud Text-to-Speech for: `I can't connect you to a person right now. Please try again later.` Connect Queue Contact **Failure** and any exposed treatment **Undefined Error** output to `QueueErrorMessage`.
+12. Add a temporary **Play Message** activity named `OrderSupportPending`. Use Cisco Cloud Text-to-Speech for: `Order support will be added in the next checkpoint.` Connect the digit `1` output from `SupportMenu` to this message. You will replace this link with the HTTP Request in Checkpoint 3.
+13. Add a **Play Message** named `MenuFallbackMessage` with: `I did not get a valid choice. Please call again.` Connect the Menu's **No-Input Timeout**, **Unmatched Entry**, and **Undefined Error** outputs to this safe fallback.
+14. Add **Disconnect Contact** named `DisconnectContact`. Connect the outputs of `OrderSupportPending`, `MenuFallbackMessage`, and `QueueErrorMessage` to it. Connect `QueueErrorMessage`'s **Undefined Error** output directly to `DisconnectContact` as well. Keep the digit `2` normal queue route separate from this disconnect path.
+15. Wait for Autosave, then confirm that both Menu choices and every fallback have a valid destination. Validate before publishing.
 
 Your starter path should now look like this:
 
@@ -199,11 +200,11 @@ Publish this version so you can hear the flow after the queue-treatment exercise
 
 First inspect the **Comprehensive Call Flow** main-flow template in the gallery. Trace **Queue → GetPositioninQueue → SetPIQvalue → AgentBusy → PlayPIQ → CallerMenu**. From `CallerMenu`, digit `1` goes to **Callback → Disconnect**, digit `2` to a voicemail **Blind Transfer**, and digit `3` through **MusicOnHold → CallLoopCycle** for another wait cycle. No input goes to **ThankYou → Disconnect**; invalid input returns to `CallerMenu`. The visible `FinalMenu` has no inbound link in the native draft, so it is outside the running path.
 
-Use this as a design reference. **Callback** and **Blind Transfer** are absent from the subflow palette, and a cross-flow Callback paste did not create a node in the worked example. Build the audible wait with the **Queue Treatment Subflow** template below. Keep **Queue Contact**, **Callback**, and any voicemail transfer in the main flow. The template was inspected but not call-tested for this comparison.
+Use this as a design reference. **Callback** and **Blind Transfer** are absent from the subflow palette. Build the audible wait with the **Queue Treatment Subflow** template below. Keep **Queue Contact**, **Callback**, and any voicemail transfer in the main flow. Your phone test later in this checkpoint checks the subflow you publish.
 
 <figure markdown>
   ![Connected post-queue branches in the native Comprehensive Call Flow template](assets/lab-guide/live/cp2-comprehensive-postqueue-reference.png)
-  <figcaption>The native template's `CallerMenu` offers callback, voicemail transfer, or another music loop. It is a design reference; the reusable subflow below contains only the supported waiting treatment.</figcaption>
+  <figcaption markdown="span">The native template's `CallerMenu` offers callback, voicemail transfer, or another music loop. It is a design reference; the reusable subflow below contains only the supported waiting treatment.</figcaption>
 </figure>
 
 The [Queue Treatment Subflow template](https://help.webex.com/article/nhovcy4) provides an audible wait: music, a text-to-speech message, more music, and a bounded repeat. It does not place the call in a queue. The **Queue Contact** activity stays in the main flow, before the subflow.
@@ -214,12 +215,12 @@ The [Queue Treatment Subflow template](https://help.webex.com/article/nhovcy4) p
 
 <figure markdown>
   ![Subflow template gallery showing Queue Treatment and Collect Callback Info](assets/lab-guide/live/cp2-subflow-templates.png)
-  <figcaption>Choose Queue Treatment Subflow for the reusable waiting path.</figcaption>
+  <figcaption markdown="span">Choose Queue Treatment Subflow for the reusable waiting path.</figcaption>
 </figure>
 
 <figure markdown>
   ![Subflow configuration form with a unique no-space name](assets/lab-guide/live/cp2-subflow-create.png)
-  <figcaption>Name the subflow before opening its canvas.</figcaption>
+  <figcaption markdown="span">Name the subflow before opening its canvas.</figcaption>
 </figure>
 
 On the subflow canvas:
@@ -231,20 +232,20 @@ On the subflow canvas:
 
 <figure markdown>
   ![Queue Treatment Subflow draft showing its music and message loop](assets/lab-guide/live/cp2-queue-treatment-template.png)
-  <figcaption>The template draft repeats music and a message before End Subflow.</figcaption>
+  <figcaption markdown="span">The template draft repeats music and a message before End Subflow.</figcaption>
 </figure>
 
 <figure markdown>
   ![Queue Treatment Subflow draft with zero validation errors](assets/lab-guide/live/cp2-queue-treatment-validation.png)
-  <figcaption>The inspected draft showed 0 validation errors and one optional description recommendation. Publish your own configured copy.</figcaption>
+  <figcaption markdown="span">The inspected draft showed 0 validation errors and one optional description recommendation. Publish your own configured copy.</figcaption>
 </figure>
 
 <figure markdown>
   ![Screenshot sequence from Queue Treatment Subflow template selection through validation and published version history](assets/lab-guide/gifs/cp2-queue-treatment-subflow.gif)
-  <figcaption>Screenshot sequence: select the queue-treatment template, inspect its draft, validate, and confirm the published version.</figcaption>
+  <figcaption markdown="span">Screenshot sequence: select the queue-treatment template, inspect its draft, validate, and confirm the published version.</figcaption>
 </figure>
 
-The worked example `LAB21170_QueueTreatment_Ready_ARUN` was published as version 1 with **Latest** and **Test** labels. The validation screenshot shows the draft before publication; no inbound call through this subflow was captured.
+Publish your configured subflow before selecting it in a main flow. The validation screenshot shows a draft; confirm its call behavior after you connect the published subflow below.
 
 #### Offer a callback or another wait cycle in the practice flow
 
@@ -254,7 +255,7 @@ Return to the practice flow from Part A. It already has **Queue Contact** config
 2. Open the **Subflows** tab of the main-flow activity library, add your published queue-treatment subflow, and select its **Latest** version label. Its four exposed inputs can remain unmapped when you want the published defaults: `musicDuration = 10`, `queueMessage = Please wait`, and `queueMusic1` and `queueMusic2` both use `defaultmusic_on_hold.wav`. The example version below uses these defaults. If you need different prompts, music, or duration per caller, create matching main-flow variables and map only the inputs you override. The template's `counter` is internal; it is not a fifth input. The subflow has no output to map. Connect **Queue Contact → Queue Treatment Subflow**.
 3. Add a **Menu** after the subflow and label it `CallbackOrWait`. Use Cisco Cloud Text-to-Speech for: `Press 1 to receive a callback at the number you are calling from. Press 2 to keep waiting.` Add custom links for digit `1` (**Callback**) and digit `2` (**Keep Waiting**).
 4. Connect digit `2`, **No-Input Timeout**, and **Unmatched Entry** directly back to **Queue Treatment Subflow**. Do not loop to **Queue Contact**; the caller is already queued. A caller who stays in queue can be offered to an agent while treatment runs.
-5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. The worked example passed Callback validation only after **Register callback to different destination?** was turned on and **Static queue** was set explicitly to `Queue-1`, even though Queue Contact used that queue. Follow the validator and your facilitator's queue policy.
+5. Add **Callback** from the main-flow **Voice** activities and connect digit `1` to it. Set **Callback dial number** to `NewPhoneContact.ANI` so the return call goes to the caller. Select the lab's approved **Static Callback ANI** for the outbound return call. If Validation flags Callback, turn on **Register callback to different destination?** and set **Static queue** explicitly to `Queue-1`, even if Queue Contact already uses that queue. Follow your facilitator's queue policy.
 6. Add a short Cisco Cloud Text-to-Speech confirmation **Play Message**, then **Disconnect Contact**. Connect **Callback → confirmation → Disconnect Contact**. The disconnect is required after registering a Courtesy Callback.
 7. For a flow you will route to callers, connect exposed error paths to a safe fallback or an error message followed by **Disconnect Contact**. Check that a successful callback does not return to waiting treatment. Flow Designer may show **0 errors** even when optional error outputs remain open, so inspect those links yourself.
 8. Wait for Autosave, turn on **Validation**, and resolve errors. Publish a new version of the practice flow. The example subflow uses **Latest** with automatic updates enabled; if you change the subflow later, validate the parent flow again and publish a new parent version before relying on the changed behavior.
@@ -263,22 +264,22 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
 
 <figure markdown>
   ![Published queue-treatment subflow selected on Latest with four unmapped inputs](assets/lab-guide/live/cp2-subflow-inputs-unmapped.jpg)
-  <figcaption>The example parent flow maps no inputs. Flow Designer uses the four defaults configured in the published subflow; <code>counter</code> is internal.</figcaption>
+  <figcaption markdown="span">The example parent flow maps no inputs. Flow Designer uses the four defaults configured in the published subflow; <code>counter</code> is internal.</figcaption>
 </figure>
 
 <figure markdown>
   ![Courtesy Callback settings using caller ANI and an explicit Queue-1 destination](assets/lab-guide/live/cp2-callback-settings-queue.jpg)
-  <figcaption><code>NewPhoneContact.ANI</code> supplies the return-call number. In this example, Callback also requires an explicit <code>Queue-1</code> destination; the outbound Callback ANI is selected separately.</figcaption>
+  <figcaption markdown="span"><code>NewPhoneContact.ANI</code> supplies the return-call number. In this example, Callback also requires an explicit <code>Queue-1</code> destination; the outbound Callback ANI is selected separately.</figcaption>
 </figure>
 
 <figure markdown>
   ![Published practice flow from welcome prompt through Queue Contact and Queue Treatment](assets/lab-guide/live/cp2-practice-v2-queue-treatment.jpg)
-  <figcaption>In the published practice flow, Queue Contact enters the reusable treatment subflow. The queue failure and subflow error paths lead to the existing End Flow activities.</figcaption>
+  <figcaption markdown="span">In the published practice flow, Queue Contact enters the reusable treatment subflow. The queue failure and subflow error paths lead to the existing End Flow activities.</figcaption>
 </figure>
 
 <figure markdown>
   ![Published caller-choice menu with callback, wait, confirmation, and disconnect branches](assets/lab-guide/live/cp2-practice-v2-callback-branch.jpg)
-  <figcaption>Digit 1 registers Courtesy Callback, plays a confirmation, and disconnects the original call. Digit 2, no input, and unmatched input return to Queue Treatment without queueing again.</figcaption>
+  <figcaption markdown="span">Digit 1 is wired to register Courtesy Callback, play a confirmation, and disconnect the original call. Digit 2, no input, and unmatched input are wired back to Queue Treatment without queueing again.</figcaption>
 </figure>
 
 ??? example "Show me: wire the parent callback loop"
@@ -288,14 +289,14 @@ The validated main-flow path is `Queue Contact → Queue Treatment Subflow → C
 
 <figure markdown>
   ![Practice flow version history showing version 2 with Test and Latest labels](assets/lab-guide/live/cp2-practice-v2-published.jpg)
-  <figcaption>The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
+  <figcaption markdown="span">The example <code>LAB21170_SimpleQueue_ARUN</code> was published as version 2 with Test and Latest labels after Validation showed 0 errors.</figcaption>
 </figure>
 
-Version 2 proves that the queue-treatment and callback design was published, but no call through it was captured. Its Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs were still open despite 0 validation errors. Connect them before routing callers. The Part A Debug and Analyze screenshots show version 1, before this change.
+The version 2 screenshot shows the queue-treatment and callback design published. It does not show a call through that version. Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** were still open despite 0 validation errors. Connect them before routing callers. The Part A Debug and Analyze screenshots show version 1.
 
 #### Test the queue treatment
 
-1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a safe **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this repaired version; the captured version 2 still has those ports open.
+1. Before a call, connect the Menu **Undefined Error**, Callback **Failure**, and confirmation Play Message **Undefined Error** outputs to a short fallback message and a **Disconnect Contact**. Connect the fallback message's own error output directly to **Disconnect Contact**. Validate and publish this version; the version 2 screenshot still shows those ports open.
 2. Check that your assigned entry point routes to the Part A practice flow on **Latest**. If it now routes to `ServiceDesk` or another participant's flow, coordinate with the facilitator before changing that shared route. Call the practice flow's number and stay on the line long enough to hear music and the waiting message, then press `2` at `CallbackOrWait`. Confirm that the wait treatment plays again.
 3. On a second call, press `1` only if the facilitator has enabled Courtesy Callback for the lab queue. Listen for the confirmation and confirm the original call disconnects. If an agent accepts the queued callback task, confirm that a return call arrives at the caller number.
 4. In **Debug**, compare the completed main-flow interaction paths. In **Analyze**, check the subflow invocation and the chosen menu branch. [Flow Analytics](https://help.webex.com/article/nhovcy4) does not report activities inside a subflow, and it excludes calls registered for callback from its completed-call counts. Your results depend on queue staffing, call duration, and whether callback is enabled.
@@ -318,7 +319,7 @@ Version 2 proves that the queue-treatment and callback design was published, but
 
 ## Checkpoint 3: Call the Order Desk REST API from Flow Designer
 
-Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you will use the same business data through MCP and an AI agent. This REST path is temporary; publication alone does not prove that the HTTP request ran on a call.
+Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you will use the same business data through MCP and an AI agent. This REST path is temporary; publication alone does not prove that the HTTP request ran on a call. If you published the starter IVR in Checkpoint 2, your direct-REST version will have a later number than the version 1 reference screenshot below.
 
 1. Return to `ServiceDesk` in Flow Designer and turn **Edit** on.
 2. Open **Global Flow Properties** from the canvas controls.
@@ -327,20 +328,20 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 
     <figure markdown>
       ![Live Create a flow variable dialog with orderStatus set to String and blank default value](assets/lab-guide/live/cp3-flow-variable.png)
-      <figcaption>Create `orderStatus` as a String variable. Leave the default value blank so the API response supplies it.</figcaption>
+      <figcaption markdown="span">Create `orderStatus` as a String variable. Leave the default value blank so the API response supplies it.</figcaption>
     </figure>
 
 5. Wait for Autosave, then close **Global Flow Properties**.
 6. Find **HTTP Request** under **Utilities** and drag it onto the canvas.
 7. In **General settings**, set **Activity label** to `GetOrder`.
-8. Disconnect the digit `1` **Order Support** output from `OrderSupportPending` and connect it to `GetOrder`. The temporary message and its end link can be removed once validation confirms the replacement path. This HTTP branch is a comparison exercise, not the final caller path.
+8. Disconnect the digit `1` **Order Support** output from `OrderSupportPending` and connect it to `GetOrder`. Remove the temporary message and its end link after the replacement path validates.
 9. Open **Test tenant details** in MCP Lab and find the Order Desk REST API details and temporary bearer token.
 10. In `GetOrder`, turn **Use authenticated endpoint** off. When it is on, Flow Designer asks for a configured connector and **Request path**; turning it off reveals the full **Request URL** field used for this temporary lab endpoint.
 11. Set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Use the assigned URL from **Test tenant details** if it differs.
 
     <figure markdown>
       ![Published ServiceDesk version 1 GetOrder HTTP Request settings with URL field and GET method](assets/lab-guide/live/cp3-getorder-settings-focused.jpg)
-      <figcaption>The published version 1 activity is named `GetOrder`. Turning off the authenticated endpoint option exposes the Request URL field. The complete URL is in step 11; keep the Authorization value out of screenshots and GIFs.</figcaption>
+      <figcaption markdown="span">The published version 1 activity is named `GetOrder`. Turning off the authenticated endpoint option exposes the Request URL field. The complete URL is in step 11; keep the Authorization value out of screenshots and GIFs.</figcaption>
     </figure>
 
 12. Under **HTTP request headers**, add **Key** `Authorization` and **Value** `Bearer <temporary Order Desk token>`. Include the word `Bearer`, one space, and then the token copied from **Test tenant details**. Keep this temporary value only in the assigned sandbox; never put it in a screenshot, GIF, source file, or notes.
@@ -350,7 +351,7 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 
     <figure markdown>
       ![Live HTTP Request JSON parsing settings mapping order status to the orderStatus variable](assets/lab-guide/live/cp3-json-parse-clean.png)
-      <figcaption>Parse the JSON response and map <code>$.order.status</code> into the flow's String `orderStatus` variable.</figcaption>
+      <figcaption markdown="span">Parse the JSON response and map <code>$.order.status</code> into the flow's String `orderStatus` variable.</figcaption>
     </figure>
 
 16. Add a **Play Message** activity and set **Activity label** to `OrderStatusMessage`.
@@ -358,21 +359,21 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 
     <figure markdown>
       ![Live Flow Designer expression preview showing orderStatus processing becomes a spoken sentence](assets/lab-guide/live/cp3-status-expression-test.png)
-      <figcaption>The expression preview resolves sample `orderStatus` to “Your order status is processing.” This checks the prompt expression; the phone call test comes after publication.</figcaption>
+      <figcaption markdown="span">The expression preview resolves sample `orderStatus` to “Your order status is processing.” This checks the prompt expression; the phone call test comes after publication.</figcaption>
     </figure>
 
     <figure markdown>
       ![Screenshot sequence of the direct Order Desk HTTP setup, JSON parsing, and prompt expression preview](assets/lab-guide/gifs/cp3-direct-http-setup.gif)
-      <figcaption>Screenshot sequence: create `orderStatus`, configure the direct GET, map `$.order.status`, and preview the spoken expression. These setup screens do not show a successful HTTP response.</figcaption>
+      <figcaption markdown="span">Screenshot sequence: create `orderStatus`, configure the direct GET, map `$.order.status`, and preview the spoken expression. These setup screens do not show a successful HTTP response.</figcaption>
     </figure>
 
-18. Connect the single outgoing `GetOrder` port to `OrderStatusMessage`, then connect the message to the same `Queue Contact` used by menu digit `2`. Confirm it still selects `Queue-1` and reaches the **Play Music** wait treatment. In this tenant, HTTP Request has no separate error port. This direct version is a known-order comparison; the status guard and honest fallback are built in the subflow below.
+18. Connect the single outgoing `GetOrder` port to `OrderStatusMessage`, then connect the message to the same `Queue Contact` used by menu digit `2`. Confirm it still selects `Queue-1` and reaches the **Play Music** wait treatment. In this tenant, HTTP Request has no separate error port. This direct version tests a known order; the subflow below adds a status guard and an `unavailable` result for failures.
 19. Wait for Autosave, turn on **Validation**, resolve blocking errors, and select **Publish**. **Latest** is applied automatically; add the offered **Test** label and a comment such as `Order Desk REST lookup` if you want to identify this checkpoint. Confirm the entry point still routes to `ServiceDesk` on the intended version.
 
 Trace both practice paths: digit `1` runs `GetOrder → OrderStatusMessage → Queue Contact → Play Music`; digit `2` goes straight to `Queue Contact → Play Music`. Both can reach the human queue. The final AI flow removes the menu and direct REST nodes; the earlier published versions remain in version history.
 
 !!! warning "Temporary Order Desk credential"
-    This manual bearer header is for the assigned synthetic lab sandbox only. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication. When you finish the REST comparison and refactor, remove the old direct HTTP activity or clear its header. At lab cleanup, clear the temporary header in the order-lookup subflow as directed by the facilitator; an unused published subflow still retains its configuration.
+    Use the manual bearer header only in your assigned sandbox. After the REST exercise, remove the direct HTTP activity or clear its header. At lab cleanup, clear the header in the order-lookup subflow too; an unused published subflow retains its configuration. A production HTTP integration should use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) to manage authentication.
 
 ### Test the API branch by phone
 
@@ -421,22 +422,22 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
     <figure markdown>
       ![Live Function test with an Order Desk JSON input and processing status in the result](assets/lab-guide/live/cp3-function-valid-test.png)
-      <figcaption>The dedicated Function's live test returns a typed status and lookup flag from the sample order JSON. Repeat with `{}` to verify the missing-field fallback.</figcaption>
+      <figcaption markdown="span">The dedicated Function's live test returns a typed status and lookup flag from the sample order JSON. Repeat with `{}` to verify the missing-field fallback.</figcaption>
     </figure>
 
     <figure markdown>
       ![Screenshot sequence of valid and empty JSON Function tests followed by the Function publish dialog](assets/lab-guide/gifs/cp3-function-local-tests.gif)
-      <figcaption>Screenshot sequence: local Function tests return `processing` for sample order JSON and `unavailable` for `{}`, then the Function publish dialog opens. This is not a caller test.</figcaption>
+      <figcaption markdown="span">Screenshot sequence: local Function tests return `processing` for sample order JSON and `unavailable` for `{}`, then the Function publish dialog opens. This is not a caller test.</figcaption>
     </figure>
 
     <figure markdown>
       ![Function test input with an order status set to the number 42](assets/lab-guide/live/cp3-function-malformed-input.jpg)
-      <figcaption>Malformed-shape input: valid JSON with a numeric `status` field.</figcaption>
+      <figcaption markdown="span">Malformed-shape input: valid JSON with a numeric `status` field.</figcaption>
     </figure>
 
     <figure markdown>
       ![Function test result with unavailable status and false lookup success](assets/lab-guide/live/cp3-function-malformed-result.jpg)
-      <figcaption>The same live test returns `unavailable` and `lookupSucceeded: false` without a runtime error. Syntactically invalid JSON is stopped by the test form before the Function runs.</figcaption>
+      <figcaption markdown="span">The same live test returns `unavailable` and `lookupSucceeded: false` without a runtime error. Syntactically invalid JSON is stopped by the test form before the Function runs.</figcaption>
     </figure>
 
 5. Select **Publish Function** and note the published version label. A draft Function is not available for use by the subflow.
@@ -450,14 +451,14 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
     <figure markdown>
       ![Live order-lookup subflow HTTP parsing maps the whole response through dollar-sign path to a JSON variable](assets/lab-guide/live/cp3-order-subflow-json-map.png)
-      <figcaption>During draft assembly, `$` maps the whole response into local JSON `orderResponseJson`. Complete the links and status guard before publishing.</figcaption>
+      <figcaption markdown="span">During draft assembly, `$` maps the whole response into local JSON `orderResponseJson`. Complete the links and status guard before publishing.</figcaption>
     </figure>
 
 5. Add a **Condition** activity labeled `HttpStatusIs200` between `FetchOrderRecord` and the parser Function. Enter <code>&#123;&#123;FetchOrderRecord.httpStatusCode == 200&#125;&#125;</code> as the **Condition expression**. In **Test expression**, sample `200` must resolve to `true` and `404` to `false`. HTTP Request exposes one outgoing canvas port in this tenant, so this Condition prevents a non-200 response from reaching the parser.
 
     <figure markdown>
       ![Live Condition expression preview shows HTTP status 404 evaluates to false](assets/lab-guide/live/cp3-order-status-condition-test.png)
-      <figcaption>The expression preview checks the guard with sample status `404`. It is a local expression test, not an Order Desk HTTP result.</figcaption>
+      <figcaption markdown="span">The expression preview checks the guard with sample status `404`. It is a local expression test, not an Order Desk HTTP result.</figcaption>
     </figure>
 
 6. Open the subflow's **Functions** tab, drag your published `LAB21170_ParseOrderStatus_<your_initials>` Function onto the canvas, and choose its published version. Connect the `HttpStatusIs200` **True** output to the Function. Map its JSON input `order_data` to `orderResponseJson`.
@@ -466,17 +467,17 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
     <figure markdown>
       ![Live order-lookup subflow with status guard, parser Function, fallback, and zero validation errors](assets/lab-guide/live/cp3-order-subflow-validation.png)
-      <figcaption>The complete draft routes status `200` through the parser and other status codes through `SetLookupUnavailable`. Flow Designer reports zero structural errors and “Ready to publish”; the phone test still verifies runtime behavior.</figcaption>
+      <figcaption markdown="span">The complete draft routes status `200` through the parser and other status codes through `SetLookupUnavailable`. Flow Designer reports zero structural errors and “Ready to publish”; the phone test still verifies runtime behavior.</figcaption>
     </figure>
 
     <figure markdown>
       ![Live order-lookup subflow version history showing version 1 with Test and Latest labels](assets/lab-guide/live/cp3-order-subflow-published.png)
-      <figcaption>The validated OrderLookup subflow was published as version 1 with `Test` and automatic `Latest` labels. The parent `ServiceDesk` flow must still be republished after it invokes this subflow.</figcaption>
+      <figcaption markdown="span">The validated OrderLookup subflow was published as version 1 with `Test` and automatic `Latest` labels. The parent `ServiceDesk` flow must still be republished after it invokes this subflow.</figcaption>
     </figure>
 
     <figure markdown>
       ![Screenshot sequence of OrderLookup JSON mapping, status guard, Function output mapping, validation, and version history](assets/lab-guide/gifs/cp3-order-subflow-refactor.gif)
-      <figcaption>Screenshot sequence: map the whole response, test the HTTP status guard, map the Function result, validate, and publish OrderLookup. The validation and version screens prove structure and publication; a phone call still has to verify the runtime lookup.</figcaption>
+      <figcaption markdown="span">Screenshot sequence: map the whole response, test the HTTP status guard, map the Function result, validate, and publish OrderLookup. The validation and version screens prove structure and publication; a phone call still has to verify the runtime lookup.</figcaption>
     </figure>
 
 ### Use the subflow from `ServiceDesk`
@@ -487,22 +488,22 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
     <figure markdown>
       ![Live parent-flow condition expression preview shows unavailable status evaluates to false](assets/lab-guide/live/cp3-parent-condition-test.png)
-      <figcaption>The parent Condition's expression preview rejects sample `unavailable`; it is a local expression check, not a phone result.</figcaption>
+      <figcaption markdown="span">The parent Condition's expression preview rejects sample `unavailable`; it is a local expression check, not a phone result.</figcaption>
     </figure>
 
 4. Validate and publish `ServiceDesk` again. Publishing only the subflow does not update the routed main flow. Check that the entry point uses the intended `ServiceDesk` version before calling.
 
     <figure markdown>
       ![Live refactored ServiceDesk draft with OrderLookup subflow, status condition, queue treatment, and zero validation errors](assets/lab-guide/live/cp3-parent-subflow-validation.png)
-      <figcaption>The refactored parent draft passed structural validation with zero errors before publication. This does not show a completed call.</figcaption>
+      <figcaption markdown="span">The refactored parent draft passed structural validation with zero errors before publication. This does not show a completed call.</figcaption>
     </figure>
 
     <figure markdown>
       ![Live entry point routing set to the published ServiceDesk Latest version](assets/lab-guide/live/cp3-servicedesk-entry-point-route.png)
-      <figcaption>Entry Point-1 is routed to the published `ServiceDesk` **Latest** version. Routing configuration alone does not verify the order response on a call.</figcaption>
+      <figcaption markdown="span">Entry Point-1 is routed to the published `ServiceDesk` **Latest** version. Routing configuration alone does not verify the order response on a call.</figcaption>
     </figure>
 
-5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or follows the honest fallback. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
+5. Call the assigned number, press `1`, and compare the spoken status with the earlier direct-HTTP design. In **Debug**, confirm the path enters the order-lookup subflow and returns a non-`unavailable` `orderStatus`, or plays the temporary-unavailability message. Make a second call on digit `2` and confirm that it enters the same human queue without running OrderLookup. Use **Analytics** to compare the main-flow branch counts after both completed calls; it does not display the subflow's internal activity counts.
 
 !!! info "Read the example screenshots by flow version"
     The parser Function passed valid, missing-status, and malformed-shape tests. The separate `OrderLookup` subflow was published as version 1 before it was used by the main flow.
@@ -515,46 +516,40 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
 <figure markdown>
   ![Live ServiceDesk version 2 Debug trace showing a successful welcome followed by SupportMenu Error and GlobalErrorHandling](assets/lab-guide/live/cp3-servicedesk-v2-menu-error.jpg)
-  <figcaption>Version 2 stopped at `SupportMenu` with **Error**. Debug did not identify the cause or a selected digit.</figcaption>
+  <figcaption markdown="span">Version 2 stopped at `SupportMenu` with **Error**. Debug did not identify the cause or a selected digit.</figcaption>
 </figure>
 
 <figure markdown>
   ![Published ServiceDesk version 3 menu with three error outputs wired to MenuFallbackMessage and MenuFallbackDisconnect](assets/lab-guide/live/cp3-servicedesk-v3-menu-fallback.jpg)
-  <figcaption>Version 3 connects menu timeout, unmatched entry, and undefined error to a spoken fallback and disconnect. The next trace shows a separate digit `1` call.</figcaption>
+  <figcaption markdown="span">Version 3 connects menu timeout, unmatched entry, and undefined error to a spoken fallback and disconnect. The next trace shows a separate digit `1` call.</figcaption>
 </figure>
 
 <figure markdown>
   ![Live version 3 Debug trace showing successful menu, order-lookup subflow, and availability condition](assets/lab-guide/live/cp3-servicedesk-v3-order-path.jpg)
-  <figcaption>A version 3 call completed the order-lookup subflow. The crop omits caller and interaction IDs.</figcaption>
+  <figcaption markdown="span">A version 3 call completed the order-lookup subflow. The crop omits caller and interaction IDs.</figcaption>
 </figure>
 
 <figure markdown>
   ![Live version 3 subflow output for ORD-10482 showing orderStatus Shipped](assets/lab-guide/live/cp3-servicedesk-v3-order-result.jpg)
-  <figcaption>The subflow returned <code>Shipped</code> for <code>ORD-10482</code>; the same call later reached the status message and queue treatment.</figcaption>
+  <figcaption markdown="span">The subflow returned <code>Shipped</code> for <code>ORD-10482</code>; the same call later reached the status message and queue treatment.</figcaption>
 </figure>
 
 <figure markdown>
   ![Live Flow Analytics for ServiceDesk version 3 showing two completed executions and zero node errors](assets/lab-guide/live/cp3-servicedesk-v3-analyze.jpg)
-  <figcaption>Analyze shows two completed version 3 calls in 15 minutes. One used the order path; zero node errors does not mean both menu choices were tested.</figcaption>
+  <figcaption markdown="span">Analyze shows two completed version 3 calls in 15 minutes. One used the order path; zero node errors does not mean both menu choices were tested.</figcaption>
 </figure>
 
 ??? example "Show me: correct the general-support route"
-    <figure markdown>
-      ![ServiceDesk version 4 canvas with general support connected directly to Queue Contact and Validation reporting zero errors](assets/lab-guide/live/cp3-general-support-queue-validated.jpg)
-      <figcaption>Digit `2` now joins the same queue activity as the order path. The edited flow passed structural validation with zero errors.</figcaption>
-    </figure>
+    ![Five-second screenshot sequence: connect general-support digit 2 to Queue Contact, validate, and inspect the resulting ServiceDesk topology](assets/lab-guide/gifs/cp3-general-support-queue-fix.gif)
 
-    <figure markdown>
-      ![ServiceDesk version 4 corrected general-support topology](assets/lab-guide/live/cp3-general-support-v4-published.jpg)
-      <figcaption>This canvas capture shows the corrected general-support topology. The version-history capture in Checkpoint 9 confirms that version 4 was published at 19:01:59 tenant time before version 5 became <strong>Latest</strong>.</figcaption>
-    </figure>
+    Digit `2` joins the same queue activity as the order path. The first frame shows **0 errors**; the second shows the corrected queue and wait-treatment links. Checkpoint 9's version history shows this menu version was published.
 
-    Version 4 was **Latest** at this checkpoint. Version 5 became **Latest** after the AI route was published; version 4's corrected digit `2` branch still needs a phone and Debug test.
+    Publish your corrected menu version, then call again and confirm in **Debug** that digit `2` enters `Queue-1`. Zero-error Validation alone does not confirm what a caller hears.
 
 !!! tip "If the API branch fails"
     For the first version, check the full request URL, the temporary `Authorization` header, and the `$.order.status` JSON path. For the refactored version, also check the subflow input/output mappings, the `$` JSON mapping, `HttpStatusIs200`, and Function result paths. Keep the starter IVR connected until Checkpoint 9; the earlier published version preserves the direct-HTTP comparison.
 
 !!! success "Finish Checkpoint 3 after your calls prove the paths"
-    Call the direct REST version and confirm in Debug that digit `1` reaches `GetOrder` and reads the status for `ORD-10482`. Call the refactored version and confirm that digit `1` runs the HTTP subflow and Function, then reads the status or an honest fallback. Confirm that digit `2` enters `Queue-1` without the lookup or placeholder. Compare the completed paths in Debug and Analytics before marking the checkpoint complete.
+    Call the direct REST version and confirm in Debug that digit `1` reaches `GetOrder` and reads the status for `ORD-10482`. Call the refactored version and confirm that digit `1` runs the HTTP subflow and Function, then reads the status or the temporary-unavailability message. Confirm that digit `2` enters `Queue-1` without the lookup or placeholder. Compare the completed paths in Debug and Analytics before marking the checkpoint complete.
 
 [Continue to MCP inspection and testing](lab3_agent_registration.md){ .md-button .md-button--primary }

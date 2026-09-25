@@ -11,17 +11,17 @@ Practice path:
          └─ 2 general support ─────────────────────────→ Queue-1 → wait treatment
 
 Final path:
-  Caller → AI agent → external Order Desk system → response
-         ├─ Handled → end
-         ├─ Escalated → human agent queue → queue treatment
-         └─ Errored → honest fallback → safe exit
+  Caller → AI agent
+         ├─ order request → Order Desk MCP → response → Handled → end
+         ├─ general support → offer human → Escalated → Queue-1 → wait treatment
+         └─ Errored → spoken error message → disconnect
 ```
 
 In the practice flow, digit `1` looks up an order through REST before joining `Queue-1`; digit `2` joins the queue directly. In the final flow, the caller goes straight to the AI agent. A handled request ends, an escalation enters the human queue, and an error plays a clear fallback before disconnecting. The final path has no numbered menu.
 
 <figure markdown>
   ![Simplified practice path through welcome, menu, REST lookup and queue treatment, and final AI-agent path with handled and human-escalation outcomes](assets/lab-guide/00-solution-evolution.png)
-  <figcaption>Practice digit 2 bypasses REST and joins the queue. The final path uses the approved Order Desk MCP action; dashed queue links are configured in later checkpoints.</figcaption>
+  <figcaption markdown="span">Practice digit 2 bypasses REST and joins the queue. The final path uses the approved Order Desk MCP action; dashed queue links are configured in later checkpoints.</figcaption>
 </figure>
 
 See [Checkpoint 9's reference topology](lab5_end_to_end.md) for the final outcomes and queue-error path.
@@ -57,7 +57,7 @@ In the final phone test, you speak as the caller.
 Work through the checkpoints in order:
 
 1. Redeem the sandbox assignment and bookmark the lab workspaces.
-2. Build and publish a **Simple Flow to Queue** flow, assign it to the entry point, and call the assigned number.
+2. Build and publish a **Simple Inbound Call to Queue** flow, assign it to the entry point, and call the assigned number.
 3. Inspect a call in **Flow Debugging**; make two or three more calls and compare them in **Flow Analytics**.
 4. Build the starter IVR with general support routed to `Queue-1`. Use the **Comprehensive Call Flow** template as a reference for wait treatment and an optional callback; test by phone.
 5. Publish the Order Desk REST branch in Flow Designer, then verify its response by phone, Debugging, and Analytics.
