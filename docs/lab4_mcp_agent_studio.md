@@ -37,14 +37,14 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
     - **Module:** `MCP`
     - **Transport Type:** `Streamable HTTP`
     - **Name:** `LAB21170 Order Desk MCP` (append your assigned unique lab code if the organization is shared)
-    - **Description:** `Sandbox Order Desk MCP server for the LAB-21170 Webex Contact Center and Webex AI Agent lab. The lookup_order tool retrieves the status of a sample order so an AI agent can answer the caller before a human handoff if needed. A temporary bearer credential is configured by the tenant administrator. Use only lab sample data; do not enter real customer information.`
+    - **Description:** `Order Desk MCP for the LAB-21170 sandbox. Retrieves the status and estimated delivery date of a sample order.`
     - **Icon:** select one of the provided default icons.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
     - **Auth Type:** `Custom Headers`
 
 <figure markdown>
   ![Registered Agentic App description explains the sample order lookup and use of lab-only data](assets/lab-guide/live/cp6-developer-description-safe.jpg)
-  <figcaption markdown="span">Use an **App Hub Description** that identifies the sample lookup and lab-only data.</figcaption>
+  <figcaption markdown="span">Describe the sample order lookup in **App Hub Description**.</figcaption>
 </figure>
 
 <figure markdown>
@@ -115,7 +115,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Copy your temporary bearer from **Test tenant details**; the value is masked here.</figcaption>
 </figure>
 
-5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. Never paste the event token or a Webex sign-in token here.
+5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load before continuing. Never paste the event token or a Webex sign-in token here.
 {: value="5" }
 
 <figure markdown>
@@ -154,7 +154,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Enable only **Look up mock order**. Keep the four ticket tools and all signature-change switches off.</figcaption>
 </figure>
 
-8. Return to **General** and select **Allowed for all users** in the WebexCC Demo Lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and only the lookup remains enabled.
+8. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and only the lookup remains enabled.
 {: value="8" }
 
 <figure markdown>
@@ -366,7 +366,7 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 
 <figure markdown>
   ![Order Support Preview returning an order status and estimated delivery date for ORD-10482](assets/lab-guide/live/cp8-preview-order-shipped.jpg)
-  <figcaption markdown="span">This screenshot shows an earlier test. Compare your agent's answer with a fresh `lookup_order` result in MCP Lab; the sample order's date can change.</figcaption>
+  <figcaption markdown="span">Compare the status and delivery date in your Preview answer with a fresh `lookup_order` result in MCP Lab.</figcaption>
 </figure>
 
 <figure markdown>

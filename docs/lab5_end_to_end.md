@@ -82,7 +82,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
 
     <figure markdown>
-      ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-entry-point-servicedesk-latest.jpg)
+      ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-final-route-restored.jpg)
       <figcaption markdown="span">Set **Routing flow** to `ServiceDesk` and **Version label** to `Latest`.</figcaption>
     </figure>
 
@@ -95,11 +95,11 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 ### Compare your order call
 
-Compare your order call with the captures below. In this version 5 phone test, the agent spoke **Shipped** and **September 29**. Flow Designer **Debug** and AI Agent Studio **Voice Sessions** showed the same Interaction ID. In Sessions, `lookup_order` received `ORD-10482` and returned **Success** in 0.2 seconds. The caller ended this call after the answer, so Debug shows `NewContact → AIAgent → ContactEnded`, all successful. Your call may instead follow **Handled → DisconnectContact → ContactEnded** if the agent ends it.
+For the order call, check **Voice Sessions** for a successful `lookup_order` request with `orderNumber` set to `ORD-10482`. In **Debug**, confirm the call reached `AIAgent` and ended after the answer. The reference captures below show **Shipped** and September 29, 2026; compare your call with the current Order Desk result. If the agent ends the call, Debug may show `Handled → DisconnectContact → ContactEnded`.
 
 <figure markdown>
-  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-order-lookup-studio-safe.png)
-  <figcaption markdown="span">Before calling, a fresh **Preview** lookup returned **Shipped** and September 29, 2026. Compare your phone answer with the current Order Desk result.</figcaption>
+  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-ai-preview-after-token-refresh.jpg)
+  <figcaption markdown="span">A fresh **Preview** lookup returned **Shipped** and September 29, 2026 after the temporary bearer was renewed. Compare your phone answer with the current Order Desk result.</figcaption>
 </figure>
 
 <figure markdown>
@@ -129,7 +129,7 @@ Compare your order call with the captures below. In this version 5 phone test, t
 
 ### Compare your general-support call
 
-Compare your general-support call with the captures below. The test caller accepted the human handoff and heard queue music. **Debug** recorded `NewContact → AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic_pgj → PleaseWait → PlayMusic_pgj → ContactEnded`, with **Success** at each step. The trace verifies queue treatment; it does not show a human agent answering.
+For the general-support call, accept the human handoff and listen for queue music. In **Debug**, confirm `AIAgent → EscalationMessage → HumanAgentQueue → PlayMusic → PleaseWait`. Queue music confirms wait treatment; the trace does not show a human agent answering.
 
 <figure markdown>
   ![Flow Designer Debug shows successful NewContact, AIAgent, EscalationMessage, and HumanAgentQueue activities for the general-support phone call](assets/lab-guide/live/cp9-human-handoff-debug-start-safe.jpg)
@@ -172,22 +172,8 @@ Caller → ServiceDesk → AIAgent
 !!! warning "Before marking this checkpoint complete"
     Complete both phone calls and inspect their paths in **Debug**. Confirm the order response and the human queue handoff on your published flow. Test Queue Contact **Failure** only with a controlled failure.
 
-## Optional: inspect Contact Center through MCP
+## Optional: explore Contact Center MCP
 
-These optional beta services are separate from the Order Desk tool you used above. If your lab has access, follow the setup link for your approved client and the regional server URL shown for your tenant. Use Webex authentication; the Order Desk bearer does not connect to either Cisco service.
-
-### Flow tools
-
-1. Follow the [Contact Center MCP Server setup guide](https://developer.webex.com/create/docs/contact-center-mcp-server-beta). In **Control Hub → Apps → Agentic Apps**, confirm that **Contact Center MCP** and its read tools are allowed for your lab account.
-2. In your connected MCP client, run `wxcc-list-flows` to find `ServiceDesk`, then `wxcc-get-flow` to open its **Latest** version.
-3. Compare the returned nodes and links with your published Flow Designer canvas. Try `wxcc-view-config` for the entry point or queue if that tool is enabled.
-
-### Operations tools
-
-1. Follow the [Contact Center Operation MCP Server beta setup guide](https://developer.webex.com/create/docs/contact-center-operation-mcp-server-beta) and connect its regional server in your approved client. This service reads configuration and call history; it does not edit flows.
-2. Run `wxcc-operations-list-flows` and find `ServiceDesk`. Run `wxcc-operations-explain-queue-routing` for `Queue-1`, then compare the queue name and routing settings with Control Hub.
-3. If `wxcc-operations-get-contact-timeline` is enabled, use the test contact ID from **Debug** to inspect that call's recorded events. Compare them with the same call in Flow Designer.
-
-Only use tools visible in your client's enabled catalog. Crop caller details, transcripts, and tokens from any screenshot you share.
+If your assigned sandbox includes the beta Contact Center MCP services, use the [setup guides](references.md#bonus-webex-contact-center-mcp-services) after completing the phone tests. Connect with the Webex credentials and regional URL supplied for your tenant. The Order Desk bearer is specific to Order Desk.
 
 [Continue to troubleshooting and completion](troubleshooting.md){ .md-button .md-button--primary }
