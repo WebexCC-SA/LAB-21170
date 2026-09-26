@@ -2,7 +2,7 @@
 
 ## Checkpoint 6: Register and enable the external MCP
 
-You found the Order Desk tools in MCP Lab. Now register the external MCP server and allow its order lookup in Control Hub so AI Agent Studio can use it. You will test the tool in Studio before publishing the agent.
+You tested `lookup_order` in MCP Lab. Now register the external MCP server and allow that same lookup in Control Hub so AI Agent Studio can use it. You will test the tool in Studio before publishing the agent.
 
 ??? example "Show me: the Agentic App form"
     ![Live form tour showing MCP endpoint, transport, Custom Headers, and the untouched Add Agentic App control](assets/lab-guide/gifs/cp6-registration-pre-submit-tour.gif)
@@ -133,7 +133,7 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
 
 <figure markdown>
   ![Five discovered Order Desk tools all disabled in Control Hub before administrator review](assets/lab-guide/live/cp6-control-hub-tools-all-off.jpg)
-  <figcaption markdown="span">Start with all five **Allow tool** and **Allow signature change** switches off.</figcaption>
+  <figcaption markdown="span">Start with every **Allow tool** and **Allow signature change** switch off.</figcaption>
 </figure>
 
 <figure markdown>
@@ -146,12 +146,12 @@ You found the Order Desk tools in MCP Lab. Now register the external MCP server 
   <figcaption markdown="span">Check the lookup's read-only and non-destructive annotations.</figcaption>
 </figure>
 
-7. Turn on **Allow tool** only for **Look up mock order**. Keep **List support tickets**, **Get support ticket**, **Create support ticket**, and **Update support ticket** off. Keep **Allow signature change** off for every tool so changes receive administrator review before use. Confirm the settings persist after leaving and reopening **Tools**.
+7. Turn on **Allow tool** only for **Look up mock order** (`lookup_order`). Leave every other tool off. Keep **Allow signature change** off for every tool so changes receive administrator review before use. Confirm the settings persist after leaving and reopening **Tools**.
 {: value="7" }
 
 <figure markdown>
   ![Control Hub Tools tab with only Look up mock order allowed and every signature-change switch off](assets/lab-guide/live/cp6-control-hub-lookup-only.jpg)
-  <figcaption markdown="span">Enable only **Look up mock order**. Keep the four ticket tools and all signature-change switches off.</figcaption>
+  <figcaption markdown="span">Enable only **Look up mock order**. Keep every other tool and all signature-change switches off.</figcaption>
 </figure>
 
 8. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and only the lookup remains enabled.
@@ -172,7 +172,7 @@ The MCP tool catalog can be cached for up to one hour. If Studio still shows no 
 !!! success "Confirm before continuing"
     - Developer Portal shows `LAB21170 Order Desk MCP` as an MCP Agentic App using **Streamable HTTP** and **Custom Headers** authentication.
     - Control Hub shows **Allowed for all users** in the lab organization, with automatic server data updates off.
-    - Only `lookup_order` is enabled across the organization; all four ticket tools and every signature-change switch remain off.
+    - Only `lookup_order` is enabled across the organization; every other tool and signature-change switch remains off.
     - The `Authorization` header is saved without exposing its bearer value in guide media.
 
 ## Checkpoint 7: Create the autonomous order-support agent
