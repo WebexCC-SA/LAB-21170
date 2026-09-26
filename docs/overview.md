@@ -62,7 +62,7 @@ Work through the checkpoints in order:
 4. Build the starter IVR with general support routed to `Queue-1`. Use the **Comprehensive Call Flow** template as a reference for wait treatment and an optional callback; test by phone.
 5. Publish the Order Desk REST branch in Flow Designer, then verify its response by phone, Debugging, and Analytics.
 6. Move the HTTP request into a subflow and use a Function to parse its response.
-7. Connect Order Desk in MCP Lab, inspect its five tools, and test `lookup_order`. The approval-gated ticket write is optional.
+7. Connect Order Desk in MCP Lab with the default tools enabled, then test only `lookup_order`.
 8. Register the external MCP in Developer Portal and enable it in Control Hub.
 9. Create an autonomous order-support agent, replace any starter content, attach the approved MCP `lookup_order` action, preview it, and publish it.
 10. Replace the starter caller path with the published AI agent. Call once for an order update and again for human escalation.
@@ -70,7 +70,9 @@ Work through the checkpoints in order:
 
 ## Before you start
 
-Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, **Test tenant details** shows your sandbox URL, sign-in details, Order Desk endpoints, temporary bearer token, assignment expiration, and sample order number.
+Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, **Test tenant details** shows your sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary Order Desk bearer token. To see the sample order and REST request, select **Inspect orders** in MCP Lab. Do not expect an assignment-expiration time in the tenant-details panel.
+
+Have a phone that can call the assigned inbound number, or a Webex desktop client with external calling enabled. The browser-only Webex calling page may offer only **Call on Webex** and cannot complete the phone checkpoints. Studio Preview tests the agent action, but does not replace a call through the entry point and queue.
 
 Keep Control Hub, Flow Designer, Developer Portal, AI Agent Studio, and MCP Lab in separate tabs.
 

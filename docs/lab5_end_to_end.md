@@ -15,21 +15,21 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 7. For **Virtual agent**, select the published `LAB-21170 Order Support` agent. Reopen the activity to confirm both selections saved.
 8. Add a **Disconnect Contact** activity labeled `DisconnectContact`, or reuse one already on your canvas.
 9. Connect the `AIAgent` **Handled** outcome to `DisconnectContact`.
-10. Add a **Play Message** activity and label it `EscalationMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I'll connect you with a human agent.`
+10. Add a **Play Message** activity and label it `EscalationMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I'll connect you with a human agent.` Remove the empty **Audio file** row that a new Play Message may include by default; it is still required until removed and can block validation. Do the same for `AgentErrorMessage` below.
 
     <figure markdown>
       ![EscalationMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the human connection message](assets/lab-guide/live/cp9-escalation-message-settings.jpg)
       <figcaption markdown="span">Set the escalation prompt before the queue handoff.</figcaption>
     </figure>
 
-11. Reuse `QueueContact_4b7` if it remains on the canvas. Remove its old incoming links from menu digit `2` and `OrderStatusMessage`, rename it `HumanAgentQueue`, and set **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If the activity is missing, add **Queue Contact** with those settings. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing.
+11. Reuse the **Queue Contact** activity if it remains on the canvas. Its generated suffix varies between flows; identify it by activity type and its `Queue-1` setting, not by the screenshot label. Remove its old incoming links from menu digit `2` and `OrderStatusMessage`, rename it `HumanAgentQueue`, and set **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If the activity is missing, add **Queue Contact** with those settings. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing.
 
     <figure markdown>
       ![HumanAgentQueue settings showing Voice, Static queue, and Queue-1 in the ServiceDesk draft](assets/lab-guide/live/cp9-human-agent-queue-1.jpg)
       <figcaption markdown="span">Set `HumanAgentQueue` to **Voice → Static queue → Queue-1**. Connect **Failure** to `QueueErrorMessage`.</figcaption>
     </figure>
 
-12. From `HumanAgentQueue`'s normal output, connect **Play Music** (`PlayMusic_pgj` in this flow), then the **Play Message** activity `PleaseWait`. Connect `PleaseWait` back to Play Music so treatment repeats while the caller waits for an agent.
+12. From `HumanAgentQueue`'s normal output, connect the existing **Play Music** activity, then the **Play Message** activity `PleaseWait`. The Play Music suffix is generated and may differ from the screenshots. Connect `PleaseWait` back to Play Music so treatment repeats while the caller waits for an agent.
 13. Reuse `QueueErrorMessage` if it is already on the canvas; otherwise add a **Play Message** activity with that label. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I can't connect you to a person right now. Please try again later.` Connect the Queue Contact **Failure** output to this message, then to `DisconnectContact`.
 
     <figure markdown>
@@ -54,7 +54,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 <figure markdown>
   ![Live ServiceDesk version 5 draft canvas showing Start Flow connected to the AI agent and its outcome branches](assets/lab-guide/live/cp9-ai-flow-draft-topology.jpg)
-  <figcaption markdown="span">Check the three AI outcomes, queue failure path, and `PlayMusic_pgj → PleaseWait → PlayMusic_pgj` loop.</figcaption>
+  <figcaption markdown="span">Check the three AI outcomes, queue failure path, and **Play Music → PleaseWait → Play Music** loop. Generated activity suffixes may differ.</figcaption>
 </figure>
 
 <figure markdown>
@@ -68,7 +68,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 </figure>
 
 !!! info "Before you call"
-    Confirm that your published flow is **Latest** and **Entry Point-1** routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience.
+    Confirm that your published flow is **Latest** and your assigned entry point routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience. Use a phone or a Webex desktop client with external calling enabled. Studio Preview and browser-only **Call on Webex** cannot verify the inbound queue path.
 
 ## Publish and test the final caller path
 

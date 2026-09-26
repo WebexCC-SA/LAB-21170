@@ -5,7 +5,7 @@
 3. Select **Continue**.
 4. Check that the **AI agent** workspace opens with no MCPs connected and **Order Desk** on the left.
 5. Open **Test tenant details**.
-6. Keep this panel open. Later checkpoints use its sandbox sign-in details, expiration, Order Desk REST and MCP addresses, temporary bearer token, and sample order number.
+6. Keep this panel available. Later checkpoints use its sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary bearer token. Select **Inspect orders** to find the sample order and REST request; those are not listed in **Test tenant details**. The panel does not show an assignment-expiration time.
 
 The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Order Support` as example names. If your organization is shared with other attendees, add the unique lab code assigned to you when you create each flow, Agentic App, and AI agent. Select your own named objects in later steps. Use only the entry point and call-test window assigned to you; changing a shared entry point affects the next caller.
 
@@ -27,6 +27,6 @@ The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Ord
 If a direct link opens the wrong region or organization, use your assigned sandbox details and launch the tool from Control Hub.
 
 !!! success "Checkpoint complete"
-    Continue when **Test tenant details** shows your sandbox and Order Desk addresses. Keep the bearer token out of notes and screenshots.
+    Continue when **Test tenant details** shows your sandbox sign-in and Order Desk MCP address. Open **Inspect orders** for the REST example. Keep the bearer token out of notes and screenshots.
 
 [Continue to Checkpoints 2-3](lab2_flow_designer.md){ .md-button .md-button--primary }
