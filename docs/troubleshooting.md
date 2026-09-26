@@ -6,7 +6,7 @@
 | --- | --- |
 | MCP Lab rejects the token | Re-enter the event-provided **MCP Lab token**. Do not use a sandbox or Webex password. |
 | **Order Desk** is missing | Open **Test tenant details** and confirm that your assignment includes Order Desk. If **Connect MCP** does not load its tools, ask the facilitator to check the assignment. |
-| `lookup_order` asks for approval | Confirm that only `lookup_order` was enabled in MCP Lab, then ask the facilitator to check the lab tool policy. |
+| `lookup_order` asks for approval | Confirm that the tool activity is for `lookup_order`, which the catalog labels **Runs automatically**, then ask the facilitator to check the lab tool policy. |
 | The Agentic App is missing in Control Hub | In Developer Portal, check that you used the assigned sandbox account and selected **Request admin approval** if offered. Refresh **Apps → Agentic Apps** in the assigned organization. |
 | `lookup_order` is missing in AI Agent Studio | In **Apps → Agentic Apps**, open `LAB21170 Order Desk MCP`. Check **General → Allowed for all users**, a saved **Authentication → Custom Headers** `Authorization` value, and **Tools → Look up mock order** enabled. Keep every other tool off. Refresh Studio. [Webex's provisioning guide](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) says tool lists can be cached for up to one hour. |
 | `lookup_order` worked earlier, but **Sessions** now shows **MCP execution failure** or Control Hub **Tools** shows **No tools available** | Sign in to MCP Lab again with your event token. Open **Test tenant details** and reveal the current temporary Order Desk bearer. In Control Hub, open **Apps → Agentic Apps → LAB21170 Order Desk MCP → Authentication → Custom headers**. Replace the existing `Authorization` value with `Bearer ` followed by the current bearer, then save. If **Pending reauthorization** appears, select **Reauthorize server** and wait for **Tools** to load. Confirm only **Look up mock order** (`lookup_order`) is enabled. Retry `ORD-10482` in Studio Preview. Hide the bearer before taking a screenshot. |
@@ -41,7 +41,7 @@ Before finishing, call both final paths and check them in **Debug**. The screens
 
 ### MCP and AI agent
 
-- ☐ Connect Order Desk in MCP Lab with only `lookup_order` enabled and confirm it returns `ORD-10482` data without approval.
+- ☐ Connect Order Desk in MCP Lab with its default tools enabled. Exercise only `lookup_order` and confirm it returns `ORD-10482` data without approval.
 - ☐ Register `LAB21170 Order Desk MCP` as a **Streamable HTTP** Agentic App with **Custom Headers** authentication. Allow it in Control Hub and enable only **Look up mock order** (`lookup_order`). Leave every other tool off.
 - ☐ Create `LAB-21170 Order Support` as an autonomous agent. Replace the Profile and Instructions text, remove any package-template action, attach `lookup_order`, and confirm the order result in Preview. Ask for general support, accept the human offer, confirm **Agent handover** in **Sessions**, and publish the agent.
 

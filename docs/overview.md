@@ -62,7 +62,7 @@ Work through the checkpoints in order:
 4. Build the starter IVR with general support routed to `Queue-1`. Use the **Comprehensive Call Flow** template as a reference for wait treatment and an optional callback; test by phone.
 5. Publish the Order Desk REST branch in Flow Designer, then verify its response by phone, Debugging, and Analytics.
 6. Move the HTTP request into a subflow and use a Function to parse its response.
-7. Connect Order Desk in MCP Lab with only `lookup_order` enabled, then test the order lookup.
+7. Connect Order Desk in MCP Lab with the default tools enabled, then test only `lookup_order`.
 8. Register the external MCP in Developer Portal and enable it in Control Hub.
 9. Create an autonomous order-support agent, replace any starter content, attach the approved MCP `lookup_order` action, preview it, and publish it.
 10. Replace the starter caller path with the published AI agent. Call once for an order update and again for human escalation.
