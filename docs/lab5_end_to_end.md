@@ -6,31 +6,31 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 ## Replace the starter caller path
 
-1. Open the `ServiceDesk` flow you created in Flow Designer and turn **Edit** on. If you used a unique lab code, keep selecting that named flow and your own published AI agent in the steps below.
-2. Disconnect `NewContact` from `WelcomeMessage`. Keep the queue and wait-treatment nodes for reuse. Delete the direct **HTTP Request** activity so its temporary Authorization header does not remain in the draft.
+1. Open the `ServiceDesk` flow you imported in Flow Designer and turn **Edit** on. If you used a different name, keep selecting that flow and your own published AI agent in the steps below.
+2. Disconnect `NewPhoneContact` from `WelcomePrompt`. Keep the imported `Queue`, `Music`, and `PlayMessage_c24` waiting-treatment nodes for reuse. Delete `GetOrder` so its temporary Authorization header does not remain in the draft.
 3. Find **Virtual Agent V2** under **Contact handling** and drag it onto the canvas.
 4. Set **Activity label** to `AIAgent`.
-5. Connect `NewContact` directly to `AIAgent`.
+5. Connect `NewPhoneContact` directly to `AIAgent`.
 6. In the activity settings, set **Contact Center AI Config** to **Webex AI Agent (Autonomous)**.
 7. For **Virtual agent**, select the published `LAB-21170 Order Support` agent. Reopen the activity to confirm both selections saved.
 8. Add a **Disconnect Contact** activity labeled `DisconnectContact`, or reuse one already on your canvas.
 9. Connect the `AIAgent` **Handled** outcome to `DisconnectContact`.
-10. Add a **Play Message** activity and label it `EscalationMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I'll connect you with a human agent.`
+10. Add a **Play Message** activity and label it `EscalationMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I'll connect you with a human agent.` Remove the empty **Audio file** row that a new Play Message may include by default; it is still required until removed and can block validation. Do the same for `AgentErrorMessage` below.
 
     <figure markdown>
       ![EscalationMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the human connection message](assets/lab-guide/live/cp9-escalation-message-settings.jpg)
       <figcaption markdown="span">Set the escalation prompt before the queue handoff.</figcaption>
     </figure>
 
-11. Reuse `QueueContact_4b7` if it remains on the canvas. Remove its old incoming links from menu digit `2` and `OrderStatusMessage`, rename it `HumanAgentQueue`, and set **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If the activity is missing, add **Queue Contact** with those settings. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing.
+11. Reuse the imported `Queue` (**Queue Contact**) activity. Remove its old incoming links from menu digit `2` and `OrderStatusMessage`, rename it `HumanAgentQueue`, and confirm **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing. Disconnect its old **Failure → EndFlow_p88** link before adding the failure message in step 13.
 
     <figure markdown>
       ![HumanAgentQueue settings showing Voice, Static queue, and Queue-1 in the ServiceDesk draft](assets/lab-guide/live/cp9-human-agent-queue-1.jpg)
       <figcaption markdown="span">Set `HumanAgentQueue` to **Voice → Static queue → Queue-1**. Connect **Failure** to `QueueErrorMessage`.</figcaption>
     </figure>
 
-12. From `HumanAgentQueue`'s normal output, connect **Play Music** (`PlayMusic_pgj` in this flow), then the **Play Message** activity `PleaseWait`. Connect `PleaseWait` back to Play Music so treatment repeats while the caller waits for an agent.
-13. Reuse `QueueErrorMessage` if it is already on the canvas; otherwise add a **Play Message** activity with that label. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I can't connect you to a person right now. Please try again later.` Connect the Queue Contact **Failure** output to this message, then to `DisconnectContact`.
+12. Keep the imported `HumanAgentQueue → Music → PlayMessage_c24 → Music` loop. Rename `PlayMessage_c24` to `PleaseWait`; its existing Cisco Cloud Text-to-Speech prompt is already a waiting message. An agent may answer before every loop activity plays.
+13. Add a **Play Message** activity labeled `QueueErrorMessage`. Enable text to speech, select **Cisco Cloud Text-to-Speech**, and enter: `I can't connect you to a person right now. Please try again later.` Connect `HumanAgentQueue` **Failure** to this message, then to `DisconnectContact`.
 
     <figure markdown>
       ![QueueErrorMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the queue failure message](assets/lab-guide/live/cp9-queue-error-message-settings.jpg)
@@ -45,7 +45,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
     </figure>
 
 15. Connect the `AIAgent` **Errored** outcome to `AgentErrorMessage`, then connect `AgentErrorMessage` to `DisconnectContact`.
-16. Remove unused starter IVR and API nodes. Wait for **Autosave**, turn on **Validation**, and resolve any errors. Confirm the final canvas has only the connected AI route and **0 errors**.
+16. Remove the unused `WelcomePrompt`, `SupportMenu`, `OrderStatusMessage`, `MenuFallbackMessage`, and their now-unconnected End Flow activities. Confirm `GetOrder` and its Authorization header are gone. Keep the connected queue/wait path and any still-used error terminator. Wait for **Autosave**, turn on **Validation**, and resolve any errors. Confirm the final canvas starts `NewPhoneContact → AIAgent` and shows **0 errors**.
 
 <figure markdown>
   ![ServiceDesk draft Virtual Agent V2 activity configured with the autonomous Order Support agent](assets/lab-guide/live/cp9-ai-agent-configured-draft.jpg)
@@ -54,7 +54,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 <figure markdown>
   ![Live ServiceDesk version 5 draft canvas showing Start Flow connected to the AI agent and its outcome branches](assets/lab-guide/live/cp9-ai-flow-draft-topology.jpg)
-  <figcaption markdown="span">Check the three AI outcomes, queue failure path, and `PlayMusic_pgj → PleaseWait → PlayMusic_pgj` loop.</figcaption>
+  <figcaption markdown="span">Check the three AI outcomes, queue failure path, and **Play Music → PleaseWait → Play Music** loop. Generated activity suffixes may differ.</figcaption>
 </figure>
 
 <figure markdown>
@@ -68,7 +68,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 </figure>
 
 !!! info "Before you call"
-    Confirm that your published flow is **Latest** and **Entry Point-1** routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience.
+    Confirm that your published flow is **Latest** and your assigned entry point routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience. Use a phone or a Webex desktop client with external calling enabled. Studio Preview and browser-only **Call on Webex** cannot verify the inbound queue path.
 
 ## Publish and test the final caller path
 
@@ -163,7 +163,7 @@ Caller → ServiceDesk → AIAgent
 ```
 
 !!! success "Check both caller paths"
-    - In **Debug**, confirm the published flow starts `NewContact → AIAgent`. Your final flow no longer contains the Flow Designer `WelcomeMessage`, numbered `SupportMenu`, or direct REST branch.
+    - In **Debug**, confirm the published flow starts `NewPhoneContact → AIAgent` (the start event may display as `NewContact` in the interaction trace). Your final flow no longer contains `WelcomePrompt`, numbered `SupportMenu`, or the direct REST branch.
     - On the order call, listen for the spoken status and delivery information. In **Sessions**, confirm the `lookup_order` action succeeded.
     - On the general-support call, accept the human offer. Listen for `EscalationMessage` and queue treatment, then confirm `AIAgent → EscalationMessage → HumanAgentQueue` in **Debug**. An available test agent can answer.
     - If you test a controlled Queue Contact failure, confirm it reaches `QueueErrorMessage` and ends safely.

@@ -403,3 +403,6 @@ tmp/
 
 # Rendered Documentation
 site/
+
+# Browser validation artifacts may contain temporary lab credentials.
+.playwright-cli/

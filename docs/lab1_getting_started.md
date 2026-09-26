@@ -4,8 +4,8 @@
 2. Enter the lab token supplied by the facilitator.
 3. Select **Continue**.
 4. Check that the **AI agent** workspace opens with no MCPs connected and **Order Desk** on the left.
-5. Open **Test tenant details**.
-6. Keep this panel open. Later checkpoints use its sandbox sign-in details, expiration, Order Desk REST and MCP addresses, temporary bearer token, and sample order number.
+5. Select **Test tenant** to open the tenant-details panel.
+6. Keep this panel available. Later checkpoints use its sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary bearer token. Select **Inspect orders** to find the sample order and REST request; those are not listed in the tenant-details panel. The panel does not show an assignment-expiration time.
 
 The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Order Support` as example names. If your organization is shared with other attendees, add the unique lab code assigned to you when you create each flow, Agentic App, and AI agent. Select your own named objects in later steps. Use only the entry point and call-test window assigned to you; changing a shared entry point affects the next caller.
 
@@ -22,11 +22,11 @@ The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Ord
 | Flow Designer | [flow-control.produs1.ciscoccservice.com](https://flow-control.produs1.ciscoccservice.com/) | Open the ProdUS1 canvas, or launch it from Control Hub. |
 | AI Agent Studio | [studio.aiagent-us1.cisco.com](https://studio.aiagent-us1.cisco.com/) | Open this ProdUS1 lab's Studio, or launch it from **Control Hub → Contact Center → Customer Experience → AI Agents**. |
 | Webex Developer Portal | [developer.webex.com](https://developer.webex.com/) | Register the MCP as an Agentic App. This is not the Flow Designer canvas. |
-| MCP Lab | [mcp-lab.webexdevs.com](https://mcp-lab.webexdevs.com/) | Open **Test tenant details** and inspect Order Desk tools. |
+| MCP Lab | [mcp-lab.webexdevs.com](https://mcp-lab.webexdevs.com/) | Select **Test tenant** for your assignment, then inspect Order Desk tools. |
 
 If a direct link opens the wrong region or organization, use your assigned sandbox details and launch the tool from Control Hub.
 
 !!! success "Checkpoint complete"
-    Continue when **Test tenant details** shows your sandbox and Order Desk addresses. Keep the bearer token out of notes and screenshots.
+    Continue when the **Test tenant** panel shows your sandbox sign-in and Order Desk MCP address. Open **Inspect orders** for the REST example. Keep the bearer token out of notes and screenshots.
 
 [Continue to Checkpoints 2-3](lab2_flow_designer.md){ .md-button .md-button--primary }
