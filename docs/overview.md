@@ -70,7 +70,9 @@ Work through the checkpoints in order:
 
 ## Before you start
 
-Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, **Test tenant details** shows your sandbox URL, sign-in details, Order Desk endpoints, temporary bearer token, assignment expiration, and sample order number.
+Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, **Test tenant details** shows your sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary Order Desk bearer token. To see the sample order and REST request, select **Inspect orders** in MCP Lab. Do not expect an assignment-expiration time in the tenant-details panel.
+
+Have a phone that can call the assigned inbound number, or a Webex desktop client with external calling enabled. The browser-only Webex calling page may offer only **Call on Webex** and cannot complete the phone checkpoints. Studio Preview tests the agent action, but does not replace a call through the entry point and queue.
 
 Keep Control Hub, Flow Designer, Developer Portal, AI Agent Studio, and MCP Lab in separate tabs.
 

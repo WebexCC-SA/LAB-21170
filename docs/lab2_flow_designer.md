@@ -11,7 +11,7 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 1. Sign in to [Control Hub](https://admin.webex.com) with your lab account.
 2. Open **Contact Center → Customer Experience → Flows**. Select **Manage Flows → Create Flows**. Flow Designer opens in a new tab. You can also bookmark the [ProdUS1 Flow Designer](https://flow-control.produs1.ciscoccservice.com/flow) for this lab tenant.
 3. Choose **Flow**, then **Use a template**. Find **Simple Inbound Call to Queue** and select it.
-4. Give the new flow a unique name without spaces, such as `LAB21170_SimpleQueue_<your_initials>`, then select **Create flow**. The screenshots below use `LAB21170_SimpleQueue_ARUN` as the example name; create your own flow if you are sharing the tenant.
+4. Name the flow `LAB21170_SimpleQueue`. If your tenant is shared or the name is already taken, append your assigned lab code. Wait for the name check to finish and confirm the entered name appears on the creation form before selecting **Create flow**; the form may still show its template name immediately after you type. The screenshots use `LAB21170_SimpleQueue_ARUN` as an example.
 
 <figure markdown>
   ![Flow template gallery with Simple Inbound Call to Queue selected](assets/lab-guide/live/cp2-template-gallery.png)
@@ -67,6 +67,8 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 </figure>
 
 #### Route an entry point to the flow and make test calls
+
+These call checks require a phone that can dial the assigned inbound number, or a Webex desktop client with external calling enabled. The browser-only Webex calling page may offer only **Call on Webex**; it cannot substitute for an inbound contact-center call. If you do not have a calling method, continue building but leave the phone and Debug/Analyze checks marked unverified until you can place a real call.
 
 1. Return to **Control Hub → Contact Center → Customer Experience → Entry Points**. Open the inbound voice entry point assigned to your lab sandbox and note its phone number. This area may be called **Channels** in other versions of Control Hub.
 2. In that entry point's routing configuration, select your newly published practice flow and the **Latest** version label, then save. Confirm the entry point now shows the practice flow before dialing. If the assigned entry point already serves another lab participant, use the entry point your facilitator assigned to you.
@@ -146,7 +148,7 @@ The detailed [Flow Designer guide](https://help.webex.com/article/nhovcy4) expla
 
 #### Create the flow
 
-1. Name the flow `ServiceDesk` and select **Create flow**. In a shared organization, append your assigned unique lab code, for example `ServiceDesk_G09`. Use that flow wherever the guide says `ServiceDesk`; the screenshots show the unsuffixed example.
+1. Name the flow `ServiceDesk`. In a shared organization, append your assigned unique lab code, for example `ServiceDesk_G09`. Wait for the name check to finish and confirm the form shows your name, then select **Create flow**. Use that flow wherever the guide says `ServiceDesk`; the screenshots show the unsuffixed example.
 2. Leave the new flow in **Draft** while you build it.
 
 #### Confirm the blank canvas
@@ -167,7 +169,7 @@ Build both menu choices before publishing. Digit `2` must enter `Queue-1` direct
 1. Turn **Edit** on.
 2. Under **Voice**, drag **Play Message** onto the canvas. In **General settings**, set **Activity label** to `WelcomeMessage`.
 3. Connect `NewContact` to `WelcomeMessage`.
-4. In the activity's **Prompt** settings, turn on **Enable text-to-speech**, set **Connector** to **Cisco Cloud Text-to-Speech**, select **Add text-to-speech message**, and enter: `Welcome to the order support lab.`
+4. In the activity's **Prompt** settings, turn on **Enable text-to-speech**, set **Connector** to **Cisco Cloud Text-to-Speech**, select **Add text-to-speech message**, and enter: `Welcome to the order support lab.` If the new activity also contains an empty required **Audio file** row, remove that row with its delete control; leaving it empty blocks validation. Do the same for other new Play Message and Menu prompts that use only text to speech.
 
     <figure markdown>
       ![Published ServiceDesk WelcomeMessage settings showing Cisco Cloud Text-to-Speech and the welcome text](assets/lab-guide/live/cp2-servicedesk-welcome-prompt-v4.jpg)
@@ -380,9 +382,9 @@ Call Order Desk directly from Flow Designer first. In Checkpoints 4–9, you wil
 6. Find **HTTP Request** under **Utilities** and drag it onto the canvas.
 7. In **General settings**, set **Activity label** to `GetOrder`.
 8. Disconnect the digit `1` **Order Support** output from `OrderSupportPending` and connect it to `GetOrder`. Remove the temporary message and its end link after the replacement path validates.
-9. Open **Test tenant details** in MCP Lab and find the Order Desk REST API details and temporary bearer token.
+9. In MCP Lab, select **Inspect orders** to see the sample REST request and order. Open **Test tenant details** separately for the temporary Order Desk bearer token.
 10. In `GetOrder`, turn **Use authenticated endpoint** off. When it is on, Flow Designer asks for a configured connector and **Request path**; turning it off reveals the full **Request URL** field used for this temporary lab endpoint.
-11. Set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Use the assigned URL from **Test tenant details** if it differs.
+11. Set **Method** to `GET` and **Request URL** to `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Compare it with the request shown under **Inspect orders** in your MCP Lab session.
 
     <figure markdown>
       ![Published ServiceDesk version 1 GetOrder HTTP Request settings with URL field and GET method](assets/lab-guide/live/cp3-getorder-settings-focused.jpg)
@@ -486,7 +488,7 @@ Before calling, confirm digit `1` connects to `GetOrder → OrderStatusMessage �
 
 The direct HTTP activity uses JSONPath to select one field. Next, move that lookup into a subflow and use a Function there to read the parsed response, check whether it contains a usable status, and return a small result contract. Publish the direct-HTTP flow version first so you can compare both designs.
 
-1. In Control Hub, open **Contact Center → Customer Experience → Functions** and select **Create a function**. Choose **Start Fresh**, name it `LAB21170_ParseOrderStatus_<your_initials>`, and choose **Python** with the runtime offered by your sandbox.
+1. In Control Hub, open **Contact Center → Customer Experience → Functions** and select **Create a function**. Choose **Start from scratch**, name it `LAB21170_ParseOrderStatus` (append your assigned code only if the name is taken or the tenant is shared), and choose **Python** with the runtime offered by your sandbox.
 2. Add an input variable named `order_data` with type **JSON**. In **Output variable definition**, enter the sample JSON `{"status":"processing","lookupSucceeded":true}`. This area is a JSON example, not two separate typed-variable forms; its keys and value types must match the code and output mappings below.
 3. Replace the starter code with this parser. It extracts `order.status` from the parsed JSON, returns `unavailable` when the field is missing, and does not make a network call or use a credential:
 
@@ -532,17 +534,17 @@ The direct HTTP activity uses JSONPath to select one field. Next, move that look
 
 ### Refactor `GetOrder` into a subflow
 
-1. In **Control Hub → Contact Center → Customer Experience → Flows → Subflows**, select **Manage Subflows → Create Subflow**. Start from a blank subflow and name it `LAB21170_OrderLookup_<your_initials>`; subflow names cannot contain spaces.
-2. In the subflow's variable definitions, create `orderNumber` as a **String input** with sample value `ORD-10482`, `orderStatus` as a **String output**, `lookupSucceeded` as a **Boolean output**, and `orderResponseJson` as a local **JSON** variable. The String `orderStatus` output is the required contract with `ServiceDesk`; the Boolean output can be used where a tenant offers it in the parent-flow mapping selector.
+1. In **Control Hub → Contact Center → Customer Experience → Flows → Subflows**, select **Manage Subflows → Create Subflow**. Start from a blank subflow and name it `LAB21170_OrderLookup` (append your assigned code only if needed); subflow names cannot contain spaces.
+2. In the subflow's variable definitions, create `orderNumber` as a **String input** with sample value `ORD-10482`, `orderStatus` as a **String output** with an empty default, `lookupSucceeded` as a **Boolean output** with default `false`, and `orderResponseJson` as a local **JSON** variable with default `{}`. The Boolean and JSON defaults are required before their **Create** controls become available. The String `orderStatus` output is the required contract with `ServiceDesk`; the Boolean output can be used where a tenant offers it in the parent-flow mapping selector.
 3. Add an **HTTP Request** activity, label it `FetchOrderRecord`, and connect it from **Start Subflow**. Turn **Use authenticated endpoint** off, set **Method** to `GET`, and set **Request URL** to <code>https://mcp-lab.webexdevs.com/order-desk/api/orders/&#123;&#123;orderNumber&#125;&#125;</code>. Flow Designer's URL field accepts <code>&#123;&#123;variable&#125;&#125;</code>; its expression preview should resolve the sample order number to `/ORD-10482`.
-4. Add the same temporary Order Desk **Authorization** header from **Test tenant details**, set request content type to **Application/JSON**, then set **Parse settings → Content type** to **JSON**. Select **+ Add new**, choose local **Output variable** `orderResponseJson`, and enter `$` as the **Path expression**. This makes the whole response object available to the Function without mixing up the HTTP String body and a JSON input.
+4. Add the same temporary Order Desk **Authorization** header from **Test tenant details**, set request content type to **Application/JSON**, then set **Parse settings → Content type** to **JSON**. Select **+ Add parsed variable** for the first mapping (the later-row control is **+ Add new**), choose local **Output variable** `orderResponseJson`, and enter `$` as the **Path expression**. This makes the whole response object available to the Function without mixing up the HTTP String body and a JSON input.
 
     <figure markdown>
       ![Live order-lookup subflow HTTP parsing maps the whole response through dollar-sign path to a JSON variable](assets/lab-guide/live/cp3-order-subflow-json-map.png)
       <figcaption markdown="span">During draft assembly, `$` maps the whole response into local JSON `orderResponseJson`. Complete the links and status guard before publishing.</figcaption>
     </figure>
 
-5. Add a **Condition** activity labeled `HttpStatusIs200` between `FetchOrderRecord` and the parser Function. Enter <code>&#123;&#123;FetchOrderRecord.httpStatusCode == 200&#125;&#125;</code> as the **Condition expression**. In **Test expression**, sample `200` must resolve to `true` and `404` to `false`. HTTP Request exposes one outgoing canvas port in this tenant, so this Condition prevents a non-200 response from reaching the parser.
+5. Add a **Condition** activity between `FetchOrderRecord` and the parser Function. Its initial label is generated, for example `Condition_u5u`; use the label's **Edit** control and save it as `HttpStatusIs200`. Enter <code>&#123;&#123;FetchOrderRecord.httpStatusCode == 200&#125;&#125;</code> as the **Condition expression**. In **Test expression**, sample `200` must resolve to `true` and `404` to `false`. HTTP Request exposes one outgoing canvas port in this tenant, so this Condition prevents a non-200 response from reaching the parser.
 
     <figure markdown>
       ![Live Condition expression preview shows HTTP status 404 evaluates to false](assets/lab-guide/live/cp3-order-status-condition-test.png)

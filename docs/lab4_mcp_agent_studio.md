@@ -36,7 +36,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
 {: value="4" }
     - **Module:** `MCP`
     - **Transport Type:** `Streamable HTTP`
-    - **Name:** `LAB21170 Order Desk MCP` (append your assigned unique lab code if the organization is shared)
+    - **Name:** `LAB21170 Order Desk MCP`. Agentic App names must be available globally; if this name is unavailable, append your assigned lab code or another unique suffix even if your organization is not shared. Use the name you actually register throughout this checkpoint.
     - **Description:** `Order Desk MCP for the LAB-21170 sandbox. Retrieves the status and estimated delivery date of a sample order.`
     - **Icon:** select one of the provided default icons.
     - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
@@ -99,7 +99,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Open **Apps**, then select **Agentic Apps**.</figcaption>
 </figure>
 
-3. Find and open the `LAB21170 Order Desk MCP` app you created, including your lab code if you added one. On **General**, confirm that the new private app starts as **Blocked for all users**. Keep it blocked while you configure authentication and restrict its tools.
+3. Find and open the Agentic App under the exact name you registered, including any unique suffix. On **General**, confirm that the new private app starts as **Blocked for all users**. Keep it blocked while you configure authentication and restrict its tools.
 {: value="3" }
 
 <figure markdown>
@@ -170,7 +170,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
 The MCP tool catalog can be cached for up to one hour. If Studio still shows no available action, recheck the saved app, credential, and tool settings, then refresh after the cache period rather than creating a duplicate app.
 
 !!! success "Confirm before continuing"
-    - Developer Portal shows `LAB21170 Order Desk MCP` as an MCP Agentic App using **Streamable HTTP** and **Custom Headers** authentication.
+    - Developer Portal shows your registered Agentic App as an MCP app using **Streamable HTTP** and **Custom Headers** authentication.
     - Control Hub shows **Allowed for all users** in the lab organization, with automatic server data updates off.
     - Only `lookup_order` is enabled across the organization; every other tool and signature-change switch remains off.
     - The `Authorization` header is saved without exposing its bearer value in guide media.
@@ -320,7 +320,7 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 
 <figure markdown>
   ![Studio Add actions picker showing lookup_order from LAB21170 Order Desk MCP](assets/lab-guide/live/cp8-mcp-lookup-action-available.jpg)
-  <figcaption markdown="span">Select `lookup_order` from `LAB21170 Order Desk MCP`.</figcaption>
+  <figcaption markdown="span">Select `lookup_order` from the Agentic App you registered; your provider name may include a unique suffix.</figcaption>
 </figure>
 
 ### Add `lookup_order`
@@ -328,9 +328,9 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 1. In `LAB-21170 Order Support`, open **Actions**.
 2. Select **Add actions**.
 3. Select **Select available**.
-4. Find the `LAB21170 Order Desk MCP` provider you registered, including your lab code if applicable, with the **MCP** label.
+4. Find the provider under the exact name you registered, including any unique suffix, with the **MCP** label.
 5. Check the box next to `lookup_order`, then select **Add**.
-6. Review **General information**: **MCP server name** is `LAB21170 Order Desk MCP`, **Action name** is `lookup_order`, and the description says it returns mock customer, item, delivery, and status details for an order number.
+6. Review **General information**: **MCP server name** matches your registered app name, **Action name** is `lookup_order`, and the description says it returns mock customer, item, delivery, and status details for an order number.
 7. Review **Slot filling → Input parameter schema**. `orderNumber` must be a required string; the example is `ORD-10482`. The sandbox Authorization header belongs in the Control Hub app configuration from Checkpoint 6.
 8. Save the action and return to **Actions**. Confirm `lookup_order` is on beside the system **Agent handover** action. MCP action settings are read-only after creation; if the schema is wrong, correct the MCP server or provisioning and add the action again.
 
@@ -356,7 +356,7 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 3. Confirm that the agent asks for the missing order number.
 4. Enter: `ORD-10482`.
 5. Confirm that the agent returns the status and estimated delivery date for `ORD-10482`. Compare both with a fresh `lookup_order` result in MCP Lab; the sample order data can change between sessions.
-6. Open **Sessions**, select the Preview session, and inspect the trace. Confirm **Action performed → lookup_order**, MCP provider `LAB21170 Order Desk MCP`, input `orderNumber: ORD-10482`, and a successful fulfillment output. If the action fails or returns unavailable, fix the registration, header, tool permission, or input mapping before publishing.
+6. Open **Sessions**, select the Preview session, and inspect the trace. Confirm **Action performed → lookup_order**, your registered MCP provider name, input `orderNumber: ORD-10482`, and a successful fulfillment output. If the action fails or returns unavailable, fix the registration, header, tool permission, or input mapping before publishing.
 7. Confirm that the response does not mention a package-tracking number or the removed `trackPackage` action.
 
 <figure markdown>
@@ -391,7 +391,7 @@ Open **Sessions** for this conversation and check for the **Agent handover** bad
 Test a general-support request in a new **Preview** conversation:
 
 1. Enter `I need general support.` Confirm the agent offers to connect you with a human.
-2. Reply `Yes, please connect me to a human agent.` Confirm the agent acknowledges the transfer.
+2. Reply `Yes, please connect me to a human agent.` If the agent asks for confirmation again, answer the additional prompt. Continue until it acknowledges the transfer.
 3. Open **Sessions** for this conversation and confirm **Agent handover** appears.
 
 <figure markdown>
