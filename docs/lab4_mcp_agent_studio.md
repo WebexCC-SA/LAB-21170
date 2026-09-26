@@ -39,7 +39,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
     - **Name:** `LAB21170 Order Desk MCP`. Agentic App names must be available globally; if this name is unavailable, append your assigned lab code or another unique suffix even if your organization is not shared. Use the name you actually register throughout this checkpoint.
     - **Description:** `Order Desk MCP for the LAB-21170 sandbox. Retrieves the status and estimated delivery date of a sample order.`
     - **Icon:** select one of the provided default icons.
-    - **App URL:** paste the **Order Desk MCP address** from **Test tenant details**.
+    - **App URL:** paste the **Order Desk MCP address** from the **Test tenant** panel.
     - **Auth Type:** `Custom Headers`
 
 <figure markdown>
@@ -107,12 +107,12 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Keep the new app blocked while you set its credentials and tools. Allowing it later applies to the whole lab organization.</figcaption>
 </figure>
 
-4. Return to MCP Lab **Test tenant details** and find the **Temporary bearer token**. Copy it only into the Control Hub authentication field. This is separate from the event token used to enter MCP Lab.
+4. Return to MCP Lab **Test tenant** and find the **Temporary bearer token**. Copy it only into the Control Hub authentication field. This is separate from the event token used to enter MCP Lab.
 {: value="4" }
 
 <figure markdown>
   ![Order Desk MCP section in MCP Lab showing its server address and a masked temporary bearer token](assets/lab-guide/live/cp6-mcp-lab-token-masked.jpg)
-  <figcaption markdown="span">Copy your temporary bearer from **Test tenant details**; the value is masked here.</figcaption>
+  <figcaption markdown="span">Copy your temporary bearer from **Test tenant**; the value is masked here.</figcaption>
 </figure>
 
 5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load before continuing. Never paste the event token or a Webex sign-in token here.
@@ -128,12 +128,12 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">After saving, confirm the `Authorization` key. Keep the bearer out of screenshots.</figcaption>
 </figure>
 
-6. Open **Tools**. You should see five Order Desk tools, initially off. Select **Review** for **Look up mock order** (`lookup_order`). Check that `orderNumber` is a required String and the annotations show `readOnlyHint: true` and `destructiveHint: false`. **Output schema** may show `N/A`; you will verify the returned order data in Studio Preview.
+6. Open **Tools**. You should see five Order Desk tools; their initial Allow settings may vary. Select **Review** for **Look up mock order** (`lookup_order`). Check that `orderNumber` is a required String and the annotations show `readOnlyHint: true` and `destructiveHint: false`. **Output schema** may show `N/A`; you will verify the returned order data in Studio Preview.
 {: value="6" }
 
 <figure markdown>
   ![Five discovered Order Desk tools all disabled in Control Hub before administrator review](assets/lab-guide/live/cp6-control-hub-tools-all-off.jpg)
-  <figcaption markdown="span">Start with every **Allow tool** and **Allow signature change** switch off.</figcaption>
+  <figcaption markdown="span">This reference capture starts with all tools off. Your organization may already allow other tools; leave their current settings alone for this lab.</figcaption>
 </figure>
 
 <figure markdown>
@@ -146,15 +146,15 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Check the lookup's read-only and non-destructive annotations.</figcaption>
 </figure>
 
-7. Turn on **Allow tool** only for **Look up mock order** (`lookup_order`). Leave every other tool off. Keep **Allow signature change** off for every tool so changes receive administrator review before use. Confirm the settings persist after leaving and reopening **Tools**.
+7. Confirm **Allow tool** is on for **Look up mock order** (`lookup_order`); turn it on if needed. Other Order Desk tools may remain enabled, but you will not invoke them in this lab. Keep **Allow signature change** off for `lookup_order` so changes to its contract receive administrator review. Confirm the lookup setting persists after leaving and reopening **Tools**.
 {: value="7" }
 
 <figure markdown>
   ![Control Hub Tools tab with only Look up mock order allowed and every signature-change switch off](assets/lab-guide/live/cp6-control-hub-lookup-only.jpg)
-  <figcaption markdown="span">Enable only **Look up mock order**. Keep every other tool and all signature-change switches off.</figcaption>
+  <figcaption markdown="span">This capture has only **Look up mock order** allowed. Your lab only requires that lookup be enabled; other tools may retain their existing settings.</figcaption>
 </figure>
 
-8. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and only the lookup remains enabled.
+8. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and `lookup_order` is enabled.
 {: value="8" }
 
 <figure markdown>
@@ -164,7 +164,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
 
 <figure markdown>
   ![Control Hub shows the Order Desk MCP app allowed with only Look up mock order enabled and every signature-change switch off](assets/lab-guide/live/cp6-lookup-only-tools-safe.png)
-  <figcaption markdown="span">Reopen **Tools**: only **Look up mock order** is allowed. The app now shows **Allowed**.</figcaption>
+  <figcaption markdown="span">Reopen **Tools** and confirm **Look up mock order** is allowed. This earlier capture shows other tools off, but that is not required.</figcaption>
 </figure>
 
 The MCP tool catalog can be cached for up to one hour. If Studio still shows no available action, recheck the saved app, credential, and tool settings, then refresh after the cache period rather than creating a duplicate app.
@@ -172,7 +172,7 @@ The MCP tool catalog can be cached for up to one hour. If Studio still shows no 
 !!! success "Confirm before continuing"
     - Developer Portal shows your registered Agentic App as an MCP app using **Streamable HTTP** and **Custom Headers** authentication.
     - Control Hub shows **Allowed for all users** in the lab organization, with automatic server data updates off.
-    - Only `lookup_order` is enabled across the organization; every other tool and signature-change switch remains off.
+    - `lookup_order` is enabled across the organization. Other tools may remain enabled but are not exercised here; signature change is off for the lookup.
     - The `Authorization` header is saved without exposing its bearer value in guide media.
 
 ## Checkpoint 7: Create the autonomous order-support agent
