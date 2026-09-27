@@ -14,7 +14,7 @@ Return to the **AI agent** workspace in [MCP Lab](https://mcp-lab.webexdevs.com/
 5. On **Ready to use**, confirm that Order Desk has five tools ready, then select **Return to AI agent**.
 6. In **Connected MCPs**, confirm that **Order Desk** shows **Connected**, **5 tools**, and **Active MCP**.
 
-The MCP Lab test agent has access to all five tools, but this exercise uses only `lookup_order`. Do not run the ticket tools. Later, in Control Hub, you will allow only `lookup_order` for the Webex voice agent.
+The MCP Lab test agent has access to all five tools, but this exercise uses only `lookup_order`. Do not run the ticket tools. In Control Hub, make sure `lookup_order` is enabled. Other tools may remain enabled there, but you will attach only `lookup_order` to the Webex voice agent.
 
 ??? example "Show me: connect Order Desk"
     ![Order Desk MCP connection sequence from Connect MCP to Connected MCPs](assets/lab-guide/05-order-desk-mcp-connection.gif)
@@ -48,6 +48,6 @@ With Order Desk connected to the MCP Lab AI agent, test the same lookup you will
 </figure>
 
 !!! success "Continue when your lookup succeeds"
-    Check **Tool activity** for an automatic `lookup_order` call and read the current status and delivery date for `ORD-10482`. In Checkpoint 6, allow only this lookup for the Webex voice agent.
+    Check **Tool activity** for an automatic `lookup_order` call and read the current status and delivery date for `ORD-10482`. In Checkpoint 6, confirm this tool is enabled for the Webex voice agent.
 
 [Continue to Checkpoints 6-8](lab4_mcp_agent_studio.md){ .md-button .md-button--primary }
