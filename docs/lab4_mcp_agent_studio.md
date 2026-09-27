@@ -229,7 +229,7 @@ Hi, I'm an AI assistant for Order Support. This interaction may be recorded and 
 Welcome to Order Support. I can help you check an order's status and delivery information. What is your order number?
 ```
 
-6. Select **Save changes**, then reopen **Profile** to confirm both messages persisted.
+6. Continue directly to **Instructions** without reloading the page. On a new **Start from scratch** agent, **Save changes** may remain disabled until you fill in Instructions. Save both tabs after entering the instructions below.
 {: value="6" }
 
 <figure markdown>
@@ -276,7 +276,7 @@ Boundaries
 - Keep responses concise and appropriate for a voice conversation.
 ```
 
-3. Select **Save changes**, then reopen **Instructions** to confirm the text persisted.
+3. Select **Save changes**, reload Configuration, then check **Profile** and **Instructions** to confirm both messages and the instructions persisted.
 {: value="3" }
 
 <figure markdown>
@@ -332,11 +332,11 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 5. Check the box next to `lookup_order`, then select **Add**.
 6. Review **General information**: **MCP server name** matches your registered app name, **Action name** is `lookup_order`, and the description says it returns mock customer, item, delivery, and status details for an order number.
 7. Review **Slot filling → Input parameter schema**. `orderNumber` must be a required string; the example is `ORD-10482`. The sandbox Authorization header belongs in the Control Hub app configuration from Checkpoint 6.
-8. Save the action and return to **Actions**. Confirm `lookup_order` is on beside the system **Agent handover** action. MCP action settings are read-only after creation; if the schema is wrong, correct the MCP server or provisioning and add the action again.
+8. Return to **Actions**. Confirm `lookup_order` is on beside the system **Agent handover** action. The MCP action is added when you select **Add** in step 5; its detail page is read-only, so there is no second save to make. If the schema is wrong, correct the MCP server or provisioning and add the action again.
 
 <figure markdown>
   ![Studio MCP action details showing the Order Desk provider and lookup_order description](assets/lab-guide/live/cp8-mcp-action-details.jpg)
-  <figcaption markdown="span">Check the provider, action name, and description before saving.</figcaption>
+  <figcaption markdown="span">Check the provider, action name, and description after adding the action.</figcaption>
 </figure>
 
 <figure markdown>
