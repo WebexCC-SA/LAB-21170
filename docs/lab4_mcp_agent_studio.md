@@ -276,7 +276,7 @@ Boundaries
 - Keep responses concise and appropriate for a voice conversation.
 ```
 
-3. Select **Save changes**, then reopen **Profile** and **Instructions** to confirm both messages and the instructions persisted.
+3. Select **Save changes**, reload Configuration, then check **Profile** and **Instructions** to confirm both messages and the instructions persisted.
 {: value="3" }
 
 <figure markdown>
