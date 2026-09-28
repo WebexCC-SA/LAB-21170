@@ -34,12 +34,12 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
 
 4. Complete the form with these values:
 {: value="4" }
-    - **Module:** `MCP`
+    - **Agentic App Module:** `MCP`
+    - **Agentic App URL:** paste the **Order Desk MCP address** from the **Test tenant** panel in MCP Lab.
     - **Transport Type:** `Streamable HTTP`
-    - **Name:** `LAB21170 Order Desk MCP`. Agentic App names must be available globally; if this name is unavailable, append your assigned lab code or another unique suffix even if your organization is not shared. Use the name you actually register throughout this checkpoint.
-    - **Description:** `Order Desk MCP for the LAB-21170 sandbox. Retrieves the status and estimated delivery date of a sample order.`
+    - **Agentic App Name:** <code id="agentic-app-name">LAB21170 Order Desk MCP</code> <button type="button" class="lab-copy-button" data-copy-target="agentic-app-name" data-copy-label="Agentic App Name" aria-label="Copy Agentic App Name" aria-live="polite">Copy</button> — Agentic App names must be available globally. If this name is unavailable, append your assigned lab code or another unique suffix even if your organization is not shared. Use the name you actually register throughout this checkpoint.
+    - **App Hub Description:** <code id="agentic-app-description">Order Desk MCP for the LAB-21170 sandbox. Retrieves the status and estimated delivery date of a sample order.</code> <button type="button" class="lab-copy-button" data-copy-target="agentic-app-description" data-copy-label="App Hub Description" aria-label="Copy App Hub Description" aria-live="polite">Copy</button>
     - **Icon:** select one of the provided default icons.
-    - **App URL:** paste the **Order Desk MCP address** from the **Test tenant** panel.
     - **Auth Type:** `Custom Headers`
 
 <figure markdown>
@@ -107,7 +107,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Keep the new app blocked while you set its credentials and tools. Allowing it later applies to the whole lab organization.</figcaption>
 </figure>
 
-4. Return to MCP Lab **Test tenant** and find the **Temporary bearer token**. Copy it only into the Control Hub authentication field. This is separate from the event token used to enter MCP Lab.
+4. Return to MCP Lab **Test tenant** and copy the **Temporary bearer token**.
 {: value="4" }
 
 <figure markdown>
@@ -115,7 +115,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Copy your temporary bearer from **Test tenant**; the value is masked here.</figcaption>
 </figure>
 
-5. Open **Authentication**. Confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`; in **Value 1**, enter `Bearer ` followed by your temporary Order Desk bearer token. Save the setting. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load before continuing. Never paste the event token or a Webex sign-in token here.
+5. Open **Authentication** and confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`. In **Value 1**, enter `Bearer ` followed by the **Temporary bearer token** you just copied.
 {: value="5" }
 
 <figure markdown>
@@ -123,13 +123,16 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Enter the `Authorization` key and `Bearer ` value in these fields.</figcaption>
 </figure>
 
+6. **Scroll to the bottom of Authentication and click Save.** Confirm the setting is saved before leaving this page. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load.
+{: value="6" }
+
 <figure markdown>
   ![Saved Custom headers setting showing Authorization key with credential value cropped out](assets/lab-guide/live/cp6-control-hub-authentication-saved-safe.jpg)
   <figcaption markdown="span">After saving, confirm the `Authorization` key. Keep the bearer out of screenshots.</figcaption>
 </figure>
 
-6. Open **Tools**. You should see five Order Desk tools; their initial Allow settings may vary. Select **Review** for **Look up mock order** (`lookup_order`). Check that `orderNumber` is a required String and the annotations show `readOnlyHint: true` and `destructiveHint: false`. **Output schema** may show `N/A`; you will verify the returned order data in Studio Preview.
-{: value="6" }
+7. Open **Tools**. You should see five Order Desk tools; their initial Allow settings may vary. Select **Review** for **Look up mock order** (`lookup_order`). Check that `orderNumber` is a required String and the annotations show `readOnlyHint: true` and `destructiveHint: false`. **Output schema** may show `N/A`; you will verify the returned order data in Studio Preview.
+{: value="7" }
 
 <figure markdown>
   ![Five discovered Order Desk tools all disabled in Control Hub before administrator review](assets/lab-guide/live/cp6-control-hub-tools-all-off.jpg)
@@ -146,16 +149,19 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Check the lookup's read-only and non-destructive annotations.</figcaption>
 </figure>
 
-7. Confirm **Allow tool** is on for **Look up mock order** (`lookup_order`); turn it on if needed. Other Order Desk tools may remain enabled, but you will not invoke them in this lab. Keep **Allow signature change** off for `lookup_order` so changes to its contract receive administrator review. Confirm the lookup setting persists after leaving and reopening **Tools**.
-{: value="7" }
+8. Confirm **Allow tool** is on for **Look up mock order** (`lookup_order`); turn it on if needed. Other Order Desk tools may remain enabled, but you will not invoke them in this lab. Keep **Allow signature change** off for `lookup_order` so changes to its contract receive administrator review.
+{: value="8" }
+
+9. **If you changed a tool setting, scroll to the bottom of Tools and click Save before leaving this tab.** Reopen **Tools** and confirm that **Allow tool** is still on for `lookup_order`.
+{: value="9" }
 
 <figure markdown>
   ![Control Hub Tools tab with only Look up mock order allowed and every signature-change switch off](assets/lab-guide/live/cp6-control-hub-lookup-only.jpg)
   <figcaption markdown="span">This capture has only **Look up mock order** allowed. Your lab only requires that lookup be enabled; other tools may retain their existing settings.</figcaption>
 </figure>
 
-8. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. Reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and `lookup_order` is enabled.
-{: value="8" }
+10. Return to **General** and select **Allowed for all users** in your assigned lab organization. Keep **Authorize automatic server data updates** off so server metadata changes require administrator review. **Scroll to the bottom of General and click Save before leaving this tab.** Then reopen **General**, **Authentication**, and **Tools** to confirm that access is allowed, the header is saved, and `lookup_order` is enabled.
+{: value="10" }
 
 <figure markdown>
   ![Order Desk MCP app allowed for all organization users with automatic server data updates off](assets/lab-guide/live/cp6-control-hub-app-allowed.jpg)
@@ -177,7 +183,7 @@ The MCP tool catalog can be cached for up to one hour. If Studio still shows no 
 
 ## Checkpoint 7: Create the autonomous order-support agent
 
-Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the optional **Track Package - Autonomous** template instead, remove its package text and `trackPackage` action before adding the Order Desk tool.
+Create `LAB-21170 Order Support` with **Start from scratch**. You will add the Order Desk action in Checkpoint 8.
 
 ### Create the agent
 
@@ -191,7 +197,7 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 
 3. Select **Create agent**.
 {: value="3" }
-4. Select **Start from scratch**, then choose **Autonomous**. If you choose **Track Package** instead, remove every sample package action and instruction in the steps below.
+4. Select **Start from scratch**, then choose **Autonomous**.
 {: value="4" }
 5. Enter `LAB-21170 Order Support`, appending your assigned unique lab code if the organization is shared. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
 {: value="5" }
@@ -292,13 +298,13 @@ Boundaries
 ### Actions tab
 
 1. Open **Actions**.
-2. If you chose the **Track Package** template, find its `trackPackage` sample action, remove it, and confirm that no package-tracking action remains. A **Start from scratch** draft has no template action to remove.
+2. Confirm that no order-lookup action is configured yet. You will add `lookup_order` in Checkpoint 8.
 3. Leave the system **Agent handover** action available for escalation. Keep the agent in **Draft** until the registered MCP `lookup_order` action is attached and returns data in Preview.
 
 !!! success "Confirm before continuing"
     - The draft is named `LAB-21170 Order Support`.
     - The Profile and Instructions fields contain the order-support copy above.
-    - No package-template action or instruction remains.
+    - No order-lookup action is attached yet.
     - Keep the agent in **Draft** until `lookup_order` works in Preview.
 
 ## Checkpoint 8: Add the MCP action, preview, and publish
@@ -357,7 +363,6 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 4. Enter: `ORD-10482`.
 5. Confirm that the agent returns the status and estimated delivery date for `ORD-10482`. Compare both with a fresh `lookup_order` result in MCP Lab; the sample order data can change between sessions.
 6. Open **Sessions**, select the Preview session, and inspect the trace. Confirm **Action performed → lookup_order**, your registered MCP provider name, input `orderNumber: ORD-10482`, and a successful fulfillment output. If the action fails or returns unavailable, fix the registration, header, tool permission, or input mapping before publishing.
-7. Confirm that the response does not mention a package-tracking number or the removed `trackPackage` action.
 
 <figure markdown>
   ![Order Support Preview asking for the missing order number](assets/lab-guide/live/cp8-preview-asks-order-number.jpg)
@@ -419,7 +424,6 @@ Test a general-support request in a new **Preview** conversation:
 !!! success "Confirm before continuing"
     - Preview asks for an order number when one is missing.
     - `lookup_order` runs for `ORD-10482` and returns current order and delivery information.
-    - The response contains no package-template language.
     - The agent status is **Published** before you return to Flow Designer.
 
 Studio Preview verifies the order lookup and chat handover. The voice route and `Queue-1` handoff still need phone and Debug checks in Checkpoint 9.

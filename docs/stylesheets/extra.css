@@ -41,6 +41,31 @@ copy::after, .copy::after {
 copy:hover::after, .copy:hover::after {
   color: #00bdeb;
 }
+
+.lab-copy-button {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid currentColor;
+  border-radius: 0.3rem;
+  background: transparent;
+  color: var(--md-typeset-a-color);
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.lab-copy-button:hover {
+  background: rgba(0, 189, 235, 0.12);
+}
+
+.lab-copy-button:focus-visible {
+  outline: 2px solid var(--md-accent-fg-color);
+  outline-offset: 2px;
+}
+
 form#info input{
   border: solid 1px;
 }
