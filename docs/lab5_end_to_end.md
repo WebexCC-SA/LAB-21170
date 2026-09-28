@@ -19,8 +19,8 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 5. Select the new activity and set **Activity label** to `AIAgent`. Keep **Static Contact Center AI Config** selected, choose **Webex AI Agent (Autonomous)** for **Contact Center AI Config**, and choose your published `LAB-21170 Order Support` for **Virtual agent**. Wait for **Autosave**, then reopen the activity to confirm both selections persisted.
 
     <figure markdown>
-      ![Virtual Agent V2 settings with AIAgent label, static autonomous AI config, and LAB-21170 Order Support selected](assets/lab-guide/live/cp9-virtual-agent-v2-settings.png)
-      <figcaption markdown="span">Set the activity label, AI config, and published virtual agent after connecting the start activity.</figcaption>
+      ![Virtual Agent V2 settings with AIAgent label, static autonomous AI config, and LAB-21170 Order Support selected](assets/lab-guide/live/cp9-virtual-agent-v2-settings.png){ width="420" }
+      <figcaption markdown="span">Set the activity label, AI config, and published virtual agent after connecting the start activity. Select the image to enlarge it.</figcaption>
     </figure>
 
 6. Add a **Disconnect Contact** activity labeled `DisconnectContact`, or reuse one already on your canvas. Connect the `AIAgent` **Handled** outcome to it.
