@@ -79,7 +79,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
       <figcaption markdown="span">Check **Latest**, add an optional label and comment, then select **Publish Flow**.</figcaption>
     </figure>
 
-2. In Control Hub, open the assigned inbound **Entry Point** from Checkpoint 2 and confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
+2. In Control Hub, go to **Contact Center → Customer Experience → Channels** and reopen the assigned **Inbound Telephony** entry point from Checkpoint 3. Confirm that **Routing flow** is `ServiceDesk` and **Version label** is `Latest`. In Flow Designer version history, confirm that **Latest** is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.
 
     <figure markdown>
       ![Control Hub entry point routing settings showing ServiceDesk and Latest](assets/lab-guide/live/cp9-final-route-restored.jpg)
