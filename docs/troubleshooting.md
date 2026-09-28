@@ -41,7 +41,7 @@ Before finishing, call both final paths and check them in **Debug**. The screens
 
 ### Final phone path
 
-- ☐ Connect the imported `NewPhoneContact` start activity directly to **Virtual Agent V2** using **Webex AI Agent (Autonomous)**. Wire **Handled**, **Escalated**, and **Errored**, including `Queue-1` wait treatment and spoken error fallbacks.
+- ☐ Connect the imported `NewPhoneContact` start activity directly to **Virtual Agent V2** using **Webex AI Agent (Autonomous)**. Reuse `WelcomePrompt` as `EscalationMessage`, keep the imported Queue and `PlayMessage_c24` wait treatment, and wire **Handled**, **Escalated**, and **Errored**. Leave the Queue **Failure → End Flow** link in place.
 - ☐ Validate and publish the final `ServiceDesk` flow. Confirm the published version is **Latest** (version 5 in this guide) and the active entry point selects `ServiceDesk` **Latest**.
 - ☐ Make an order-status call. Call again, say `I need general support`, and accept the agent's offer to connect you with a person. In **Debug**, confirm the first call reached `AIAgent` and ended after the answer or followed **Handled → DisconnectContact**; confirm the second entered `Queue-1` and wait treatment. In AI Agent Studio **Sessions**, inspect the `lookup_order` result. If a test agent is available, confirm the agent can answer.
 - ☐ Keep bearer tokens, passwords, caller numbers, and customer details out of shared screenshots, GIFs, notes, and source files.
