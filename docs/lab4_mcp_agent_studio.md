@@ -183,7 +183,7 @@ The MCP tool catalog can be cached for up to one hour. If Studio still shows no 
 
 ## Checkpoint 7: Create the autonomous order-support agent
 
-Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the optional **Track Package - Autonomous** template instead, remove its package text and `trackPackage` action before adding the Order Desk tool.
+Create `LAB-21170 Order Support` with **Start from scratch**. You will add the Order Desk action in Checkpoint 8.
 
 ### Create the agent
 
@@ -197,7 +197,7 @@ Create `LAB-21170 Order Support` with **Start from scratch**. If you choose the 
 
 3. Select **Create agent**.
 {: value="3" }
-4. Select **Start from scratch**, then choose **Autonomous**. If you choose **Track Package** instead, remove every sample package action and instruction in the steps below.
+4. Select **Start from scratch**, then choose **Autonomous**.
 {: value="4" }
 5. Enter `LAB-21170 Order Support`, appending your assigned unique lab code if the organization is shared. When **System ID** fills in, keep its generated unique suffix. Confirm **Webex AI Pro 2.0**, then select **Create**.
 {: value="5" }
@@ -298,13 +298,13 @@ Boundaries
 ### Actions tab
 
 1. Open **Actions**.
-2. If you chose the **Track Package** template, find its `trackPackage` sample action, remove it, and confirm that no package-tracking action remains. A **Start from scratch** draft has no template action to remove.
+2. Confirm that no order-lookup action is configured yet. You will add `lookup_order` in Checkpoint 8.
 3. Leave the system **Agent handover** action available for escalation. Keep the agent in **Draft** until the registered MCP `lookup_order` action is attached and returns data in Preview.
 
 !!! success "Confirm before continuing"
     - The draft is named `LAB-21170 Order Support`.
     - The Profile and Instructions fields contain the order-support copy above.
-    - No package-template action or instruction remains.
+    - No order-lookup action is attached yet.
     - Keep the agent in **Draft** until `lookup_order` works in Preview.
 
 ## Checkpoint 8: Add the MCP action, preview, and publish
@@ -363,7 +363,6 @@ Attach the registered MCP `lookup_order` action, test it in Studio Preview, and 
 4. Enter: `ORD-10482`.
 5. Confirm that the agent returns the status and estimated delivery date for `ORD-10482`. Compare both with a fresh `lookup_order` result in MCP Lab; the sample order data can change between sessions.
 6. Open **Sessions**, select the Preview session, and inspect the trace. Confirm **Action performed → lookup_order**, your registered MCP provider name, input `orderNumber: ORD-10482`, and a successful fulfillment output. If the action fails or returns unavailable, fix the registration, header, tool permission, or input mapping before publishing.
-7. Confirm that the response does not mention a package-tracking number or the removed `trackPackage` action.
 
 <figure markdown>
   ![Order Support Preview asking for the missing order number](assets/lab-guide/live/cp8-preview-asks-order-number.jpg)
@@ -425,7 +424,6 @@ Test a general-support request in a new **Preview** conversation:
 !!! success "Confirm before continuing"
     - Preview asks for an order number when one is missing.
     - `lookup_order` runs for `ORD-10482` and returns current order and delivery information.
-    - The response contains no package-template language.
     - The agent status is **Published** before you return to Flow Designer.
 
 Studio Preview verifies the order lookup and chat handover. The voice route and `Queue-1` handoff still need phone and Debug checks in Checkpoint 9.
