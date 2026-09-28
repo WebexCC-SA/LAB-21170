@@ -7,7 +7,7 @@ The starter saves canvas construction time, but leaves the important work visibl
 ## Checkpoint 2: Import and inspect `ServiceDesk`
 
 1. [Download the ServiceDesk starter JSON](assets/lab-guide/ServiceDesk-starter.json). Save the file with its `.json` extension. Do not paste a token into the downloaded file.
-2. Sign in to the Webex sandbox shown in the **Test tenant** panel in [MCP Lab](https://mcp-lab.webexdevs.com/). In [Control Hub](https://admin.webex.com/), open **Contact Center → Customer Experience → Flows** and select **Manage Flows → Create Flows**. Flow Designer opens in a new tab.
+2. Open [Control Hub](https://admin.webex.com/) in a new tab. In [MCP Lab](https://mcp-lab.webexdevs.com/), select **Test tenant**, then sign in to Control Hub with the sandbox email and password shown there. Confirm that you are in your assigned Webex organization. Do not use your MCP Lab token or Order Desk bearer to sign in. In Control Hub, open **Contact Center → Customer Experience → Flows** and select **Manage Flows → Create Flows**. Flow Designer opens in a new tab.
 3. Choose **Flow → Import a flow → Next**. Select the downloaded JSON. Flow Designer shows the uploaded filename and proposes `ServiceDesk` as the flow name. If your organization already has a `ServiceDesk` flow, choose another clear name and use it throughout the guide. Select **Create flow**.
 4. Turn **Edit** on if needed. On the canvas, trace both menu choices:
 
