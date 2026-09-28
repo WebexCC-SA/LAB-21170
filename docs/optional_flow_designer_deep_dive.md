@@ -73,7 +73,7 @@ Start with a small, working voice flow. You will inspect the Flow Designer canva
 
 These call checks require a phone that can dial the assigned inbound number, or a Webex desktop client with external calling enabled. The browser-only Webex calling page may offer only **Call on Webex**; it cannot substitute for an inbound contact-center call. If you do not have a calling method, continue building but leave the phone and Debug/Analyze checks marked unverified until you can place a real call.
 
-1. In Control Hub, go to **Contact Center → Customer Experience → Channels**. Open the **Inbound Telephony** entry point assigned to your lab sandbox and note its phone number.
+1. In Control Hub, go to **Contact Center → Customer Experience → Channels**. Open the **Inbound Telephony** entry point assigned to your lab sandbox. Scroll to the bottom of its details and note the phone number.
 2. In that entry point's routing configuration, select your newly published practice flow and the **Latest** version label, then save. Confirm the entry point now shows the practice flow before dialing. If the assigned entry point already serves another lab participant, use the entry point your facilitator assigned to you.
 3. Call the entry point's phone number. Listen for the welcome prompt, then confirm that the call reaches `Queue-1`. If no agent is available, listen for the queue music and follow-up message. End the call after you have heard enough to identify the path.
 4. Make two or three additional calls. Allow each call to finish so it can appear in Flow Analytics. Try changing how long you remain in queue to see whether the waiting treatment executes.
