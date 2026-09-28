@@ -235,7 +235,7 @@ Hi, I'm an AI assistant for Order Support. This interaction may be recorded and 
 Welcome to Order Support. I can help you check an order's status and delivery information. What is your order number?
 ```
 
-6. Continue directly to **Instructions** without reloading the page. On a new **Start from scratch** agent, **Save changes** may remain disabled until you fill in Instructions. Save both tabs after entering the instructions below.
+6. Continue directly to **Instructions** without reloading the page. **Save changes** may remain disabled until you fill in Instructions. Save both tabs after entering the instructions below.
 {: value="6" }
 
 <figure markdown>
