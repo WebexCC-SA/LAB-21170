@@ -35,8 +35,8 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 9. Reuse the imported `Queue` (**Queue Contact**) activity. Rename it `HumanAgentQueue` and confirm **Voice → Static queue → Queue-1**. Connect `AIAgent` **Escalated → EscalationMessage → HumanAgentQueue**. If `Queue-1` is unavailable, stop here and check the assigned queue before publishing.
 
     <figure markdown>
-      ![HumanAgentQueue settings showing Voice, Static queue, and Queue-1 in the ServiceDesk draft](assets/lab-guide/live/cp9-human-agent-queue-1.jpg)
-      <figcaption markdown="span">Confirm the reused Queue Contact still targets **Queue-1**.</figcaption>
+      ![Live ServiceDesk Queue Contact settings showing HumanAgentQueue, Static queue, and Queue-1 beside the AI handoff path](assets/lab-guide/live/cp9-human-agent-queue-live.png)
+      <figcaption markdown="span">Confirm **Static queue** and **Queue-1** in the reused Queue Contact. This capture was taken while wiring the flow; compare the completed layout with the image after step 13.</figcaption>
     </figure>
 
 10. Keep the imported `HumanAgentQueue → Music → PlayMessage_c24 → Music` waiting loop as it is. The existing `PlayMessage_c24` prompt already tells the caller to wait; do not rename it. Leave the Queue Contact **Failure** output connected to its existing **End Flow** activity. An agent may answer before every waiting activity plays.
@@ -49,6 +49,11 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 12. Connect the `AIAgent` **Errored** outcome to `AgentErrorMessage`, then connect `AgentErrorMessage` to `DisconnectContact`.
 13. Wait for **Autosave**, turn on **Validation**, and resolve any errors. Confirm **0 errors** and check the final paths: `NewPhoneContact → AIAgent`; **Handled → DisconnectContact**; **Escalated → EscalationMessage → HumanAgentQueue → Music → PlayMessage_c24**; and **Errored → AgentErrorMessage → DisconnectContact**. The imported Queue **Failure** link still reaches its End Flow activity.
+
+    <figure markdown>
+      ![Completed ServiceDesk flow with the AI agent's handled, escalated, and errored branches, the queue wait loop, and the original queue failure End Flow](assets/lab-guide/live/cp9-final-flow-live.png)
+      <figcaption markdown="span">Final draft layout after reconnecting all three AI outcomes. The three **End Flow** activities on red links are the starter's retained error paths; the blue **Handled** and **Errored** paths meet at `DisconnectContact`. Select the image to enlarge it.</figcaption>
+    </figure>
 
 !!! info "Before you call"
     Confirm that your published flow is **Latest** and your assigned entry point routes to `ServiceDesk` **Latest**. Validation confirms the wiring; the two phone tests below confirm what callers experience. Use a phone or a Webex desktop client with external calling enabled. Studio Preview and browser-only **Call on Webex** cannot verify the inbound queue path.
@@ -78,17 +83,7 @@ Before starting, confirm that `lookup_order` succeeds in AI Agent Studio Preview
 
 ### Compare your order call
 
-For the order call, check **Voice Sessions** for a successful `lookup_order` request with `orderNumber` set to `ORD-10482`. In **Debug**, confirm the call reached `AIAgent` and ended after the answer. The reference captures below show **Shipped** and September 29, 2026; compare your call with the current Order Desk result. If the agent ends the call, Debug may show `Handled → DisconnectContact → ContactEnded`.
-
-<figure markdown>
-  ![Fresh AI Agent Studio Preview answering ORD-10482 with Shipped status and an expected delivery date of September 29, 2026](assets/lab-guide/live/cp9-ai-preview-after-token-refresh.jpg)
-  <figcaption markdown="span">A fresh **Preview** lookup returned **Shipped** and September 29, 2026 after the temporary bearer was renewed. Compare your phone answer with the current Order Desk result.</figcaption>
-</figure>
-
-<figure markdown>
-  ![AI Agent Studio Voice session transcript shows the agent saying the order shipped and the delivery date is September 29](assets/lab-guide/live/cp9-voice-spoken-order-safe.png)
-  <figcaption markdown="span">In the **Voice** session, the agent said the order had shipped and gave the September 29 delivery date.</figcaption>
-</figure>
+For the order call, check **Voice Sessions** for a successful `lookup_order` request with `orderNumber` set to `ORD-10482`. In **Debug**, confirm the call reached `AIAgent` and ended after the answer. Compare the spoken status and delivery date with the current Order Desk result, which may differ from older captures. If the agent ends the call, Debug may show `Handled → DisconnectContact → ContactEnded`.
 
 <figure markdown>
   ![Voice session lookup_order input ORD-10482 returned Success in 0.2 seconds](assets/lab-guide/live/cp9-voice-lookup-success-safe.png)
@@ -100,15 +95,6 @@ For the order call, check **Voice Sessions** for a successful `lookup_order` req
   <figcaption markdown="span">In **Debug**, the caller ended this call after the agent answered. Each activity shows **Success**.</figcaption>
 </figure>
 
-<figure markdown>
-  ![Flow Designer Analyze shows one ServiceDesk execution and zero node errors in the order call window](assets/lab-guide/live/cp9-spoken-order-analyze-safe.png)
-  <figcaption markdown="span">For the order-call window, **Analyze** counted one execution and zero node errors.</figcaption>
-</figure>
-
-<figure markdown>
-  ![An earlier version 5 phone call followed NewContact, AIAgent, DisconnectContact, and ContactEnded successfully](assets/lab-guide/live/cp9-v5-handled-call-debug-path.jpg)
-  <figcaption markdown="span">An earlier call exercised the **Handled → DisconnectContact** branch. Debug records the branch; it does not contain the spoken response.</figcaption>
-</figure>
 
 ### Compare your general-support call
 
@@ -119,15 +105,6 @@ For the general-support call, accept the human handoff and listen for queue musi
   <figcaption markdown="span">The accepted handoff reached `HumanAgentQueue`. Caller and interaction identifiers are excluded.</figcaption>
 </figure>
 
-<figure markdown>
-  ![Flow Designer Analyze shows one flow execution and zero node errors during the general-support test-call window](assets/lab-guide/live/cp9-human-handoff-analyze-safe.jpg)
-  <figcaption markdown="span">During the general-support call window, **Analyze** showed one execution and zero node errors.</figcaption>
-</figure>
-
-<figure markdown>
-  ![ServiceDesk version history showing version 5 published as Latest and version 4 retained in history](assets/lab-guide/live/cp9-ai-flow-v5-latest.jpg)
-  <figcaption markdown="span">In your version history, confirm the newly published flow has **Latest**. This reference image shows version 5 with version 4 retained.</figcaption>
-</figure>
 
 **Target caller path:**
 
