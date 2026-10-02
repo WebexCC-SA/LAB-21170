@@ -2,13 +2,27 @@
 
 After completing Checkpoint 9, use the MCP Lab AI agent to inspect the `ServiceDesk` flow you built. Order Desk MCP reads a simulated business system; **Webex Contact Center MCP** reads your actual Contact Center flow. This exercise lists and reads flows only. It does not change the agent, flow, or inbound routing.
 
-Allow about **10–15 minutes**, once your facilitator has confirmed access.
+Allow about **10–15 minutes**. Use the administrator account assigned to your sandbox.
 
-## Before you connect
+## Enable Contact Center MCP in Control Hub
 
-1. Ask your facilitator to confirm that **Webex Contact Center MCP** is available in your assigned sandbox. In **Control Hub → Apps → Agentic Apps → Webex Contact Center**, the app must be allowed on **General**. On **Tools**, **Allow tool** must be on for **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`), with any changes saved before leaving the tab. Your sandbox account also needs permission to read Contact Center configuration. Tool discovery alone does not confirm that flow reads will work.
-2. Return to your completed `ServiceDesk` tab in Flow Designer. If you closed it, open **Control Hub → Contact Center → Customer Experience → Flows → Manage Flows** and open `ServiceDesk`.
-3. Copy the **organization ID** from the Flow Designer address: it is the value after `orgId=`. Copy only that ID, not the entire URL. You can also find it in **Control Hub → Account → Info → Organization profile → Organization ID**. Keep the flow tab open to compare the MCP result with your canvas.
+1. Open [Control Hub](https://admin.webex.com/). Sign in with the **Sandbox email** and **Sandbox password** from MCP Lab's **Test tenant** panel. Confirm that Control Hub shows your assigned organization, not your personal or company organization.
+2. In the main navigation, select **Apps → Agentic Apps**. Find and open **Webex Contact Center**. Do not select **WebexCC Operation** or your external **Order Desk** app.
+3. On **General**, under **Access**, select **Allowed for all users** in this sandbox organization.
+4. **Click Save at the bottom of the General tab before opening another tab.** If access was already allowed and there are no unsaved changes, continue without changing it.
+5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`). Other tools may remain enabled; you will select only these two in MCP Lab.
+6. **Click Save at the bottom of the Tools tab before leaving it.** If both tools were already enabled and there are no unsaved changes, continue without changing them.
+7. Reopen **General** and confirm **Allowed for all users** is still selected. Reopen **Tools** and confirm **Allow tool** is still on for **List Flows** and **Get Flow**.
+
+The Webex-hosted server's authentication is already configured. Do not enter the Order Desk bearer token or add a custom Authorization header in **Authentication**. You will sign in with your sandbox Webex account when connecting MCP Lab below. See [Provisioning on Control Hub](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) for the product reference.
+
+!!! success "Confirm before connecting"
+    The **Webex Contact Center** app shows **Allowed**, and **List Flows** and **Get Flow** remain enabled after reopening **Tools**. If the app is missing, a setting cannot be saved, or your account lacks administrator access, stop and ask the facilitator.
+
+## Identify your flow and organization
+
+1. Return to your completed `ServiceDesk` tab in Flow Designer. If you closed it, open **Control Hub → Contact Center → Customer Experience → Flows → Manage Flows** and open `ServiceDesk`.
+2. Copy the **organization ID** from the Flow Designer address: it is the value after `orgId=`. Copy only that ID, not the entire URL. You can also find it in **Control Hub → Account → Info → Organization profile → Organization ID**. Keep the flow tab open to compare the MCP result with your canvas.
 
 !!! info "This lab uses ProdUS1"
     The MCP Lab **Webex Contact Center** preset points to the ProdUS1 server. Use it only for the assigned ProdUS1 sandbox. For another region, ask the facilitator for the regional URL from the signed-in [Contact Center MCP Server page](https://developer.webex.com/mcp/docs/contact-center-mcp-server).
@@ -62,7 +76,7 @@ Use wxcc-get-flow to read the draft of flow <your ServiceDesk flow ID> in organi
 3. Confirm the Contact Center card is gone. Keep your Order Desk connection if it is still present; do not reset the whole session to remove one MCP.
 
 !!! success "Bonus complete"
-    Both flow-read tools succeeded in your assigned sandbox, and their results match your `ServiceDesk` draft. No Contact Center resource was created or changed. Leave the completed flow and its entry-point routing in place for the facilitator's cleanup.
+    Both flow-read tools succeeded in your assigned sandbox, and their results match your `ServiceDesk` draft. No flows, queues, or entry points were created or changed. Leave the completed flow and its entry-point routing in place for the facilitator's cleanup.
 
 This bonus stops here. Flow authoring and the separate Contact Center Operations MCP are outside this exercise. See the [official references](references.md#bonus-webex-contact-center-mcp-services) for later exploration.
 
