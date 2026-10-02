@@ -10,8 +10,18 @@ Allow about **10–15 minutes**. Use the administrator account assigned to your 
 2. In the main navigation, select **Apps → Agentic Apps**. Find and open **Webex Contact Center**. Do not select **WebexCC Operation** or your external **Order Desk** app.
 3. On **General**, under **Access**, select **Allowed for all users** in this sandbox organization.
 4. **Click Save at the bottom of the General tab before opening another tab.** If access was already allowed and there are no unsaved changes, continue without changing it.
+
+    ![Control Hub General Access panel with Allowed for all users selected](assets/lab-guide/live/bonus-control-hub-general.jpg){ width="800" }
+
+    *General → Access: select **Allowed for all users**, then save before opening Tools.*
+
 5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`). Other tools may remain enabled; you will select only these two in MCP Lab.
 6. **Click Save at the bottom of the Tools tab before leaving it.** If both tools were already enabled and there are no unsaved changes, continue without changing them.
+
+    ![Control Hub Tools table showing Allow tool enabled for List Flows and Get Flow](assets/lab-guide/live/bonus-control-hub-read-tools.jpg){ width="800" }
+
+    *Check the **Allow tool** column for both read tools. Save any changes before leaving Tools.*
+
 7. Reopen **General** and confirm **Allowed for all users** is still selected. Reopen **Tools** and confirm **Allow tool** is still on for **List Flows** and **Get Flow**.
 
 The Webex-hosted server's authentication is already configured. Do not enter the Order Desk bearer token or add a custom Authorization header in **Authentication**. You will sign in with your sandbox Webex account when connecting MCP Lab below. See [Provisioning on Control Hub](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) for the product reference.
@@ -19,10 +29,9 @@ The Webex-hosted server's authentication is already configured. Do not enter the
 !!! success "Confirm before connecting"
     The **Webex Contact Center** app shows **Allowed**, and **List Flows** and **Get Flow** remain enabled after reopening **Tools**. If the app is missing, a setting cannot be saved, or your account lacks administrator access, stop and ask the facilitator.
 
-## Identify your flow and organization
+## Keep your completed flow open
 
-1. Return to your completed `ServiceDesk` tab in Flow Designer. If you closed it, open **Control Hub → Contact Center → Customer Experience → Flows → Manage Flows** and open `ServiceDesk`.
-2. Copy the **organization ID** from the Flow Designer address: it is the value after `orgId=`. Copy only that ID, not the entire URL. You can also find it in **Control Hub → Account → Info → Organization profile → Organization ID**. Keep the flow tab open to compare the MCP result with your canvas.
+Return to your completed `ServiceDesk` tab in Flow Designer. If you closed it, open **Control Hub → Contact Center → Customer Experience → Flows → Manage Flows** and open `ServiceDesk`. Keep the flow tab open to compare the MCP result with your canvas.
 
 !!! info "This lab uses ProdUS1"
     The MCP Lab **Webex Contact Center** preset points to the ProdUS1 server. Use it only for the assigned ProdUS1 sandbox. For another region, ask the facilitator for the regional URL from the signed-in [Contact Center MCP Server page](https://developer.webex.com/mcp/docs/contact-center-mcp-server).
@@ -30,23 +39,41 @@ The Webex-hosted server's authentication is already configured. Do not enter the
 ## Connect with your sandbox Webex account
 
 1. Return to the **AI agent** workspace in [MCP Lab](https://mcp-lab.webexdevs.com/). Select **Add MCP**, then **Webex Contact Center** under **Preconfigured server**. Do not use **Connect MCP** on the Order Desk card; that connects the simulated order system.
+
+    ![MCP Lab server choices showing the Webex Contact Center preconfigured server below Order Desk](assets/lab-guide/live/bonus-mcp-lab-contact-center-preset.jpg){ width="680" }
+
+    *Choose the **Webex Contact Center** preconfigured server, not Order Desk.*
+
 2. Under **Authentication method**, select **Built-in Webex integration**. The preset initially selects **WCIT token**, so change it explicitly. You do not need to copy a bearer token for this connection.
 3. Select **Authorize with Webex**. Sign in with the **Sandbox email** and **Sandbox password** from MCP Lab's **Test tenant** panel—not your personal Webex account. If Webex is already signed in as another user, switch to your assigned sandbox account before authorizing.
+
+    ![MCP Lab Connect Webex Contact Center form with Built-in Webex integration selected and Authorize with Webex button](assets/lab-guide/live/bonus-mcp-lab-webex-authentication.jpg){ width="680" }
+
+    *Select **Built-in Webex integration**, then **Authorize with Webex** to sign in with your sandbox account.*
+
 4. Review the Webex consent screen and select **Accept** for the sandbox integration. The built-in integration requests a fixed set of permissions, including configuration write access; selecting read tools below limits this exercise to flow inspection.
 5. When MCP Lab returns to **Choose tools**, all discovered tools are initially selected. Clear every selection except `wxcc-list-flows` and `wxcc-get-flow`. Confirm that **2 enabled** is shown and both tools say **Runs automatically**.
 6. Select **Connect MCP**. On **Ready to use**, confirm **Webex Contact Center — 2 tools ready**, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected** with the two selected tools.
 
 ## Find your ServiceDesk flow
 
-Replace `<your organization ID>` in the prompt below with the ID you copied from Flow Designer. If you renamed the imported flow, replace `ServiceDesk` with that name too. Paste the completed prompt into MCP Lab:
+1. Return to [Control Hub](https://admin.webex.com/) and confirm that you are still in your assigned sandbox organization. In the main navigation, select **Account**, then the **Info** tab.
+2. Under **Organization profile**, find **Organization ID**. Click the **copy icon** to the right of the field to copy your organization's ID.
+
+    ![Control Hub Account Info page showing Organization profile, the Organization ID field, and its copy icon](assets/lab-guide/live/bonus-control-hub-organization-id.jpg){ width="900" }
+
+    *Account → Info → Organization profile: copy **your** Organization ID. The ID shown here belongs to the example sandbox; do not use it in your prompt.*
+
+3. Return to MCP Lab. Replace `<your organization ID>` in the prompt below with the ID you copied from Control Hub. If you renamed the imported flow, replace `ServiceDesk` with that name too. Paste the completed prompt into MCP Lab:
 
 ```text
 Use wxcc-list-flows to find flows named ServiceDesk in organization <your organization ID>. Show each matching flow's name and ID. Do not create, change, or publish anything.
 ```
 
-1. Wait for the tool call to finish. In **Tool activity**, look for `wxcc-list-flows completed`. Check that the response reports a matching flow, not an error, and refers to the organization ID in your prompt.
-2. Find your `ServiceDesk` in the response. If there is more than one match, compare the flow ID with the value after `/flow/` in your Flow Designer URL. Do not select another attendee's flow.
-3. Copy the returned flow ID for the next prompt.
+4. Wait for the tool call to finish. In **Tool activity**, look for `wxcc-list-flows completed`. Check that the response reports a matching flow, not an error, and refers to the organization ID in your prompt.
+{: value="4" }
+5. Find your `ServiceDesk` in the response. If there is more than one match, compare the flow ID with the value after `/flow/` in your Flow Designer URL. Do not select another attendee's flow.
+6. Copy the returned flow ID for the next prompt.
 
 !!! warning "Stop if access fails"
     A connected badge or a discovered catalog is not a successful flow read. If the call returns an authorization error, an empty result for a flow you can see in Flow Designer, or data from another organization, stop and show the facilitator the tool name and error. Do not switch to the Order Desk bearer token or try a different organization ID.
