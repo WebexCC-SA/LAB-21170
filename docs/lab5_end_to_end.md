@@ -130,6 +130,6 @@ Caller → ServiceDesk → AIAgent
 
 ## Optional: explore Contact Center MCP
 
-If your assigned sandbox includes the beta Contact Center MCP services, use the [setup guides](references.md#bonus-webex-contact-center-mcp-services) after completing the phone tests. Connect with the Webex credentials and regional URL supplied for your tenant. The Order Desk bearer is specific to Order Desk.
+After completing the phone tests, ask your facilitator whether your sandbox has access to **Webex Contact Center MCP**. If it does, follow the [read-only bonus exercise](bonus_contact_center_mcp.md) to connect with your sandbox Webex account, find `ServiceDesk`, and compare the returned flow with your canvas. This is a separate connection from Order Desk; no flow changes or publishing are part of the bonus.
 
 [Continue to troubleshooting and completion](troubleshooting.md){ .md-button .md-button--primary }
