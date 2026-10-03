@@ -23,7 +23,7 @@ Use these official Webex resources when you adapt the pattern beyond this lab. F
 
 ## Bonus: Webex Contact Center MCP services
 
-For the attendee path, follow [Bonus: inspect your flow through Contact Center MCP](bonus_contact_center_mcp.md). The broader guides below include exercises outside this lab; the lab bonus uses only `wxcc-list-flows` and `wxcc-get-flow`.
+For the attendee path, follow [Bonus: inspect and edit a draft through Contact Center MCP](bonus_contact_center_mcp.md). Inspection uses `wxcc-list-flows` and `wxcc-get-flow`; the optional unpublished-copy exercise also uses `wxcc-patch-flow-draft` and `wxcc-validate-flow`. Participants may select additional tools they are comfortable using in their assigned sandbox.
 
 - [Contact Center MCP Server](https://developer.webex.com/mcp/docs/contact-center-mcp-server): the Webex Contact Center server with Flow Designer search, read, draft, activity-discovery, and validation tools. Its Flow tools work with FlowV2. The server page provides the regional URL after sign-in; the organization must enable the app and the individual tools.
 - [Contact Center MCP Server beta getting-started guide](https://developer.webex.com/create/docs/contact-center-mcp-server-beta): connection, read-first checks, and a bounded unpublished draft exercise. Use the beta instructions only in a tenant enabled for this program.
