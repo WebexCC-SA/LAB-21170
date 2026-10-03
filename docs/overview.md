@@ -63,7 +63,7 @@ Work through the checkpoints in order:
 5. Register the external MCP in Developer Portal and enable it in Control Hub.
 6. Create an autonomous order-support agent, replace any starter content, attach the approved MCP `lookup_order` action, preview it, and publish it.
 7. Replace the starter caller path with the published AI agent. Call once for an order update and again for human escalation.
-8. **Optional:** [Inspect your completed flow through Contact Center MCP](bonus_contact_center_mcp.md) if your facilitator confirms sandbox access. This bonus lists and reads `ServiceDesk`; it does not change the flow. You can also [build the starter assets by hand](optional_flow_designer_deep_dive.md) for additional Flow Designer practice.
+8. **Optional:** [Inspect your flow and edit a separate draft through Contact Center MCP](bonus_contact_center_mcp.md) if your facilitator confirms sandbox access. Start by reading `ServiceDesk`, then optionally patch one activity description in an unpublished copy. Keep the original flow and routing unchanged. You can also [build the starter assets by hand](optional_flow_designer_deep_dive.md) for additional Flow Designer practice.
 
 ## Before you start
 

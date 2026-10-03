@@ -1,8 +1,8 @@
-# Bonus: inspect your flow through Contact Center MCP
+# Bonus: inspect and edit a draft through Contact Center MCP
 
-After completing Checkpoint 9, use the MCP Lab AI agent to inspect the `ServiceDesk` flow you built. Order Desk MCP reads a simulated business system; **Webex Contact Center MCP** reads your actual Contact Center flow. This exercise lists and reads flows only. It does not change the agent, flow, or inbound routing.
+After completing Checkpoint 9, use the MCP Lab AI agent to inspect the `ServiceDesk` flow you built. Order Desk MCP reads a simulated business system; **Webex Contact Center MCP** reads and edits actual Contact Center flows. Start with flow inspection, then optionally make one small edit to a separate unpublished copy. Keep your completed `ServiceDesk` and its inbound routing unchanged.
 
-Allow about **10–15 minutes**. Use the administrator account assigned to your sandbox.
+Allow about **10–15 minutes** for inspection, plus **10–15 minutes** for the optional draft edit. Use the administrator account assigned to your sandbox.
 
 ## Enable Contact Center MCP in Control Hub
 
@@ -15,7 +15,7 @@ Allow about **10–15 minutes**. Use the administrator account assigned to your 
 
     *General → Access: select **Allowed for all users**, then save before opening Tools.*
 
-5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`). Other tools may remain enabled; you will select only these two in MCP Lab.
+5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`). These are the minimum tools for flow inspection. You may enable other tools you are comfortable using in your assigned sandbox; selecting a tool does not run it.
 6. **Click Save at the bottom of the Tools tab before leaving it.** If both tools were already enabled and there are no unsaved changes, continue without changing them.
 
     ![Control Hub Tools table showing Allow tool enabled for List Flows and Get Flow](assets/lab-guide/live/bonus-control-hub-read-tools.jpg){ width="800" }
@@ -51,9 +51,9 @@ Return to your completed `ServiceDesk` tab in Flow Designer. If you closed it, o
 
     *Select **Built-in Webex integration**, then **Authorize with Webex** to sign in with your sandbox account.*
 
-4. Review the Webex consent screen and select **Accept** for the sandbox integration. The built-in integration requests a fixed set of permissions, including configuration write access; selecting read tools below limits this exercise to flow inspection.
-5. When MCP Lab returns to **Choose tools**, all discovered tools are initially selected. Clear every selection except `wxcc-list-flows` and `wxcc-get-flow`. Confirm that **2 enabled** is shown and both tools say **Runs automatically**.
-6. Select **Connect MCP**. On **Ready to use**, confirm **Webex Contact Center — 2 tools ready**, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected** with the two selected tools.
+4. Review the Webex consent screen and select **Accept** for the sandbox integration. The built-in integration requests a fixed set of permissions, including configuration write access. MCP Lab separately controls which tools the agent can use and requires approval for write actions.
+5. When MCP Lab returns to **Choose tools**, all discovered tools are initially selected. Keep `wxcc-list-flows` and `wxcc-get-flow` selected for the inspection steps below. Leave other tools selected if you are comfortable using them, or clear their checkboxes. Read tools say **Runs automatically**; write tools say **Approval required**. The enabled count depends on your selection—it does not need to be exactly two.
+6. Select **Connect MCP**. On **Ready to use**, check that the tool count matches your selection, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected**. To change your selection later, open that card, choose the tools, and **click Save tools before closing the dialog**.
 
 ## Find your ServiceDesk flow
 
@@ -96,6 +96,64 @@ Use wxcc-get-flow to read the draft of flow <your ServiceDesk flow ID> in organi
     - **Errored** follows `AgentErrorMessage → DisconnectContact`.
 3. If a connection is missing or the summary disagrees with the canvas, ask the facilitator to review the returned connections. Do not let the agent invent a path or repair the flow. A successful tool call confirms access; it does not guarantee an accurate AI explanation.
 
+## Optional: edit a separate unpublished draft
+
+This stretch changes an activity's **description**, not its spoken message or caller path. It demonstrates an approval-gated MCP write without changing the flow that receives calls.
+
+### Enable the draft tools you want to use
+
+1. In **Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools**, enable **Allow tool** for `wxcc-patch-flow-draft` and `wxcc-validate-flow`. **Click Save at the bottom before leaving Tools.** Reopen the tab to confirm they remain enabled.
+2. In MCP Lab, open the **Webex Contact Center** card. Keep `wxcc-list-flows` and `wxcc-get-flow` selected, and select the two tools above. **Click Save tools before closing the dialog.** You may also select other tools you are comfortable using; they are not required for this stretch.
+3. Confirm that patch says **Approval required**, while validation says **Runs automatically**. You do not need `wxcc-save-flow-draft` for this small patch; it replaces the whole draft rather than updating just one node.
+
+    ![MCP Lab tool management showing the selected patch tool, decoded description, and Approval required label](assets/lab-guide/live/bonus-mcp-lab-draft-tools.jpg){ width="800" }
+
+    *The example has eight selected tools. Your count may differ. The patch tool remains approval-gated even when it is enabled.*
+
+### Create a copy, not a replacement
+
+Make the copy in Flow Designer, then use MCP for the edit. A full flow can exceed the lab agent's response limit when reconstructed through chat. Do not export the earlier REST version from Checkpoint 3; it contains your temporary bearer.
+
+1. Return to the completed `ServiceDesk` Flow Designer tab from Checkpoint 9. Confirm the main flow contains `AIAgent` and `EscalationMessage`, with **no `GetOrder` activity**.
+2. Open the menu beside the flow name and select **Export**. Save the downloaded JSON privately with its `.json` extension.
+3. In **Control Hub → Contact Center → Customer Experience → Flows → Manage Flows**, select **Create Flows**. Choose **Flow → Import a flow → Next**, then select the JSON you just exported.
+4. Change the proposed flow name to `ServiceDeskMCPBonus` before selecting **Create flow**. If that name already exists, choose another name and use it consistently below. Never replace the original `ServiceDesk`.
+5. In the copy, confirm that the expected activities and connections are present and `HumanAgentQueue` still uses your assigned `Queue-1`. Do not publish the copy or assign an entry point to it. Keep its tab open.
+6. Get the copy's ID with this prompt, replacing the organization placeholder:
+
+```text
+Use wxcc-list-flows to find ServiceDeskMCPBonus in organization <your organization ID>. Report its name and ID. Use wxcc-get-flow to read its draft and report its name, version, EscalationMessage description and main-flow edges. Do not change anything.
+```
+
+7. Confirm that the returned copy has a **different flow ID** from `ServiceDesk` and that the ID matches the value after `/flow/` in the copy's Flow Designer URL.
+
+### Patch one activity description
+
+Replace the placeholders with your organization ID and the **copy's** flow ID:
+
+```text
+Use wxcc-get-flow to read the draft of flow <your ServiceDeskMCPBonus flow ID> in organization <your organization ID>. Locate EscalationMessage. Show its current properties.description and propose changing only that field to "MCP bonus: explains the human-agent handoff before queueing the caller." Keep every other node property, variable, edge and event flow unchanged. Do not save yet. Stop if the activity is missing.
+```
+
+1. Review the proposed description. Confirm that the target is `ServiceDeskMCPBonus`, not your completed `ServiceDesk`, and that no audio prompt or connection is being changed.
+2. Send:
+
+```text
+Apply only the proposed EscalationMessage properties.description change to ServiceDeskMCPBonus using wxcc-patch-flow-draft. Read the draft again first and use its current expected_version. Do not change the source flow, prompts, edges, routing or published versions. Request approval for the patch.
+```
+
+3. At **Approval required**, confirm the tool is `wxcc-patch-flow-draft`, then select **Approve tool**. The card identifies the tool; it is not a detailed JSON diff. Select **Cancel** if the tool or the agent's plan differs from the description-only patch. Wait for `wxcc-patch-flow-draft completed`; an approval alone is not proof of success. If the tool reports a version conflict, reread the draft and review the plan again; do not force an overwrite.
+4. Verify with a separate read and validation:
+
+```text
+Use wxcc-get-flow to reread the draft of flow <your ServiceDeskMCPBonus flow ID> in organization <your organization ID>. Report EscalationMessage properties.description and the main-flow edges. Use wxcc-validate-flow to validate that saved draft and report any ERROR or WARNING results. Do not save, publish or change routing.
+```
+
+5. Refresh the **copy's** Flow Designer tab and select `EscalationMessage`. Confirm the **Activity description** matches the new text and that the caller path is unchanged. Review any validation findings before continuing; a successful save does not prove the flow is valid. Leave the copy unpublished for facilitator cleanup.
+
+!!! success "Draft edit verified"
+    The saved copy has a different ID, the description is visible in both the MCP read-back and Flow Designer, and validation returned its actual results. Your original `ServiceDesk` and its entry-point routing are unchanged. This exercise does not test a new phone-call experience.
+
 ## Finish the bonus
 
 1. In **Connected MCPs**, select the **Webex Contact Center** card.
@@ -103,8 +161,8 @@ Use wxcc-get-flow to read the draft of flow <your ServiceDesk flow ID> in organi
 3. Confirm the Contact Center card is gone. Keep your Order Desk connection if it is still present; do not reset the whole session to remove one MCP.
 
 !!! success "Bonus complete"
-    Both flow-read tools succeeded in your assigned sandbox, and their results match your `ServiceDesk` draft. No flows, queues, or entry points were created or changed. Leave the completed flow and its entry-point routing in place for the facilitator's cleanup.
+    Both flow-read tools succeeded in your assigned sandbox, and their results match your `ServiceDesk` draft. If you completed the optional edit, leave `ServiceDeskMCPBonus` unpublished and tell the facilitator it needs cleanup. Leave the original completed flow and its entry-point routing in place.
 
-This bonus stops here. Flow authoring and the separate Contact Center Operations MCP are outside this exercise. See the [official references](references.md#bonus-webex-contact-center-mcp-services) for later exploration.
+Other tools are available for exploration in your assigned sandbox. Approve only changes you understand; this exercise does not require queue, entry-point, subscription or published-flow changes. The separate Contact Center Operations MCP is outside this exercise. See the [official references](references.md#bonus-webex-contact-center-mcp-services) for later exploration.
 
 [Continue to troubleshooting and completion](troubleshooting.md){ .md-button .md-button--primary }

@@ -130,6 +130,6 @@ Caller → ServiceDesk → AIAgent
 
 ## Optional: explore Contact Center MCP
 
-After completing the phone tests, ask your facilitator whether your sandbox has access to **Webex Contact Center MCP**. If it does, follow the [read-only bonus exercise](bonus_contact_center_mcp.md) to connect with your sandbox Webex account, find `ServiceDesk`, and compare the returned flow with your canvas. This is a separate connection from Order Desk; no flow changes or publishing are part of the bonus.
+After completing the phone tests, ask your facilitator whether your sandbox has access to **Webex Contact Center MCP**. If it does, follow the [bonus exercise](bonus_contact_center_mcp.md) to connect with your sandbox Webex account, inspect `ServiceDesk`, and optionally edit an activity description in a separate unpublished copy. This is a separate connection from Order Desk. Keep your completed flow and its routing unchanged.
 
 [Continue to troubleshooting and completion](troubleshooting.md){ .md-button .md-button--primary }
