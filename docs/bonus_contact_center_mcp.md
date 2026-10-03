@@ -126,6 +126,7 @@ Use wxcc-list-flows to find ServiceDeskMCPBonus in organization <your organizati
 ```
 
 7. Confirm that the returned copy has a **different flow ID** from `ServiceDesk` and that the ID matches the value after `/flow/` in the copy's Flow Designer URL.
+{: value="7" }
 
 ### Patch one activity description
 
@@ -143,6 +144,7 @@ Apply only the proposed EscalationMessage properties.description change to Servi
 ```
 
 3. At **Approval required**, confirm the tool is `wxcc-patch-flow-draft`, then select **Approve tool**. The card identifies the tool; it is not a detailed JSON diff. Select **Cancel** if the tool or the agent's plan differs from the description-only patch. Wait for `wxcc-patch-flow-draft completed`; an approval alone is not proof of success. If the tool reports a version conflict, reread the draft and review the plan again; do not force an overwrite.
+{: value="3" }
 4. Verify with a separate read and validation:
 
 ```text
@@ -150,6 +152,7 @@ Use wxcc-get-flow to reread the draft of flow <your ServiceDeskMCPBonus flow ID>
 ```
 
 5. Refresh the **copy's** Flow Designer tab and select `EscalationMessage`. Confirm the **Activity description** matches the new text and that the caller path is unchanged. Review any validation findings before continuing; a successful save does not prove the flow is valid. Leave the copy unpublished for facilitator cleanup.
+{: value="5" }
 
 !!! success "Draft edit verified"
     The saved copy has a different ID, the description is visible in both the MCP read-back and Flow Designer, and validation returned its actual results. Your original `ServiceDesk` and its entry-point routing are unchanged. This exercise does not test a new phone-call experience.
