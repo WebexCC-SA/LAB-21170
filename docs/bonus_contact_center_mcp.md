@@ -76,7 +76,7 @@ Keep the Flow Designer tab for `ServiceDeskMCPBonus` open with **Edit: Off**. If
 
 4. Review the Webex consent screen and select **Accept** for the sandbox integration. The built-in integration requests a fixed set of permissions, including configuration write access. MCP Lab separately controls which tools the agent can use and requires approval for write actions.
 5. When MCP Lab returns to **Choose tools**, all discovered tools are initially selected. Keep `wxcc-list-flows` and `wxcc-get-flow` selected for the inspection steps below. Leave other tools selected if you are comfortable using them, or clear their checkboxes. Read tools say **Runs automatically**; write tools say **Approval required**. The enabled count depends on your selection—it does not need to be exactly two.
-6. Select **Connect MCP**. On **Ready to use**, check that the tool count matches your selection, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected**. To change your selection later, open that card, choose the tools, and **click Save tools before closing the dialog**.
+6. Select **Connect MCP**. On **Ready to use**, check that the tool count matches your selection, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected**. To change your selection among the tools already listed, open that card, choose the tools, and **click Save tools before closing the dialog**. If you enable more tools in Control Hub later, first repeat Webex authorization as described in [Enable the draft tools you want to use](#enable-the-draft-tools-you-want-to-use).
 
 ## Find your flow
 
@@ -131,8 +131,11 @@ This stretch edits **EscalationMessage → Text-to-speech message** in the impor
 Control Hub shows display names such as **Patch Flow Draft**. MCP Lab and the prompts below use tool names such as `wxcc-patch-flow-draft`.
 
 1. In **Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools**, enable **Allow tool** for **Patch Flow Draft** and **Validate Flow**. **Click Save at the bottom before leaving Tools.** Reopen the tab to confirm they remain enabled.
-2. In MCP Lab, open the **Webex Contact Center** card. Keep `wxcc-list-flows` and `wxcc-get-flow` selected, and select `wxcc-patch-flow-draft` (**Patch Flow Draft** in Control Hub) and `wxcc-validate-flow` (**Validate Flow** in Control Hub). **Click Save tools before closing the dialog.** You may also select other tools you are comfortable using; they are not required for this stretch.
-3. Confirm that patch says **Approval required**, while validation says **Runs automatically**. You do not need `wxcc-save-flow-draft` for this small patch; it replaces the whole draft rather than updating just one node.
+2. Return to MCP Lab. In **Connected MCPs**, open the **Webex Contact Center** card. Newly enabled Control Hub tools do not appear automatically in this existing connection.
+3. Scroll to **Authentication**, select **Built-in Webex integration**, and click **Authorize with Webex** again.
+4. Use the same assigned sandbox Webex account. If asked to sign in, use the **Sandbox email** and **Sandbox password** from **Test tenant**. Review the consent screen and select **Accept** if prompted. Wait for Webex to return you to MCP Lab.
+5. In the **Webex Contact Center** connection dialog, check **Tools**. Confirm that `wxcc-patch-flow-draft` (**Patch Flow Draft** in Control Hub) and `wxcc-validate-flow` (**Validate Flow** in Control Hub) now appear. Select both and keep `wxcc-list-flows` and `wxcc-get-flow` selected. **Click Save tools before closing the dialog.** If all four are already selected and there are no unsaved changes, continue without changing them. You may also select other tools you are comfortable using; they are not required for this stretch.
+6. Confirm that patch says **Approval required**, while validation says **Runs automatically**. You do not need `wxcc-save-flow-draft` for this small patch; it replaces the whole draft rather than updating just one node. If either required tool is still missing after authorization, recheck the saved Control Hub settings and your sandbox account with the facilitator before continuing.
 
     ![MCP Lab tool management showing the selected patch tool, decoded description, and Approval required label](assets/lab-guide/live/bonus-mcp-lab-draft-tools.jpg){ width="800" }
 
