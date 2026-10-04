@@ -107,7 +107,7 @@ class BonusStarterTests(unittest.TestCase):
         prompt = re.search(r"```text\n(.*?)\n```", section, re.DOTALL).group(1)
         request = json.loads(prompt[prompt.index("{"):].replace("<current draft version>", "7"))
         self.assertEqual(request["expected_version"], 7)
-        self.assertEqual(request["org_id"], "<your organization ID>")
+        self.assertEqual(request["org_id"], "<organization ID from this conversation>")
         self.assertEqual(request["flow_id"], "<your ServiceDeskMCPBonus flow ID>")
         self.assertEqual(request["flow_type"], "FLOW")
         self.assertEqual(set(request["patch"]), {"upsert_nodes"})
@@ -124,6 +124,19 @@ class BonusStarterTests(unittest.TestCase):
         self.assertNotEqual(tts["value"], BASELINE_MESSAGE)
         self.assertIn("zero errors", guide)
         self.assertNotIn("### Create a copy, not a replacement", guide)
+
+    def test_bonus_prompts_request_the_organization_id_only_once(self):
+        guide = (ROOT / "docs/bonus_contact_center_mcp.md").read_text()
+        prompts = re.findall(r"```text\n(.*?)\n```", guide, re.DOTALL)
+        self.assertEqual(sum(p.count("<your organization ID>") for p in prompts), 1)
+        self.assertIn("Use this exact ID as org_id", prompts[0])
+        self.assertIn("stop and ask me", prompts[0])
+        for prompt in prompts[1:]:
+            if "wxcc-" in prompt:
+                self.assertIn("organization ID I provided at the start", prompt)
+        self.assertIn("Leave `org_id` as shown", guide)
+        self.assertIn("Show the resolved organization ID and flow ID", guide)
+        self.assertIn("if the earlier messages are missing", guide)
 
 
 if __name__ == "__main__":
