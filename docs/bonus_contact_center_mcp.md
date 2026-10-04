@@ -78,7 +78,7 @@ Keep the Flow Designer tab for `ServiceDeskMCPBonus` open with **Edit: Off**. If
 5. When MCP Lab returns to **Choose tools**, all discovered tools are initially selected. Keep `wxcc-list-flows` and `wxcc-get-flow` selected for the inspection steps below. Leave other tools selected if you are comfortable using them, or clear their checkboxes. Read tools say **Runs automatically**; write tools say **Approval required**. The enabled count depends on your selection—it does not need to be exactly two.
 6. Select **Connect MCP**. On **Ready to use**, check that the tool count matches your selection, then select **Return to AI agent**. Confirm that **Connected MCPs** shows **Webex Contact Center** as **Connected**. To change your selection among the tools already listed, open that card, choose the tools, and **click Save tools before closing the dialog**. If you enable more tools in Control Hub later, first repeat Webex authorization as described in [Enable the draft tools you want to use](#enable-the-draft-tools-you-want-to-use).
 
-## Find your flow
+## Set your organization once
 
 1. Return to [Control Hub](https://admin.webex.com/) and confirm that you are still in your assigned sandbox organization. In the main navigation, select **Account**, then the **Info** tab.
 2. Under **Organization profile**, find **Organization ID**. Click the **copy icon** to the right of the field to copy your organization's ID.
@@ -90,26 +90,31 @@ Keep the Flow Designer tab for `ServiceDeskMCPBonus` open with **Edit: Off**. If
 3. Return to MCP Lab. Replace `<your organization ID>` with the ID you copied from Control Hub. Replace `<your flow name>` with `ServiceDeskMCPBonus`, or your actual name if you renamed the imported draft. Paste the completed prompt into MCP Lab:
 
 ```text
-Use wxcc-list-flows to find flows named <your flow name> in organization <your organization ID>. Show each matching flow's name and ID. Do not create, change, or publish anything.
+For this bonus, my sandbox organization ID is <your organization ID>. Use this exact ID as org_id for every Contact Center MCP call in this conversation. Include it in your result summaries so I can check it. If you no longer have this ID, stop and ask me; do not guess or use another organization.
+
+Use wxcc-list-flows to find flows named <your flow name> in this sandbox. Show each matching flow's name and ID. Do not create, change, or publish anything.
 ```
 
-4. Wait for the tool call to finish. In **Tool activity**, look for `wxcc-list-flows completed`. Check that the response reports a matching flow, not an error, and refers to the organization ID in your prompt.
-{: value="4" }
-5. Find your chosen flow in the response. If there is more than one match, compare the flow ID with the value after `/flow/` in your Flow Designer URL. Do not select another attendee's flow.
-6. Copy the returned flow ID for the next prompt.
+Use this same MCP Lab conversation for the rest of the bonus. Later prompts reuse the organization ID you provided here. If you reset the session or start a new conversation, repeat this setup before running tools.
+
+## Find your flow
+
+1. Wait for the tool call to finish. In **Tool activity**, look for `wxcc-list-flows completed`. Check that the response reports a matching flow, not an error, and refers to the organization ID you supplied above.
+2. Find your chosen flow in the response. If there is more than one match, compare the flow ID with the value after `/flow/` in your Flow Designer URL. Do not select another attendee's flow.
+3. Copy the returned flow ID for the next prompt.
 
 !!! warning "Stop if access fails"
     A connected badge or a discovered catalog is not a successful flow read. If the call returns an authorization error, an empty result for a flow you can see in Flow Designer, or data from another organization, stop and show the facilitator the tool name and error. Do not switch to the Order Desk bearer token or try a different organization ID.
 
 ## Read and compare your flow
 
-Replace both placeholders, then send:
+Replace `<your flow ID>`, then send:
 
 ```text
-Use wxcc-get-flow to read the draft of flow <your flow ID> in organization <your organization ID>. Report its name, current draft version, EscalationMessage properties.promptsTts, and only the main-flow connections as source -> output condition -> destination. Do not infer connections or describe runtime behavior beyond the returned edges. Do not create, change, validate, or publish anything.
+Use wxcc-get-flow to read the draft of flow <your flow ID> using the sandbox organization ID I provided at the start of this bonus. Report its name, current draft version, EscalationMessage properties.promptsTts, and only the main-flow connections as source -> output condition -> destination. Do not infer connections or describe runtime behavior beyond the returned edges. Do not create, change, validate, or publish anything.
 ```
 
-1. In **Tool activity**, look for `wxcc-get-flow completed`. Confirm that the response contains flow connections rather than an error and that your prompt used the same organization and flow ID.
+1. In **Tool activity**, look for `wxcc-get-flow completed`. Confirm that the response contains flow connections rather than an error and reports your sandbox organization ID and chosen flow ID.
 2. Confirm that the reported message matches the original text you saw in Flow Designer. Compare the three returned connections with the canvas:
     - `NewPhoneContact → out → EscalationMessage`
     - `EscalationMessage → default → EndFlow`
@@ -133,7 +138,7 @@ Control Hub shows display names such as **Patch Flow Draft**. MCP Lab and the pr
 1. In **Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools**, enable **Allow tool** for **Patch Flow Draft** and **Validate Flow**. **Click Save at the bottom before leaving Tools.** Reopen the tab to confirm they remain enabled.
 2. Return to MCP Lab. In **Connected MCPs**, open the **Webex Contact Center** card. Newly enabled Control Hub tools do not appear automatically in this existing connection.
 3. Scroll to **Authentication**, select **Built-in Webex integration**, and click **Authorize with Webex** again.
-4. Use the same assigned sandbox Webex account. If asked to sign in, use the **Sandbox email** and **Sandbox password** from **Test tenant**. Review the consent screen and select **Accept** if prompted. Wait for Webex to return you to MCP Lab.
+4. Use the same assigned sandbox Webex account. If asked to sign in, use the **Sandbox email** and **Sandbox password** from **Test tenant**. Review the consent screen and select **Accept** if prompted. Wait for Webex to return you to MCP Lab. Continue in the same AI agent conversation; if the earlier messages are missing, repeat [Set your organization once](#set-your-organization-once) before continuing.
 5. In the **Webex Contact Center** connection dialog, check **Tools**. Confirm that `wxcc-patch-flow-draft` (**Patch Flow Draft** in Control Hub) and `wxcc-validate-flow` (**Validate Flow** in Control Hub) now appear. Select both and keep `wxcc-list-flows` and `wxcc-get-flow` selected. **Click Save tools before closing the dialog.** If all four are already selected and there are no unsaved changes, continue without changing them. You may also select other tools you are comfortable using; they are not required for this stretch.
 6. Confirm that patch says **Approval required**, while validation says **Runs automatically**. You do not need `wxcc-save-flow-draft` for this small patch; it replaces the whole draft rather than updating just one node. If either required tool is still missing after authorization, recheck the saved Control Hub settings and your sandbox account with the facilitator before continuing.
 
@@ -143,10 +148,10 @@ Control Hub shows display names such as **Patch Flow Draft**. MCP Lab and the pr
 
 ### Prepare the message change
 
-1. Confirm that the practice flow is still a **Draft**, has **Edit: Off**, and has a different flow ID from any flow receiving calls. Replace the two placeholders below with your organization ID and the imported practice draft's flow ID, then send:
+1. Confirm that the practice flow is still a **Draft**, has **Edit: Off**, and has a different flow ID from any flow receiving calls. Replace `<your ServiceDeskMCPBonus flow ID>` with the imported practice draft's flow ID, then send:
 
 ```text
-Use wxcc-get-flow to read the draft of flow <your ServiceDeskMCPBonus flow ID> in organization <your organization ID>. Report its name, current version, EscalationMessage properties.promptsTts and the main edges. Confirm it contains only NewPhoneContact, EscalationMessage and EndFlow in the main flow. Do not change anything. Stop if a node is missing or this is not the imported practice draft.
+Use wxcc-get-flow to read the draft of flow <your ServiceDeskMCPBonus flow ID> using the sandbox organization ID I provided at the start of this bonus. Report its name, current version, EscalationMessage properties.promptsTts and the main edges. Confirm it contains only NewPhoneContact, EscalationMessage and EndFlow in the main flow. Do not change anything. Stop if a node is missing or this is not the imported practice draft.
 ```
 
 2. Check the read-back against your open Flow Designer tab. Copy the returned **current draft version**; do not assume it is zero. The replacement message will be:
@@ -158,12 +163,12 @@ Thank you for calling Order Desk. We can help you check your order status.
 
 ### Apply the bounded patch
 
-1. Copy the request below. Replace **all three placeholders**: organization ID, practice flow ID, and current draft version. Keep the version as a number without quotes. Leave the patch fields unchanged. Send the completed request:
+1. Copy the request below. Replace **only the practice flow ID and current draft version**. Keep the version as a number without quotes. Leave `org_id` as shown; the agent will fill it from your first prompt. Leave the patch fields unchanged. Send the completed request:
 
 ```text
-Invoke wxcc-patch-flow-draft for approval with these exact arguments. Only this unpublished practice draft may change. Preserve all remaining node properties, variables, edges and event handlers. Never publish or change routing. Do not merely print a proposal: invoke the tool and request approval.
+Replace "<organization ID from this conversation>" in org_id with the exact sandbox organization ID I provided at the start of this bonus. If you cannot find that ID, stop and ask me. Show the resolved organization ID and flow ID before requesting approval. Leave all other arguments unchanged and invoke wxcc-patch-flow-draft for approval. Only this unpublished practice draft may change. Preserve all remaining node properties, variables, edges and event handlers. Never publish or change routing. Do not merely print a proposal: invoke the tool and request approval.
 {
-  "org_id": "<your organization ID>",
+  "org_id": "<organization ID from this conversation>",
   "flow_id": "<your ServiceDeskMCPBonus flow ID>",
   "flow_type": "FLOW",
   "expected_version": <current draft version>,
@@ -193,23 +198,23 @@ Invoke wxcc-patch-flow-draft for approval with these exact arguments. Only this 
 }
 ```
 
-2. Review the agent's request or plan. It must target your practice draft, update the message and supplied default fields, preserve the end activity's type, and leave all connections unchanged. If the agent only prints a proposal without an **Approval required** card, send: `Invoke wxcc-patch-flow-draft with the exact arguments above now and request tool approval.` This follow-up is only for a proposal that has not run, not a failed write.
+2. Review the agent's request or plan. Confirm that its organization ID matches the one you provided at the start and its flow ID matches your practice draft. It must update the message and supplied default fields, preserve the end activity's type, and leave all connections unchanged. If the agent only prints a proposal without an **Approval required** card, send: `Invoke wxcc-patch-flow-draft with the resolved sandbox organization ID and all other arguments above unchanged now and request tool approval. Stop if the organization ID is unavailable.` This follow-up is only for a proposal that has not run, not a failed write.
 {: value="2" }
 3. At **Approval required**, confirm the tool is `wxcc-patch-flow-draft`, then select **Approve tool**. The card identifies the tool; it is not a detailed JSON diff. Select **Cancel** if the tool or preceding plan differs from your request. Wait for `wxcc-patch-flow-draft completed`; an approval alone is not proof of success. If the tool reports a version conflict, reread the draft for its current version and review the request again; do not force an overwrite.
 
 ### Verify the saved message
 
-1. Replace both placeholders and send this separate read-back:
+1. Replace `<your ServiceDeskMCPBonus flow ID>` and send this separate read-back:
 
 ```text
-Use wxcc-get-flow to reread the draft of flow <your ServiceDeskMCPBonus flow ID> in organization <your organization ID>. Report EscalationMessage properties.promptsTts and only the main-flow edges. Do not save, publish or change routing.
+Use wxcc-get-flow to reread the draft of flow <your ServiceDeskMCPBonus flow ID> using the sandbox organization ID I provided at the start of this bonus. Report EscalationMessage properties.promptsTts and only the main-flow edges. Do not save, publish or change routing.
 ```
 
 2. Confirm that the saved message is the replacement text and the three connections still match the canvas. Then request validation separately:
 {: value="2" }
 
 ```text
-Call wxcc-validate-flow for org_id <your organization ID>, flow_id <your ServiceDeskMCPBonus flow ID>. Return valid, errors and warnings. Read-only; no changes.
+Call wxcc-validate-flow for flow_id <your ServiceDeskMCPBonus flow ID>, using the sandbox organization ID I provided at the start of this bonus as org_id. Return valid, errors and warnings. Read-only; no changes.
 ```
 
 3. Refresh the **practice draft's** Flow Designer tab and double-click `EscalationMessage`. Under **Prompt**, confirm **Text-to-speech message** contains the replacement text, not just an updated activity description. Check that both message outputs still reach `EndFlow`.
