@@ -95,7 +95,7 @@ For this bonus, my sandbox organization ID is <your organization ID>. Use this e
 Use wxcc-list-flows to find flows named <your flow name> in this sandbox. Show each matching flow's name and ID. Do not create, change, or publish anything.
 ```
 
-Use this same MCP Lab conversation for the rest of the bonus. Later prompts reuse the organization ID you provided here. If you reset the session or start a new conversation, repeat this setup before running tools.
+Use this same MCP Lab conversation for the rest of the bonus. The read prompts reuse the organization ID you provided here. For the patch and validation prompts, paste your organization ID directly into the placeholders below. If you reset the session or start a new conversation, repeat this setup before running tools.
 
 ## Find your flow
 
@@ -163,12 +163,12 @@ Thank you for calling Order Desk. We can help you check your order status.
 
 ### Apply the bounded patch
 
-1. Copy the request below. Replace **only the practice flow ID and current draft version**. Keep the version as a number without quotes. Leave `org_id` as shown; the agent will fill it from your first prompt. Leave the patch fields unchanged. Send the completed request:
+1. Copy the request below. Replace **your organization ID, the practice flow ID, and the current draft version**. Use the organization ID you copied from **Control Hub → Account → Info**. Keep the version as a number without quotes. Leave the patch fields unchanged. Confirm that no placeholders remain, then send the completed request:
 
 ```text
-Replace "<organization ID from this conversation>" in org_id with the exact sandbox organization ID I provided at the start of this bonus. If you cannot find that ID, stop and ask me. Show the resolved organization ID and flow ID before requesting approval. Leave all other arguments unchanged and invoke wxcc-patch-flow-draft for approval. Only this unpublished practice draft may change. Preserve all remaining node properties, variables, edges and event handlers. Never publish or change routing. Do not merely print a proposal: invoke the tool and request approval.
+Invoke wxcc-patch-flow-draft for approval with these exact arguments. Only this unpublished practice draft may change. Preserve all remaining node properties, variables, edges and event handlers. Never publish or change routing. Do not merely print a proposal: invoke the tool and request approval.
 {
-  "org_id": "<organization ID from this conversation>",
+  "org_id": "<your organization ID>",
   "flow_id": "<your ServiceDeskMCPBonus flow ID>",
   "flow_type": "FLOW",
   "expected_version": <current draft version>,
@@ -198,7 +198,7 @@ Replace "<organization ID from this conversation>" in org_id with the exact sand
 }
 ```
 
-2. Review the agent's request or plan. Confirm that its organization ID matches the one you provided at the start and its flow ID matches your practice draft. It must update the message and supplied default fields, preserve the end activity's type, and leave all connections unchanged. If the agent only prints a proposal without an **Approval required** card, send: `Invoke wxcc-patch-flow-draft with the resolved sandbox organization ID and all other arguments above unchanged now and request tool approval. Stop if the organization ID is unavailable.` This follow-up is only for a proposal that has not run, not a failed write.
+2. Review the agent's request or plan. Confirm that its organization ID matches the one you copied from Control Hub and its flow ID matches your practice draft. It must update the message and supplied default fields, preserve the end activity's type, and leave all connections unchanged. If the agent only prints a proposal without an **Approval required** card, replace both placeholders in this follow-up and send: `Invoke wxcc-patch-flow-draft with org_id <your organization ID>, flow_id <your ServiceDeskMCPBonus flow ID>, and all other arguments above unchanged now and request tool approval.` This follow-up is only for a proposal that has not run, not a failed write.
 {: value="2" }
 3. At **Approval required**, confirm the tool is `wxcc-patch-flow-draft`, then select **Approve tool**. The card identifies the tool; it is not a detailed JSON diff. Select **Cancel** if the tool or preceding plan differs from your request. Wait for `wxcc-patch-flow-draft completed`; an approval alone is not proof of success. If the tool reports a version conflict, reread the draft for its current version and review the request again; do not force an overwrite.
 
@@ -210,11 +210,11 @@ Replace "<organization ID from this conversation>" in org_id with the exact sand
 Use wxcc-get-flow to reread the draft of flow <your ServiceDeskMCPBonus flow ID> using the sandbox organization ID I provided at the start of this bonus. Report EscalationMessage properties.promptsTts and only the main-flow edges. Do not save, publish or change routing.
 ```
 
-2. Confirm that the saved message is the replacement text and the three connections still match the canvas. Then request validation separately:
+2. Confirm that the saved message is the replacement text and the three connections still match the canvas. Then request validation separately. Replace **both your organization ID and the practice flow ID** in this prompt:
 {: value="2" }
 
 ```text
-Call wxcc-validate-flow for flow_id <your ServiceDeskMCPBonus flow ID>, using the sandbox organization ID I provided at the start of this bonus as org_id. Return valid, errors and warnings. Read-only; no changes.
+Call wxcc-validate-flow for org_id <your organization ID>, flow_id <your ServiceDeskMCPBonus flow ID>. Return valid, errors and warnings. Read-only; no changes.
 ```
 
 3. Refresh the **practice draft's** Flow Designer tab and double-click `EscalationMessage`. Under **Prompt**, confirm **Text-to-speech message** contains the replacement text, not just an updated activity description. Check that both message outputs still reach `EndFlow`.
