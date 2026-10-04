@@ -107,7 +107,7 @@ class BonusStarterTests(unittest.TestCase):
         prompt = re.search(r"```text\n(.*?)\n```", section, re.DOTALL).group(1)
         request = json.loads(prompt[prompt.index("{"):].replace("<current draft version>", "7"))
         self.assertEqual(request["expected_version"], 7)
-        self.assertEqual(request["org_id"], "<organization ID from this conversation>")
+        self.assertEqual(request["org_id"], "<your organization ID>")
         self.assertEqual(request["flow_id"], "<your ServiceDeskMCPBonus flow ID>")
         self.assertEqual(request["flow_type"], "FLOW")
         self.assertEqual(set(request["patch"]), {"upsert_nodes"})
@@ -125,18 +125,36 @@ class BonusStarterTests(unittest.TestCase):
         self.assertIn("zero errors", guide)
         self.assertNotIn("### Create a copy, not a replacement", guide)
 
-    def test_bonus_prompts_request_the_organization_id_only_once(self):
+    def test_bonus_read_prompts_reuse_the_initial_organization_id(self):
         guide = (ROOT / "docs/bonus_contact_center_mcp.md").read_text()
         prompts = re.findall(r"```text\n(.*?)\n```", guide, re.DOTALL)
-        self.assertEqual(sum(p.count("<your organization ID>") for p in prompts), 1)
         self.assertIn("Use this exact ID as org_id", prompts[0])
         self.assertIn("stop and ask me", prompts[0])
-        for prompt in prompts[1:]:
-            if "wxcc-" in prompt:
+        reads = [prompt for prompt in prompts if "Use wxcc-get-flow" in prompt]
+        self.assertEqual(len(reads), 3)
+        for prompt in reads:
+            with self.subTest(prompt=prompt):
                 self.assertIn("organization ID I provided at the start", prompt)
-        self.assertIn("Leave `org_id` as shown", guide)
-        self.assertIn("Show the resolved organization ID and flow ID", guide)
+                self.assertNotIn("<your organization ID>", prompt)
         self.assertIn("if the earlier messages are missing", guide)
+
+    def test_bonus_patch_and_validation_require_explicit_organization_ids(self):
+        guide = (ROOT / "docs/bonus_contact_center_mcp.md").read_text()
+        prompts = re.findall(r"```text\n(.*?)\n```", guide, re.DOTALL)
+        patch = next(prompt for prompt in prompts if "Invoke wxcc-patch-flow-draft" in prompt)
+        validation = next(prompt for prompt in prompts if "Call wxcc-validate-flow" in prompt)
+        self.assertIn('"org_id": "<your organization ID>"', patch)
+        self.assertIn("with these exact arguments", patch)
+        self.assertEqual(validation, "Call wxcc-validate-flow for org_id <your organization ID>, flow_id <your ServiceDeskMCPBonus flow ID>. Return valid, errors and warnings. Read-only; no changes.")
+        for prompt in (patch, validation):
+            with self.subTest(prompt=prompt):
+                self.assertNotIn("organization ID I provided at the start", prompt)
+                self.assertNotIn("organization ID from this conversation", prompt)
+        self.assertIn("Confirm that no placeholders remain", guide)
+        self.assertIn("replace both placeholders in this follow-up", guide)
+        self.assertIn("Invoke wxcc-patch-flow-draft with org_id <your organization ID>, flow_id <your ServiceDeskMCPBonus flow ID>", guide)
+        self.assertNotIn("Leave `org_id` as shown", guide)
+        self.assertNotIn("resolved sandbox organization ID", guide)
 
 
 if __name__ == "__main__":
