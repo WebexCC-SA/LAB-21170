@@ -38,7 +38,7 @@ Allow about **10–15 minutes** for inspection, plus **10–15 minutes** for the
 
     *General → Access: select **Allowed for all users**, then save before opening Tools.*
 
-5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** (`wxcc-list-flows`) and **Get Flow** (`wxcc-get-flow`). These are the minimum tools for flow inspection. You may enable other tools you are comfortable using in your assigned sandbox; selecting a tool does not run it.
+5. Open **Tools**. In the **Allow tool** column, turn on **List Flows** and **Get Flow**. These are the minimum tools for flow inspection. You may enable other tools you are comfortable using in your assigned sandbox; selecting a tool does not run it.
 6. **Click Save at the bottom of the Tools tab before leaving it.** If both tools were already enabled and there are no unsaved changes, continue without changing them.
 
     ![Control Hub Tools table showing Allow tool enabled for List Flows and Get Flow](assets/lab-guide/live/bonus-control-hub-read-tools.jpg){ width="800" }
@@ -128,8 +128,10 @@ This stretch edits **EscalationMessage → Text-to-speech message** in the impor
 
 ### Enable the draft tools you want to use
 
-1. In **Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools**, enable **Allow tool** for `wxcc-patch-flow-draft` and `wxcc-validate-flow`. **Click Save at the bottom before leaving Tools.** Reopen the tab to confirm they remain enabled.
-2. In MCP Lab, open the **Webex Contact Center** card. Keep `wxcc-list-flows` and `wxcc-get-flow` selected, and select the two tools above. **Click Save tools before closing the dialog.** You may also select other tools you are comfortable using; they are not required for this stretch.
+Control Hub shows display names such as **Patch Flow Draft**. MCP Lab and the prompts below use tool names such as `wxcc-patch-flow-draft`.
+
+1. In **Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools**, enable **Allow tool** for **Patch Flow Draft** and **Validate Flow**. **Click Save at the bottom before leaving Tools.** Reopen the tab to confirm they remain enabled.
+2. In MCP Lab, open the **Webex Contact Center** card. Keep `wxcc-list-flows` and `wxcc-get-flow` selected, and select `wxcc-patch-flow-draft` (**Patch Flow Draft** in Control Hub) and `wxcc-validate-flow` (**Validate Flow** in Control Hub). **Click Save tools before closing the dialog.** You may also select other tools you are comfortable using; they are not required for this stretch.
 3. Confirm that patch says **Approval required**, while validation says **Runs automatically**. You do not need `wxcc-save-flow-draft` for this small patch; it replaces the whole draft rather than updating just one node.
 
     ![MCP Lab tool management showing the selected patch tool, decoded description, and Approval required label](assets/lab-guide/live/bonus-mcp-lab-draft-tools.jpg){ width="800" }
