@@ -272,7 +272,7 @@
         "group": "action",
         "properties": {
           "httpRequestHeaders": {
-            "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+            "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
           },
           "httpRequestMethod_type": null,
           "authenticated": false,
@@ -1414,7 +1414,7 @@
         ],
         "properties": {
           "httpRequestHeaders": {
-            "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+            "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
           },
           "authenticated": false,
           "httpRequestBody": null,

@@ -36,7 +36,7 @@ def main(source: Path, output: Path) -> None:
     flow["name"] = "ServiceDesk"
     flow["description"] = (
         "LAB-21170 starter: IVR menu, direct Order Desk HTTP lookup, and queue treatment. "
-        "Replace only the placeholder bearer, then verify the queue target."
+        "Replace the entire Authorization value with Copy Authorization value from MCP Lab, then verify the queue target."
     )
     flow["variables"][0]["value"] = "unavailable"
     for queue_properties in (
@@ -188,7 +188,7 @@ def main(source: Path, output: Path) -> None:
         for link in flow["process"]["links"]
     )
     assert by_name["GetOrder"]["properties"]["httpRequestHeaders"] == {
-        "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+        "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
     }
 
     # Import creates a new flow identity. Keep only the exported flow payload;

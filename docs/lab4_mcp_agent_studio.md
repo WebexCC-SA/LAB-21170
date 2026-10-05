@@ -87,7 +87,7 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
 {: value="7" }
 
 !!! warning "Keep the sandbox credential in the authentication setting"
-    Use the temporary **Order Desk bearer** only in Control Hub **Authentication → Custom headers**. It is different from your MCP Lab event token and Webex sign-in token. Do not put it in the app description, agent instructions, screenshots, or source files.
+    Use the **Order Desk access token** only in Control Hub **Authentication → Custom headers**. It is different from your MCP Lab event token and Webex sign-in token. Do not put it in the app description, agent instructions, screenshots, or source files.
 
 ### Enable the private app in Control Hub
 
@@ -107,20 +107,20 @@ You tested `lookup_order` in MCP Lab. Now register the external MCP server and a
   <figcaption markdown="span">Keep the new app blocked while you set its credentials and tools. Allowing it later applies to the whole lab organization.</figcaption>
 </figure>
 
-4. Return to MCP Lab **Test tenant** and copy the **Temporary bearer token**.
+4. Return to MCP Lab **Test tenant → Order Desk MCP**. Under **Order Desk access token**, select **Copy Authorization value**. It includes `Bearer ` and the token; you do not need to reveal the token. Use this button rather than **Copy token only** for the custom header.
 {: value="4" }
 
 <figure markdown>
-  ![Order Desk MCP section in MCP Lab showing its server address and a masked temporary bearer token](assets/lab-guide/live/cp6-mcp-lab-token-masked.jpg)
-  <figcaption markdown="span">Copy your temporary bearer from **Test tenant**; the value is masked here.</figcaption>
+  ![MCP Lab Order Desk access token controls with Copy Authorization value and Copy token only](assets/lab-guide/order-desk-authorization-copy.png){ width="480" }
+  <figcaption markdown="span">Select **Copy Authorization value**; the token stays masked. This screenshot uses local demo data.</figcaption>
 </figure>
 
-5. Open **Authentication** and confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`. In **Value 1**, enter `Bearer ` followed by the **Temporary bearer token** you just copied.
+5. Open **Authentication** and confirm the type is **Custom headers**. In **Key 1**, enter `Authorization`. Select all text in **Value 1** and paste the complete value you just copied. It already includes `Bearer `; do not add `Bearer` again or include `Authorization:` in Value 1.
 {: value="5" }
 
 <figure markdown>
   ![Empty Custom headers fields in Control Hub Authentication before entering the lab credential](assets/lab-guide/live/cp6-control-hub-authentication-blank.jpg)
-  <figcaption markdown="span">Enter the `Authorization` key and `Bearer ` value in these fields.</figcaption>
+  <figcaption markdown="span">Enter `Authorization` in Key 1 and paste the complete copied value in Value 1.</figcaption>
 </figure>
 
 6. **Scroll to the bottom of Authentication and click Save.** Confirm the setting is saved before leaving this page. If Control Hub shows **Pending reauthorization**, select **Reauthorize server** and wait for the tool catalog to load.

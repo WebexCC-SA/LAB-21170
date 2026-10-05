@@ -2,7 +2,7 @@
   "version": 4,
   "flowType": "FLOW",
   "name": "ServiceDesk",
-  "description": "LAB-21170 starter: IVR menu, direct Order Desk HTTP lookup, and queue treatment. Replace only the placeholder bearer, then verify the queue target.",
+  "description": "LAB-21170 starter: IVR menu, direct Order Desk HTTP lookup, and queue treatment. Replace the entire Authorization value with Copy Authorization value from MCP Lab, then verify the queue target.",
   "comment": null,
   "variables": [
     {
@@ -272,7 +272,7 @@
         "group": "action",
         "properties": {
           "httpRequestHeaders": {
-            "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+            "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
           },
           "httpRequestMethod_type": null,
           "authenticated": false,
@@ -1530,7 +1530,7 @@
         ],
         "properties": {
           "httpRequestHeaders": {
-            "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+            "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
           },
           "authenticated": false,
           "httpRequestBody": null,

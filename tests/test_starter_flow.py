@@ -49,8 +49,10 @@ class StarterFlowTests(unittest.TestCase):
             "https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482",
         )
         self.assertEqual(request["httpRequestHeaders"], {
-            "Authorization": "Bearer REPLACE_WITH_LAB_TOKEN"
+            "Authorization": "REPLACE_WITH_COPIED_AUTHORIZATION_VALUE"
         })
+        widget = self.flow["diagram"]["widgets"][self.activities["GetOrder"]["id"]]
+        self.assertEqual(widget["properties"]["httpRequestHeaders"], request["httpRequestHeaders"])
         self.assertEqual(request["outputVariableArray"], [{
             "outputVariable": "orderStatus", "jsonPathExp": "$.order.status"
         }])
