@@ -5,7 +5,7 @@
 3. Select **Continue**.
 4. Check that the **AI agent** workspace opens with no MCPs connected and **Order Desk** on the left.
 5. Select **Test tenant** to open the tenant-details panel.
-6. Keep this panel available. Later checkpoints use its sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary bearer token. Select **Inspect orders** to find the sample order and REST request; those are not listed in the tenant-details panel. The panel does not show an assignment-expiration time.
+6. Keep this panel available. Later checkpoints use its sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and Order Desk access token. Select **Inspect orders** to find the sample order and REST request; those are not listed in the tenant-details panel. The panel does not show an assignment-expiration time.
 
 The screenshots use `ServiceDesk`, `LAB21170 Order Desk MCP`, and `LAB-21170 Order Support` as example names. If your organization is shared with other attendees, add the unique lab code assigned to you when you create each flow, Agentic App, and AI agent. Select your own named objects in later steps. Use only the entry point and call-test window assigned to you; changing a shared entry point affects the next caller.
 

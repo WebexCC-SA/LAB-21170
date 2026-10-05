@@ -2,7 +2,7 @@
 
 ## What you will build
 
-You run the contact center for a mock online retailer. A caller wants an update on order `ORD-10482`. Import a starter IVR, add your lab's temporary Order Desk bearer, then replace the direct-REST practice path with an AI agent that can look up the order and connect the caller to a person when needed.
+You run the contact center for a mock online retailer. A caller wants an update on order `ORD-10482`. Import a starter IVR, add your lab's Order Desk access token, then replace the direct-REST practice path with an AI agent that can look up the order and connect the caller to a person when needed.
 
 ```text
 Practice path:
@@ -58,7 +58,7 @@ Work through the checkpoints in order:
 
 1. Redeem the sandbox assignment and bookmark the lab workspaces.
 2. Download and import the credential-free `ServiceDesk` starter. Inspect its menu, REST lookup, queue, and fallback paths.
-3. Add your temporary Order Desk bearer to `GetOrder`, publish, and verify the direct-REST result by phone and in Debug/Analyze when a calling method is available.
+3. Use **Copy Authorization value** to fill the entire `GetOrder` Authorization Value, publish, and verify the direct-REST result by phone and in Debug/Analyze when a calling method is available.
 4. Connect Order Desk in MCP Lab with the default tools enabled, then test only `lookup_order`.
 5. Register the external MCP in Developer Portal and enable it in Control Hub.
 6. Create an autonomous order-support agent, replace any starter content, attach the approved MCP `lookup_order` action, preview it, and publish it.
@@ -67,7 +67,7 @@ Work through the checkpoints in order:
 
 ## Before you start
 
-Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, select **Test tenant** for your sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and temporary Order Desk bearer token. To see the sample order and REST request, select **Inspect orders** in MCP Lab. Do not expect an assignment-expiration time in the tenant-details panel.
+Bring the event-provided **MCP Lab token** and use a supported browser. After redemption, select **Test tenant** for your sandbox sign-in details, Developer Portal and Order Desk MCP addresses, and Order Desk access token. To see the sample order and REST request, select **Inspect orders** in MCP Lab. Do not expect an assignment-expiration time in the tenant-details panel.
 
 Have a phone that can call the assigned inbound number, or a Webex desktop client with external calling enabled. The browser-only Webex calling page may offer only **Call on Webex** and cannot complete the phone checkpoints. Studio Preview tests the agent action, but does not replace a call through the entry point and queue.
 

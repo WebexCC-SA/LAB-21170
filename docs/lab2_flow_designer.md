@@ -2,12 +2,12 @@
 
 You run an order-processing contact center. A caller can choose order support or general support. In this first version, Flow Designer uses a conventional phone menu and a direct HTTP request to retrieve the status of sample order `ORD-10482`. Later, you will give an AI agent access to the same order data through MCP and replace this menu-based caller path.
 
-The starter saves canvas construction time, but leaves the important work visible: inspect the routing, add your own temporary bearer token, and verify what the REST response does. It contains **no working credential**.
+The starter saves canvas construction time, but leaves the important work visible: inspect the routing, add your own Order Desk access token, and verify what the REST response does. It contains **no working credential**.
 
 ## Checkpoint 2: Import and inspect `ServiceDesk`
 
 1. [Download the ServiceDesk starter JSON](assets/lab-guide/ServiceDesk-starter.json). Save the file with its `.json` extension. Do not paste a token into the downloaded file.
-2. Open [Control Hub](https://admin.webex.com/) in a new tab. In [MCP Lab](https://mcp-lab.webexdevs.com/), select **Test tenant**, then sign in to Control Hub with the sandbox email and password shown there. Confirm that you are in your assigned Webex organization. Do not use your MCP Lab token or Order Desk bearer to sign in. In Control Hub, open **Contact Center → Customer Experience → Flows** and select **Manage Flows → Create Flows**. Flow Designer opens in a new tab.
+2. Open [Control Hub](https://admin.webex.com/) in a new tab. In [MCP Lab](https://mcp-lab.webexdevs.com/), select **Test tenant**, then sign in to Control Hub with the sandbox email and password shown there. Confirm that you are in your assigned Webex organization. Do not use your MCP Lab token or Order Desk access token to sign in. In Control Hub, open **Contact Center → Customer Experience → Flows** and select **Manage Flows → Create Flows**. Flow Designer opens in a new tab.
 3. Choose **Flow → Import a flow → Next**. Select the downloaded JSON. Flow Designer shows the uploaded filename and proposes `ServiceDesk` as the flow name. If your organization already has a `ServiceDesk` flow, choose another clear name and use it throughout the guide. Select **Create flow**.
 4. Turn **Edit** on if needed. On the canvas, trace both menu choices:
 
@@ -18,7 +18,7 @@ The starter saves canvas construction time, but leaves the important work visibl
     The existing `Queue → Music → PlayMessage` loop is the waiting treatment. The start event may appear as `NewContact` in another Flow Designer view; it is the same voice entry to the flow.
 
 5. Select **SupportMenu**. Confirm that digit `1` is **Order Support** and digit `2` is **General Support**. Its Cisco Cloud Text-to-Speech prompt explains both choices. Select **Queue** and confirm that the queue field shows **Queue-1**. The import normally matches this queue by name, but if the field is blank in your sandbox, select your assigned `Queue-1` before publishing.
-6. Select **GetOrder**. Confirm that **Use authenticated endpoint** is off, **Method** is `GET`, and **Request URL** is `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Under **HTTP request headers**, the `Authorization` value should be `Bearer REPLACE_WITH_LAB_TOKEN`. That placeholder is intentionally invalid; do not publish or test the lookup until you replace it in Checkpoint 3.
+6. Select **GetOrder**. Confirm that **Use authenticated endpoint** is off, **Method** is `GET`, and **Request URL** is `https://mcp-lab.webexdevs.com/order-desk/api/orders/ORD-10482`. Under **HTTP request headers**, the `Authorization` value should be `REPLACE_WITH_COPIED_AUTHORIZATION_VALUE`. That placeholder is intentionally invalid; do not publish or test the lookup until you replace it in Checkpoint 3.
 7. Scroll to **Parse settings**. Confirm **Content type → JSON** and the parsed output `orderStatus` with path `$.order.status`. The String flow variable `orderStatus` is already present and defaults to `unavailable`, so a missing value is not presented as a successful order status. `OrderStatusMessage` says <code>Your order status is &#123;&#123;orderStatus&#125;&#125;.</code>
 8. Turn on **Validation**. The imported, still-uncredentialed draft should show **0 errors / Ready to publish**. This checks configuration and wiring only; it does **not** authenticate the request or prove a caller can hear the returned value. If your queue was not rebound, set it as in step 5 and validate again.
 
@@ -32,11 +32,17 @@ The starter saves canvas construction time, but leaves the important work visibl
 
 ## Checkpoint 3: Authenticate and test the direct REST lookup
 
-The field labeled **Temporary bearer token** in MCP Lab contains the Order Desk API bearer assigned to your lab seat. It is not the token you used to sign in to MCP Lab.
+The **Order Desk access token** in MCP Lab is assigned to your lab seat. It is different from the token you used to sign in to MCP Lab. Select **Copy Authorization value** to copy `Bearer ` and the access token together. **Copy token only** is for fields that add `Bearer` automatically; do not use it for this exercise.
 
 1. In MCP Lab, select **Inspect orders** on the **Order Desk** card. Find sample order `ORD-10482` and compare the displayed `GET /order-desk/api/orders/{orderNumber}` reference with `GetOrder` in Flow Designer. The sample response shows where `order.status` appears; it is a reference, not evidence that your Flow Designer request has run.
-2. Open **Test tenant** in MCP Lab. Under **Temporary bearer token**, select the copy icon to copy your Order Desk bearer. Keep it private. Return to the `ServiceDesk` draft, select **GetOrder**, and scroll to **HTTP request headers**.
-3. Leave the header **Key** as `Authorization`. Replace the entire **Value** `Bearer REPLACE_WITH_LAB_TOKEN` with `Bearer ` followed immediately by your Order Desk bearer. Include the single space after `Bearer`. Do not change the URL, method, request content type **Application/JSON**, or **Parse settings → JSON → `$.order.status`**.
+2. Open **Test tenant → Order Desk MCP** in MCP Lab. Under **Order Desk access token**, select **Copy Authorization value**. Keep the copied value private; you do not need to reveal the token. Return to the `ServiceDesk` draft, select **GetOrder**, and scroll to **HTTP request headers**.
+
+    <figure markdown>
+      ![MCP Lab Order Desk access token controls with Copy Authorization value and Copy token only](assets/lab-guide/order-desk-authorization-copy.png){ width="480" }
+      <figcaption markdown="span">Select **Copy Authorization value** to include `Bearer ` automatically. The token stays masked; this screenshot uses local demo data.</figcaption>
+    </figure>
+
+3. Leave the header **Key** as `Authorization`. Select all text in **Value** and replace `REPLACE_WITH_COPIED_AUTHORIZATION_VALUE` with the value you just copied. It already includes `Bearer ` and the token; do not add `Bearer` again or paste `Authorization:` into the Value field. Do not change the URL, method, request content type **Application/JSON**, or **Parse settings → JSON → `$.order.status`**.
 4. Wait for **Autosave**. Turn on **Validation** and confirm **0 errors**. Select **Publish Flow**; **Latest** is applied automatically. Use the optional **Test** label and a comment such as `Direct Order Desk lookup` if helpful. Note the published version number for Debug later.
 5. In Control Hub, go to **Contact Center → Customer Experience → Channels**. Find and open the **Inbound Telephony** entry point assigned to your sandbox. Under **Entry Point Settings**, set **Routing flow** to your newly published `ServiceDesk` and **Version label** to **Latest**, then save. Confirm the saved routing assignment. Scroll to the bottom of the entry point details and note its phone number for the test calls. If the entry point is shared, coordinate with the facilitator before changing it.
 6. With a phone or Webex desktop client that can dial the entry point's inbound number, make two calls:
@@ -49,7 +55,7 @@ The field labeled **Temporary bearer token** in MCP Lab contains the Order Desk 
 7. For a completed call, open your published flow's **Debug** view and select the interaction by time. On the digit `1` call, inspect `GetOrder → Modified Variables` for `orderStatus`. Compare it with the spoken response. On the digit `2` call, confirm the path bypasses `GetOrder`. In **Analyze**, choose a window containing the completed calls and compare the two menu branches. Do not include caller numbers or the bearer in screenshots.
 
 !!! warning "If the caller hears 'unavailable' or no status"
-    Do not count that as a successful lookup. In Debug, check whether `GetOrder` populated `orderStatus`. A stale bearer may produce HTTP `401` even when the activity outcome says **Success**. Copy the current **Temporary bearer token** from MCP Lab **Test tenant**, replace only the `Authorization` value, validate, publish a new version, and call again. If it remains unset, check the JSON path `$.order.status`.
+    Do not count that as a successful lookup. In Debug, check whether `GetOrder` populated `orderStatus`. An invalid access token may produce HTTP `401` even when the activity outcome says **Success**. In MCP Lab **Test tenant → Order Desk MCP**, select **Copy Authorization value**, replace the entire `Authorization` Value in `GetOrder`, validate, publish a new version, and call again. Do not add `Bearer` again. If it remains unset, check the JSON path `$.order.status`.
 
 !!! warning "Temporary lab credential"
     Use the manual bearer only in your assigned sandbox. Do not export or share a flow after inserting it. In Checkpoint 9 you will remove the direct `GetOrder` activity and its header from the final AI flow. In a production integration, use a [Control Hub custom connector](https://help.webex.com/article/n4u702ab) for managed authentication.

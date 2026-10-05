@@ -47,7 +47,7 @@ Allow about **10–15 minutes** for inspection, plus **10–15 minutes** for the
 
 7. Reopen **General** and confirm **Allowed for all users** is still selected. Reopen **Tools** and confirm **Allow tool** is still on for **List Flows** and **Get Flow**.
 
-The Webex-hosted server's authentication is already configured. Do not enter the Order Desk bearer token or add a custom Authorization header in **Authentication**. You will sign in with your sandbox Webex account when connecting MCP Lab below. See [Provisioning on Control Hub](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) for the product reference.
+The Webex-hosted server's authentication is already configured. Do not enter the Order Desk access token or add a custom Authorization header in **Authentication**. You will sign in with your sandbox Webex account when connecting MCP Lab below. See [Provisioning on Control Hub](https://developer.webex.com/mcp/docs/provisioning-on-control-hub) for the product reference.
 
 !!! success "Confirm before connecting"
     The **Webex Contact Center** app shows **Allowed**, and **List Flows** and **Get Flow** remain enabled after reopening **Tools**. If the app is missing, a setting cannot be saved, or your account lacks administrator access, stop and ask the facilitator.
@@ -104,7 +104,7 @@ Use this same MCP Lab conversation for the rest of the bonus. The read prompts r
 3. Copy the returned flow ID for the next prompt.
 
 !!! warning "Stop if access fails"
-    A connected badge or a discovered catalog is not a successful flow read. If the call returns an authorization error, an empty result for a flow you can see in Flow Designer, or data from another organization, stop and show the facilitator the tool name and error. Do not switch to the Order Desk bearer token or try a different organization ID.
+    A connected badge or a discovered catalog is not a successful flow read. If the call returns an authorization error, an empty result for a flow you can see in Flow Designer, or data from another organization, stop and show the facilitator the tool name and error. Do not switch to the Order Desk access token or try a different organization ID.
 
 ## Read and compare your flow
 
