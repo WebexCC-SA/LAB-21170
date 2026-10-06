@@ -1,0 +1,1091 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action">
+      
+      
+        <meta name="author" content="Adam Weeks and Arunabh Bhattacharjee">
+      
+      
+      
+        <link rel="prev" href="../lab4_mcp_agent_studio/">
+      
+      
+        <link rel="next" href="../bonus_contact_center_mcp/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../template_assets/webex75.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Checkpoint 9 - End-to-end test - LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#checkpoint-9-attach-the-agent-and-test-end-to-end" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-header__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Checkpoint 9 - End-to-end test
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lab
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-nav__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1_getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 1 - Lab access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2_flow_designer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 2-3 - Flow Designer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3_agent_registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 4-5 - Connect and test MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4_mcp_agent_studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 6-8 - Register MCP and build agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 9 - End-to-end test
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 9 - End-to-end test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#replace-the-starter-caller-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Replace the starter caller path
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#publish-and-test-the-final-caller-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Publish and test the final caller path
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Publish and test the final caller path">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compare-your-order-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare your order call
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compare-your-general-support-call" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare your general-support call
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-explore-contact-center-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: explore Contact Center MCP
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bonus_contact_center_mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bonus - Inspect and edit a draft through MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optional_flow_designer_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optional - Build Flow Designer assets by hand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting and completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Official references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="checkpoint-9-attach-the-agent-and-test-end-to-end">Checkpoint 9: Attach the agent and test end to end</h1>
+<p>Replace the starter's menu and direct REST branch with your published AI agent. Repurpose its welcome message for the human handoff, and keep its queue and wait treatment. After publishing, verify the order lookup and human handoff by phone. Your published version number may differ from the reference captures below.</p>
+<p>Before starting, confirm that <code>lookup_order</code> succeeds in AI Agent Studio Preview and the agent shows <strong>Published</strong>. In Preview, ask for general support, accept the offer of a human agent, and check <strong>Sessions</strong> for <strong>Agent handover</strong>. This checks the agent action; the phone test below checks the voice queue. If the MCP action is missing, finish Checkpoint 6 first.</p>
+<h2 id="replace-the-starter-caller-path">Replace the starter caller path</h2>
+<ol>
+<li>Return to the <code>ServiceDesk</code> Flow Designer tab you used in Checkpoint 3 and turn <strong>Edit</strong> on. If you closed the tab, open <a href="https://admin.webex.com/">Control Hub</a>, go to <strong>Contact Center → Customer Experience → Flows → Manage Flows</strong>, and open your imported <code>ServiceDesk</code> flow. If you gave the flow a different name on import, open that flow instead.</li>
+<li>
+<p>Hover over the connector from <code>NewPhoneContact</code> to <code>WelcomePrompt</code> and click the <strong>X</strong> that appears on the line. Keep <code>WelcomePrompt</code> on the canvas; you will reuse it for the human handoff.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-disconnect-start-connector.png" data-title="X control on the connection from NewPhoneContact to WelcomePrompt" data-desc-position="top"><img alt="X control on the connection from NewPhoneContact to WelcomePrompt" src="../assets/lab-guide/live/cp9-disconnect-start-connector.png"></a>
+  <figcaption markdown="span">Click the <strong>X</strong> on the connector, not the activity.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Find <strong>Virtual Agent V2</strong> under <strong>Contact handling</strong> and drag it onto the canvas.</p>
+</li>
+<li>Drag from the blue output port on <code>NewPhoneContact</code> to the <strong>Virtual Agent V2</strong> activity before configuring it.</li>
+<li>
+<p>Select the new activity and set <strong>Activity label</strong> to <code>AIAgent</code>. Keep <strong>Static Contact Center AI Config</strong> selected, choose <strong>Webex AI Agent (Autonomous)</strong> for <strong>Contact Center AI Config</strong>, and choose your published <code>LAB-21170 Order Support</code> for <strong>Virtual agent</strong>. Wait for <strong>Autosave</strong>, then reopen the activity to confirm both selections persisted.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-virtual-agent-v2-settings.png" data-title="Virtual Agent V2 settings with AIAgent label, static autonomous AI config, and LAB-21170 Order Support selected" data-desc-position="top"><img alt="Virtual Agent V2 settings with AIAgent label, static autonomous AI config, and LAB-21170 Order Support selected" src="../assets/lab-guide/live/cp9-virtual-agent-v2-settings.png" width="420"></a>
+  <figcaption markdown="span">Set the activity label, AI config, and published virtual agent after connecting the start activity. Select the image to enlarge it.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Add a <strong>Disconnect Contact</strong> activity labeled <code>DisconnectContact</code>, or reuse one already on your canvas. Connect the <code>AIAgent</code> <strong>Handled</strong> outcome to it.</p>
+</li>
+<li>
+<p>Select the imported <code>WelcomePrompt</code> <strong>Play Message</strong> activity. Change its <strong>Activity label</strong> to <code>EscalationMessage</code> and its description to <code>Tell the caller they are being connected to a human agent.</code> Keep <strong>Cisco Cloud Text-to-Speech</strong> selected and replace the existing welcome text with: <code>I'll connect you with a human agent.</code> This activity already has a text-to-speech prompt, so you do not need to add another Play Message or audio row.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-escalation-message-settings.jpg" data-title="EscalationMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the human connection message" data-desc-position="top"><img alt="EscalationMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the human connection message" src="../assets/lab-guide/live/cp9-escalation-message-settings.jpg"></a>
+  <figcaption markdown="span">Replace the prompt in the reused <code>WelcomePrompt</code> before connecting it to the queue.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Hover over the connector from <code>EscalationMessage</code> to <code>SupportMenu</code> and click its <strong>X</strong>. Delete the old <code>SupportMenu</code>, <code>GetOrder</code>, <code>OrderStatusMessage</code>, and <code>MenuFallbackMessage</code> activities. This also removes the direct HTTP request and its temporary Authorization header. Keep the imported <code>Queue</code>, <code>Music</code>, <code>PlayMessage_c24</code>, and their connected End Flow activities.</p>
+</li>
+<li>
+<p>Reuse the imported <code>Queue</code> (<strong>Queue Contact</strong>) activity. Rename it <code>HumanAgentQueue</code> and confirm <strong>Voice → Static queue → Queue-1</strong>. Connect <code>AIAgent</code> <strong>Escalated → EscalationMessage → HumanAgentQueue</strong>. If <code>Queue-1</code> is unavailable, stop here and check the assigned queue before publishing.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-human-agent-queue-live.png" data-title="Live ServiceDesk Queue Contact settings showing HumanAgentQueue, Static queue, and Queue-1 beside the AI handoff path" data-desc-position="top"><img alt="Live ServiceDesk Queue Contact settings showing HumanAgentQueue, Static queue, and Queue-1 beside the AI handoff path" src="../assets/lab-guide/live/cp9-human-agent-queue-live.png"></a>
+  <figcaption markdown="span">Confirm <strong>Static queue</strong> and <strong>Queue-1</strong> in the reused Queue Contact. This capture was taken while wiring the flow; compare the completed layout with the image after step 13.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Keep the imported <code>HumanAgentQueue → Music → PlayMessage_c24 → Music</code> waiting loop as it is. The existing <code>PlayMessage_c24</code> prompt already tells the caller to wait; do not rename it. Leave the Queue Contact <strong>Failure</strong> output connected to its existing <strong>End Flow</strong> activity. An agent may answer before every waiting activity plays.</p>
+</li>
+<li>
+<p>Add a <strong>Play Message</strong> activity labeled <code>AgentErrorMessage</code>. Enable text to speech, select <strong>Cisco Cloud Text-to-Speech</strong>, and enter: <code>Order support is temporarily unavailable. Please try again later.</code> If the new activity includes an empty <strong>Audio file</strong> row, remove that row so it does not block validation.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-agent-error-message-settings.jpg" data-title="AgentErrorMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the AI error message" data-desc-position="top"><img alt="AgentErrorMessage settings with text to speech enabled, Cisco Cloud Text-to-Speech, and the AI error message" src="../assets/lab-guide/live/cp9-agent-error-message-settings.jpg"></a>
+  <figcaption markdown="span">Set the AI agent <strong>Errored</strong> prompt.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Connect the <code>AIAgent</code> <strong>Errored</strong> outcome to <code>AgentErrorMessage</code>, then connect <code>AgentErrorMessage</code> to <code>DisconnectContact</code>.</p>
+</li>
+<li>
+<p>Wait for <strong>Autosave</strong>, turn on <strong>Validation</strong>, and resolve any errors. Confirm <strong>0 errors</strong> and check the final paths: <code>NewPhoneContact → AIAgent</code>; <strong>Handled → DisconnectContact</strong>; <strong>Escalated → EscalationMessage → HumanAgentQueue → Music → PlayMessage_c24</strong>; and <strong>Errored → AgentErrorMessage → DisconnectContact</strong>. The imported Queue <strong>Failure</strong> link still reaches its End Flow activity.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-final-flow-live.png" data-title="Completed ServiceDesk flow with the AI agent's handled, escalated, and errored branches, the queue wait loop, and the original queue failure End Flow" data-desc-position="top"><img alt="Completed ServiceDesk flow with the AI agent's handled, escalated, and errored branches, the queue wait loop, and the original queue failure End Flow" src="../assets/lab-guide/live/cp9-final-flow-live.png"></a>
+  <figcaption markdown="span">Final draft layout after reconnecting all three AI outcomes. The three <strong>End Flow</strong> activities on red links are the starter's retained error paths; the blue <strong>Handled</strong> and <strong>Errored</strong> paths meet at <code>DisconnectContact</code>. Select the image to enlarge it.</figcaption>
+</figure><p></p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Before you call</p>
+<p>Confirm that your published flow is <strong>Latest</strong> and your assigned entry point routes to <code>ServiceDesk</code> <strong>Latest</strong>. Validation confirms the wiring; the two phone tests below confirm what callers experience. Use a phone or a Webex desktop client with external calling enabled. Studio Preview and browser-only <strong>Call on Webex</strong> cannot verify the inbound queue path.</p>
+</div>
+<h2 id="publish-and-test-the-final-caller-path">Publish and test the final caller path</h2>
+<ol>
+<li>
+<p>Select <strong>Publish Flow</strong> after validation. In the dialog, <strong>Latest</strong> is applied automatically; optionally select <strong>Test</strong> and enter a comment such as <code>AI agent with human queue</code>. Select <strong>Publish Flow</strong>, then confirm the new version is <strong>Latest</strong> in version history.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-ai-flow-publish-dialog.jpg" data-title="Flow Designer Publish dialog with automatic Latest label, optional Test label, comment, and Publish Flow button" data-desc-position="top"><img alt="Flow Designer Publish dialog with automatic Latest label, optional Test label, comment, and Publish Flow button" src="../assets/lab-guide/live/cp9-ai-flow-publish-dialog.jpg"></a>
+  <figcaption markdown="span">Check <strong>Latest</strong>, add an optional label and comment, then select <strong>Publish Flow</strong>.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>In Control Hub, go to <strong>Contact Center → Customer Experience → Channels</strong> and reopen the assigned <strong>Inbound Telephony</strong> entry point from Checkpoint 3. Confirm that <strong>Routing flow</strong> is <code>ServiceDesk</code> and <strong>Version label</strong> is <code>Latest</code>. In Flow Designer version history, confirm that <strong>Latest</strong> is on your newly published version. If the entry point uses an older fixed label, update the routing assignment before calling.</p>
+<p></p><figure markdown="">
+  <a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-final-route-restored.jpg" data-title="Control Hub entry point routing settings showing ServiceDesk and Latest" data-desc-position="top"><img alt="Control Hub entry point routing settings showing ServiceDesk and Latest" src="../assets/lab-guide/live/cp9-final-route-restored.jpg"></a>
+  <figcaption markdown="span">Set <strong>Routing flow</strong> to <code>ServiceDesk</code> and <strong>Version label</strong> to <code>Latest</code>.</figcaption>
+</figure><p></p>
+</li>
+<li>
+<p>Call the same inbound phone number used in Checkpoints 2 and 3.</p>
+</li>
+<li>Say: <code>I need an update on order ORD-10482.</code></li>
+<li>If the agent asks for the order number, provide <code>ORD-10482</code>.</li>
+<li>Confirm that the agent retrieves the order data through the external action and explains the status and delivery information.</li>
+<li>Make a second call and say: <code>I need general support.</code> When the agent offers a human handoff, say: <code>Yes, please connect me to a human agent.</code> Confirm that <code>EscalationMessage</code> plays and the call enters <code>Queue-1</code>. If a test agent is available, answer in Agent Desktop. Otherwise, listen for the wait treatment.</li>
+<li>In <strong>Debug</strong>, inspect both Interaction IDs. Confirm the order call reached <code>AIAgent</code> and the general-support call followed <code>AIAgent → EscalationMessage → HumanAgentQueue</code>. If the caller waited, confirm the trace continued through <code>Music → PlayMessage_c24</code>. The Queue Contact <strong>Failure</strong> branch retains its imported End Flow connection.</li>
+</ol>
+<h3 id="compare-your-order-call">Compare your order call</h3>
+<p>For the order call, check <strong>Voice Sessions</strong> for a successful <code>lookup_order</code> request with <code>orderNumber</code> set to <code>ORD-10482</code>. In <strong>Debug</strong>, confirm the call reached <code>AIAgent</code> and ended after the answer. Compare the spoken status and delivery date with the current Order Desk result, which may differ from older captures. If the agent ends the call, Debug may show <code>Handled → DisconnectContact → ContactEnded</code>.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-voice-lookup-success-safe.png" data-title="Voice session lookup_order input ORD-10482 returned Success in 0.2 seconds" data-desc-position="top"><img alt="Voice session lookup_order input ORD-10482 returned Success in 0.2 seconds" src="../assets/lab-guide/live/cp9-voice-lookup-success-safe.png"></a>
+  </p>
+<figcaption>The matched <strong>Voice</strong> session ran <code>lookup_order</code> for <code>ORD-10482</code> successfully. The crop excludes the returned customer details.</figcaption>
+</figure>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-v5-spoken-order-debug-safe.png" data-title="Flow Designer Debug shows NewContact, AIAgent, and ContactEnded all succeeded for the completed order call" data-desc-position="top"><img alt="Flow Designer Debug shows NewContact, AIAgent, and ContactEnded all succeeded for the completed order call" src="../assets/lab-guide/live/cp9-v5-spoken-order-debug-safe.png"></a>
+  </p>
+<figcaption>In <strong>Debug</strong>, the caller ended this call after the agent answered. Each activity shows <strong>Success</strong>.</figcaption>
+</figure>
+<h3 id="compare-your-general-support-call">Compare your general-support call</h3>
+<p>For the general-support call, accept the human handoff and listen for queue music. In <strong>Debug</strong>, confirm <code>AIAgent → EscalationMessage → HumanAgentQueue → Music → PlayMessage_c24</code> if the caller waits long enough for the message. Queue music confirms wait treatment; the trace does not show a human agent answering.</p>
+<figure>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/cp9-human-handoff-debug-start-safe.jpg" data-title="Flow Designer Debug shows successful NewContact, AIAgent, EscalationMessage, and HumanAgentQueue activities for the general-support phone call" data-desc-position="top"><img alt="Flow Designer Debug shows successful NewContact, AIAgent, EscalationMessage, and HumanAgentQueue activities for the general-support phone call" src="../assets/lab-guide/live/cp9-human-handoff-debug-start-safe.jpg"></a>
+  </p>
+<figcaption>The accepted handoff reached <code>HumanAgentQueue</code>. Caller and interaction identifiers are excluded.</figcaption>
+</figure>
+<p><strong>Target caller path:</strong></p>
+<div class="highlight"><pre><span></span><code>Caller → ServiceDesk → AIAgent
+  ├─ Order request → lookup_order (MCP) → response → Handled → disconnect
+  ├─ General support → offer human → caller accepts → Escalated
+  │    → EscalationMessage → HumanAgentQueue (Queue-1)
+  │      ├─ Waiting → Music ↔ PlayMessage_c24 (until a human answers)
+  │      └─ Failure → existing End Flow
+  └─ Errored → AgentErrorMessage → disconnect
+</code></pre></div>
+<div class="admonition success">
+<p class="admonition-title">Check both caller paths</p>
+<ul>
+<li>In <strong>Debug</strong>, confirm the published flow starts <code>NewPhoneContact → AIAgent</code> (the start event may display as <code>NewContact</code> in the interaction trace). Your final flow contains the reused <code>EscalationMessage</code>, but no <code>SupportMenu</code>, <code>GetOrder</code>, or <code>OrderStatusMessage</code>.</li>
+<li>On the order call, listen for the spoken status and delivery information. In <strong>Sessions</strong>, confirm the <code>lookup_order</code> action succeeded.</li>
+<li>On the general-support call, accept the human offer. Listen for <code>EscalationMessage</code> and queue treatment, then confirm <code>AIAgent → EscalationMessage → HumanAgentQueue</code> in <strong>Debug</strong>. An available test agent can answer.</li>
+<li>The imported Queue Contact <strong>Failure</strong> output still leads to its End Flow activity; no new queue-error message is needed.</li>
+<li>The <strong>Errored</strong> branch is connected to <code>AgentErrorMessage → DisconnectContact</code>; test it only with a controlled agent error.</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Before marking this checkpoint complete</p>
+<p>Complete both phone calls and inspect their paths in <strong>Debug</strong>. Confirm the order response and the human queue handoff on your published flow.</p>
+</div>
+<h2 id="optional-explore-contact-center-mcp">Optional: explore Contact Center MCP</h2>
+<p>After completing the phone tests, ask your facilitator whether your sandbox has access to <strong>Webex Contact Center MCP</strong>. If it does, follow the <a href="../bonus_contact_center_mcp/">bonus exercise</a> to import a small <strong>Start Flow → Play Message → End Flow</strong> practice draft, inspect it, and optionally change its spoken message through MCP. This is a separate connection from Order Desk. Keep your completed <code>ServiceDesk</code> and its routing unchanged.</p>
+<p><a class="md-button md-button--primary" href="../troubleshooting/">Continue to troubleshooting and completion</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab4_mcp_agent_studio/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Checkpoints 6-8 - Register MCP and build agent">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Checkpoints 6-8 - Register MCP and build agent
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../bonus_contact_center_mcp/" class="md-footer__link md-footer__link--next" aria-label="Next: Bonus - Inspect and edit a draft through MCP">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Bonus - Inspect and edit a draft through MCP
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cisco
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "search.suggest", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../template_assets/js/newLoad.js"></script>
+      
+        <script src="../template_assets/js/setInfo.js"></script>
+      
+        <script src="../template_assets/js/copy-lab-values.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "fade", "closeEffect": "fade", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>

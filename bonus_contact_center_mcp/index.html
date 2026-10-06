@@ -1,0 +1,1301 @@
+<!DOCTYPE html><html lang="en" class="no-js"><head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action">
+      
+      
+        <meta name="author" content="Adam Weeks and Arunabh Bhattacharjee">
+      
+      
+      
+        <link rel="prev" href="../lab5_end_to_end/">
+      
+      
+        <link rel="next" href="../optional_flow_designer_deep_dive/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../template_assets/webex75.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Bonus - Inspect and edit a draft through MCP - LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  <link href="../assets/stylesheets/glightbox.min.css" rel="stylesheet"><script src="../assets/javascripts/glightbox.min.js"></script><style id="glightbox-style">
+            html.glightbox-open { overflow: initial; height: 100%; }
+            .gslide-title { margin-top: 0px; user-select: text; }
+            .gslide-desc { color: #666; user-select: text; }
+            .gslide-image img { background: white; }
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color); }
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color); }
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color); }
+        </style></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#bonus-inspect-and-edit-a-draft-through-contact-center-mcp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-header__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"></path></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Bonus - Inspect and edit a draft through MCP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="indigo" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"></path></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required="">
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"></path></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix="">
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Lab
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" class="md-nav__button md-logo" aria-label="LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action" data-md-component="logo">
+      
+  <img src="../template_assets/webexLogo91.png" alt="logo">
+
+    </a>
+    LAB-21170: Hands-On Flow Designer Lab: APIs, AI Agents, and MCP in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix="">
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked="">
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Lab
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Lab
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix="">
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab1_getting_started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 1 - Lab access
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab2_flow_designer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 2-3 - Flow Designer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab3_agent_registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 4-5 - Connect and test MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab4_mcp_agent_studio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoints 6-8 - Register MCP and build agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lab5_end_to_end/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Checkpoint 9 - End-to-end test
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bonus - Inspect and edit a draft through MCP
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bonus - Inspect and edit a draft through MCP
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#choose-your-starting-point" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choose your starting point
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Choose your starting point">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#import-the-practice-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Import the practice flow
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-contact-center-mcp-in-control-hub" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable Contact Center MCP in Control Hub
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#keep-your-flow-open" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Keep your flow open
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connect-with-your-sandbox-webex-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connect with your sandbox Webex account
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-your-organization-once" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Set your organization once
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#find-your-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Find your flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#read-and-compare-your-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Read and compare your flow
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#optional-change-the-spoken-message-through-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optional: change the spoken message through MCP
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Optional: change the spoken message through MCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#enable-the-draft-tools-you-want-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enable the draft tools you want to use
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepare-the-message-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prepare the message change
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply-the-bounded-patch" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Apply the bounded patch
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verify-the-saved-message" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Verify the saved message
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finish-the-bonus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finish the bonus
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optional_flow_designer_deep_dive/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Optional - Build Flow Designer assets by hand
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting and completion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Official references
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conclusion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conclusion
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="bonus-inspect-and-edit-a-draft-through-contact-center-mcp">Bonus: inspect and edit a draft through Contact Center MCP</h1>
+<p>Use the MCP Lab AI agent to inspect a small Contact Center flow, then change its spoken message through MCP. You will review and approve the change, check the saved message in Flow Designer, and optionally preview its audio. <strong>You can do this bonus without completing the main lab.</strong> Order Desk MCP reads a simulated business system; <strong>Webex Contact Center MCP</strong> reads and edits actual Contact Center flows.</p>
+<p>Allow about <strong>10–15 minutes</strong> for inspection, plus <strong>10–15 minutes</strong> for the optional draft edit. If starting here, allow another <strong>5–10 minutes</strong> to sign in and import the practice flow. Use the administrator account assigned to your sandbox.</p>
+<h2 id="choose-your-starting-point">Choose your starting point</h2>
+<ul>
+<li><strong>Completed Checkpoint 9?</strong> Keep your completed <code>ServiceDesk</code> and its routing unchanged. Import the separate practice flow below for this bonus; do not export or patch your completed flow.</li>
+<li><strong>Doing only the bonus?</strong> Start below. You do not need an Order Desk connection, bearer token, Developer Portal registration, AI Agent Studio agent, queue setup, entry point, or phone call.</li>
+</ul>
+<h3 id="import-the-practice-flow">Import the practice flow</h3>
+<ol>
+<li>Open <a href="https://mcp-lab.webexdevs.com/">MCP Lab</a> and sign in with the lab token supplied by the facilitator. Open <strong>Test tenant</strong> and find your <strong>Sandbox email</strong> and <strong>Sandbox password</strong>.</li>
+<li><a download="ServiceDeskMCPBonus-starter.json" href="../assets/lab-guide/ServiceDeskMCPBonus-starter.json">Download the bonus starter JSON</a>. Save the file with its <code>.json</code> extension. Do not add credentials to it.</li>
+<li>Open <a href="https://admin.webex.com/">Control Hub</a> and sign in with those <strong>Sandbox email</strong> and <strong>Sandbox password</strong> details. Confirm that the organization is your assigned sandbox.</li>
+<li>Open <strong>Contact Center → Customer Experience → Flows → Manage Flows → Create Flows</strong>. In Flow Designer, choose <strong>Flow → Import a flow → Next</strong>, then select the downloaded JSON.</li>
+<li>Use <code>ServiceDeskMCPBonus</code> as the flow name and select <strong>Create flow</strong>. If that name already exists, use a different name and substitute it in the prompts below. Do not replace an existing flow.</li>
+<li>Inspect the main canvas: <code>NewPhoneContact → EscalationMessage → EndFlow</code>. These are <strong>Start Flow</strong>, <strong>Play Message</strong>, and <strong>End Flow</strong> activities. Both the message's normal output and <strong>Undefined Error</strong> output connect to <code>EndFlow</code>. There is no queue, external data connection, or waiting loop. Leave the default <strong>Event flows</strong> unchanged.</li>
+<li>Double-click <code>EscalationMessage</code>. Under <strong>Prompt</strong>, confirm <strong>Enable text-to-speech</strong> is on and <strong>Connector</strong> is <strong>Cisco Cloud Text-to-Speech</strong>. The <strong>Text-to-speech message</strong> reads: <code>Please contact our support team during business hours. Thank you for calling.</code> This is the spoken text you will change through MCP, not the activity description.</li>
+<li>
+<p>Turn on Flow Designer's <strong>Validation</strong> switch and open <strong>Validation results</strong>. Review the errors and recommendations; resolve any errors with the facilitator. Wait for Autosave, then turn <strong>Edit: Off</strong> before using MCP so the open editor cannot overwrite the MCP change. Keep the flow as a <strong>Draft</strong> and its tab open; <strong>do not publish it or assign an entry point</strong>. Continue with the Control Hub MCP setup below.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-starter-imported.jpg" data-title="Imported three-node bonus draft with its original spoken message" data-desc-position="top"><img alt="Imported three-node bonus draft with its original spoken message" src="../assets/lab-guide/live/bonus-starter-imported.jpg" width="800"></a></p>
+<p><em>The imported starter passed Flow Designer validation with zero errors. Keep it as a draft despite the </em><em>Ready to publish</em><em> status; this exercise does not require publication.</em></p>
+</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">Ready for the bonus</p>
+<p>Your unpublished <code>ServiceDeskMCPBonus</code> is the flow you will inspect and edit. You can skip Checkpoints 1–9. You will change real text-to-speech configuration, but this exercise does not publish the flow or route a phone call to it.</p>
+</div>
+<h2 id="enable-contact-center-mcp-in-control-hub">Enable Contact Center MCP in Control Hub</h2>
+<ol>
+<li>Open <a href="https://admin.webex.com/">Control Hub</a>. Sign in with the <strong>Sandbox email</strong> and <strong>Sandbox password</strong> from MCP Lab's <strong>Test tenant</strong> panel. Confirm that Control Hub shows your assigned organization, not your personal or company organization.</li>
+<li>In the main navigation, select <strong>Apps → Agentic Apps</strong>. Find and open <strong>Webex Contact Center</strong>. Do not select <strong>WebexCC Operation</strong> or your external <strong>Order Desk</strong> app.</li>
+<li>On <strong>General</strong>, under <strong>Access</strong>, select <strong>Allowed for all users</strong> in this sandbox organization.</li>
+<li>
+<p><strong>Click Save at the bottom of the General tab before opening another tab.</strong> If access was already allowed and there are no unsaved changes, continue without changing it.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-control-hub-general.jpg" data-title="Control Hub General Access panel with Allowed for all users selected" data-desc-position="top"><img alt="Control Hub General Access panel with Allowed for all users selected" src="../assets/lab-guide/live/bonus-control-hub-general.jpg" width="800"></a></p>
+<p><em>General → Access: select </em><em>Allowed for all users</em><em>, then save before opening Tools.</em></p>
+</li>
+<li>
+<p>Open <strong>Tools</strong>. In the <strong>Allow tool</strong> column, turn on <strong>List Flows</strong> and <strong>Get Flow</strong>. These are the minimum tools for flow inspection. You may enable other tools you are comfortable using in your assigned sandbox; selecting a tool does not run it.</p>
+</li>
+<li>
+<p><strong>Click Save at the bottom of the Tools tab before leaving it.</strong> If both tools were already enabled and there are no unsaved changes, continue without changing them.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-control-hub-read-tools.jpg" data-title="Control Hub Tools table showing Allow tool enabled for List Flows and Get Flow" data-desc-position="top"><img alt="Control Hub Tools table showing Allow tool enabled for List Flows and Get Flow" src="../assets/lab-guide/live/bonus-control-hub-read-tools.jpg" width="800"></a></p>
+<p><em>Check the </em><em>Allow tool</em><em> column for both read tools. Save any changes before leaving Tools.</em></p>
+</li>
+<li>
+<p>Reopen <strong>General</strong> and confirm <strong>Allowed for all users</strong> is still selected. Reopen <strong>Tools</strong> and confirm <strong>Allow tool</strong> is still on for <strong>List Flows</strong> and <strong>Get Flow</strong>.</p>
+</li>
+</ol>
+<p>The Webex-hosted server's authentication is already configured. Do not enter the Order Desk access token or add a custom Authorization header in <strong>Authentication</strong>. You will sign in with your sandbox Webex account when connecting MCP Lab below. See <a href="https://developer.webex.com/mcp/docs/provisioning-on-control-hub">Provisioning on Control Hub</a> for the product reference.</p>
+<div class="admonition success">
+<p class="admonition-title">Confirm before connecting</p>
+<p>The <strong>Webex Contact Center</strong> app shows <strong>Allowed</strong>, and <strong>List Flows</strong> and <strong>Get Flow</strong> remain enabled after reopening <strong>Tools</strong>. If the app is missing, a setting cannot be saved, or your account lacks administrator access, stop and ask the facilitator.</p>
+</div>
+<h2 id="keep-your-flow-open">Keep your flow open</h2>
+<p>Keep the Flow Designer tab for <code>ServiceDeskMCPBonus</code> open with <strong>Edit: Off</strong>. If you closed it, open <strong>Control Hub → Contact Center → Customer Experience → Flows → Manage Flows</strong> and open that draft. You will compare the MCP result with its canvas.</p>
+<div class="admonition info">
+<p class="admonition-title">This lab uses ProdUS1</p>
+<p>The MCP Lab <strong>Webex Contact Center</strong> preset points to the ProdUS1 server. Use it only for the assigned ProdUS1 sandbox. For another region, ask the facilitator for the regional URL from the signed-in <a href="https://developer.webex.com/mcp/docs/contact-center-mcp-server">Contact Center MCP Server page</a>.</p>
+</div>
+<h2 id="connect-with-your-sandbox-webex-account">Connect with your sandbox Webex account</h2>
+<ol>
+<li>
+<p>Return to the <strong>AI agent</strong> workspace in <a href="https://mcp-lab.webexdevs.com/">MCP Lab</a>. Select <strong>Add MCP</strong>, then <strong>Webex Contact Center</strong> under <strong>Preconfigured server</strong>. Do not use <strong>Connect MCP</strong> on the Order Desk card; that connects the simulated order system.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-mcp-lab-contact-center-preset.jpg" data-title="MCP Lab server choices showing the Webex Contact Center preconfigured server below Order Desk" data-desc-position="top"><img alt="MCP Lab server choices showing the Webex Contact Center preconfigured server below Order Desk" src="../assets/lab-guide/live/bonus-mcp-lab-contact-center-preset.jpg" width="680"></a></p>
+<p><em>Choose the </em><em>Webex Contact Center</em><em> preconfigured server, not Order Desk.</em></p>
+</li>
+<li>
+<p>Under <strong>Authentication method</strong>, select <strong>Built-in Webex integration</strong>. The preset initially selects <strong>WCIT token</strong>, so change it explicitly. You do not need to copy a bearer token for this connection.</p>
+</li>
+<li>
+<p>Select <strong>Authorize with Webex</strong>. Sign in with the <strong>Sandbox email</strong> and <strong>Sandbox password</strong> from MCP Lab's <strong>Test tenant</strong> panel—not your personal Webex account. If Webex is already signed in as another user, switch to your assigned sandbox account before authorizing.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-mcp-lab-webex-authentication.jpg" data-title="MCP Lab Connect Webex Contact Center form with Built-in Webex integration selected and Authorize with Webex button" data-desc-position="top"><img alt="MCP Lab Connect Webex Contact Center form with Built-in Webex integration selected and Authorize with Webex button" src="../assets/lab-guide/live/bonus-mcp-lab-webex-authentication.jpg" width="680"></a></p>
+<p><em>Select </em><em>Built-in Webex integration</em><em>, then </em><em>Authorize with Webex</em><em> to sign in with your sandbox account.</em></p>
+</li>
+<li>
+<p>Review the Webex consent screen and select <strong>Accept</strong> for the sandbox integration. The built-in integration requests a fixed set of permissions, including configuration write access. MCP Lab separately controls which tools the agent can use and requires approval for write actions.</p>
+</li>
+<li>When MCP Lab returns to <strong>Choose tools</strong>, all discovered tools are initially selected. Keep <code>wxcc-list-flows</code> and <code>wxcc-get-flow</code> selected for the inspection steps below. Leave other tools selected if you are comfortable using them, or clear their checkboxes. Read tools say <strong>Runs automatically</strong>; write tools say <strong>Approval required</strong>. The enabled count depends on your selection—it does not need to be exactly two.</li>
+<li>Select <strong>Connect MCP</strong>. On <strong>Ready to use</strong>, check that the tool count matches your selection, then select <strong>Return to AI agent</strong>. Confirm that <strong>Connected MCPs</strong> shows <strong>Webex Contact Center</strong> as <strong>Connected</strong>. To change your selection among the tools already listed, open that card, choose the tools, and <strong>click Save tools before closing the dialog</strong>. If you enable more tools in Control Hub later, first repeat Webex authorization as described in <a href="#enable-the-draft-tools-you-want-to-use">Enable the draft tools you want to use</a>.</li>
+</ol>
+<h2 id="set-your-organization-once">Set your organization once</h2>
+<ol>
+<li>Return to <a href="https://admin.webex.com/">Control Hub</a> and confirm that you are still in your assigned sandbox organization. In the main navigation, select <strong>Account</strong>, then the <strong>Info</strong> tab.</li>
+<li>
+<p>Under <strong>Organization profile</strong>, find <strong>Organization ID</strong>. Click the <strong>copy icon</strong> to the right of the field to copy your organization's ID.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-control-hub-organization-id.jpg" data-title="Control Hub Account Info page showing Organization profile, the Organization ID field, and its copy icon" data-desc-position="top"><img alt="Control Hub Account Info page showing Organization profile, the Organization ID field, and its copy icon" src="../assets/lab-guide/live/bonus-control-hub-organization-id.jpg" width="900"></a></p>
+<p><em>Account → Info → Organization profile: copy </em><em>your</em><em> Organization ID. The ID shown here belongs to the example sandbox; do not use it in your prompt.</em></p>
+</li>
+<li>
+<p>Return to MCP Lab. Replace <code>&lt;your organization ID&gt;</code> with the ID you copied from Control Hub. Replace <code>&lt;your flow name&gt;</code> with <code>ServiceDeskMCPBonus</code>, or your actual name if you renamed the imported draft. Paste the completed prompt into MCP Lab:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code>For this bonus, my sandbox organization ID is &lt;your organization ID&gt;. Use this exact ID as org_id for every Contact Center MCP call in this conversation. Include it in your result summaries so I can check it. If you no longer have this ID, stop and ask me; do not guess or use another organization.
+
+Use wxcc-list-flows to find flows named &lt;your flow name&gt; in this sandbox. Show each matching flow's name and ID. Do not create, change, or publish anything.
+</code></pre></div>
+<p>Use this same MCP Lab conversation for the rest of the bonus. The read prompts reuse the organization ID you provided here. For the patch and validation prompts, paste your organization ID directly into the placeholders below. If you reset the session or start a new conversation, repeat this setup before running tools.</p>
+<h2 id="find-your-flow">Find your flow</h2>
+<ol>
+<li>Wait for the tool call to finish. In <strong>Tool activity</strong>, look for <code>wxcc-list-flows completed</code>. Check that the response reports a matching flow, not an error, and refers to the organization ID you supplied above.</li>
+<li>Find your chosen flow in the response. If there is more than one match, compare the flow ID with the value after <code>/flow/</code> in your Flow Designer URL. Do not select another attendee's flow.</li>
+<li>Copy the returned flow ID for the next prompt.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Stop if access fails</p>
+<p>A connected badge or a discovered catalog is not a successful flow read. If the call returns an authorization error, an empty result for a flow you can see in Flow Designer, or data from another organization, stop and show the facilitator the tool name and error. Do not switch to the Order Desk access token or try a different organization ID.</p>
+</div>
+<h2 id="read-and-compare-your-flow">Read and compare your flow</h2>
+<p>Replace <code>&lt;your flow ID&gt;</code>, then send:</p>
+<div class="highlight"><pre><span></span><code>Use wxcc-get-flow to read the draft of flow &lt;your flow ID&gt; using the sandbox organization ID I provided at the start of this bonus. Report its name, current draft version, EscalationMessage properties.promptsTts, and only the main-flow connections as source -&gt; output condition -&gt; destination. Do not infer connections or describe runtime behavior beyond the returned edges. Do not create, change, validate, or publish anything.
+</code></pre></div>
+<ol>
+<li>In <strong>Tool activity</strong>, look for <code>wxcc-get-flow completed</code>. Confirm that the response contains flow connections rather than an error and reports your sandbox organization ID and chosen flow ID.</li>
+<li>
+<p>Confirm that the reported message matches the original text you saw in Flow Designer. Compare the three returned connections with the canvas:</p>
+<ul>
+<li><code>NewPhoneContact → out → EscalationMessage</code></li>
+<li><code>EscalationMessage → default → EndFlow</code></li>
+<li><code>EscalationMessage → error → EndFlow</code></li>
+</ul>
+<p>There is no waiting loop. Default event entry nodes are separate from these main-flow connections.</p>
+</li>
+<li>
+<p>If a connection is missing or the summary disagrees with the canvas, ask the facilitator to review the returned connections. Do not let the agent invent a path or repair the flow. A successful tool call confirms access; it does not guarantee an accurate AI explanation.</p>
+</li>
+</ol>
+<h2 id="optional-change-the-spoken-message-through-mcp">Optional: change the spoken message through MCP</h2>
+<p>This stretch edits <strong>EscalationMessage → Text-to-speech message</strong> in the imported <code>ServiceDeskMCPBonus</code>. Its connections stay unchanged. Use only this practice draft, not your completed <code>ServiceDesk</code> or a copy of it.</p>
+<div class="admonition info">
+<p class="admonition-title">Use the supplied patch, not a generic edit prompt</p>
+<p>The tested patch includes explicit Play Message defaults and preserves <code>EndFlow</code> as an end activity. These fields avoid serialization and unconnected-port problems seen with simpler patches. Keep them in the request, and verify the result in Flow Designer even if MCP validation reports valid. This workaround is specific to the supplied starter; it is not a general recipe for editing other flows.</p>
+</div>
+<h3 id="enable-the-draft-tools-you-want-to-use">Enable the draft tools you want to use</h3>
+<p>Control Hub shows display names such as <strong>Patch Flow Draft</strong>. MCP Lab and the prompts below use tool names such as <code>wxcc-patch-flow-draft</code>.</p>
+<ol>
+<li>In <strong>Control Hub → Apps → Agentic Apps → Webex Contact Center → Tools</strong>, enable <strong>Allow tool</strong> for <strong>Patch Flow Draft</strong> and <strong>Validate Flow</strong>. <strong>Click Save at the bottom before leaving Tools.</strong> Reopen the tab to confirm they remain enabled.</li>
+<li>Return to MCP Lab. In <strong>Connected MCPs</strong>, open the <strong>Webex Contact Center</strong> card. Newly enabled Control Hub tools do not appear automatically in this existing connection.</li>
+<li>Scroll to <strong>Authentication</strong>, select <strong>Built-in Webex integration</strong>, and click <strong>Authorize with Webex</strong> again.</li>
+<li>Use the same assigned sandbox Webex account. If asked to sign in, use the <strong>Sandbox email</strong> and <strong>Sandbox password</strong> from <strong>Test tenant</strong>. Review the consent screen and select <strong>Accept</strong> if prompted. Wait for Webex to return you to MCP Lab. Continue in the same AI agent conversation; if the earlier messages are missing, repeat <a href="#set-your-organization-once">Set your organization once</a> before continuing.</li>
+<li>In the <strong>Webex Contact Center</strong> connection dialog, check <strong>Tools</strong>. Confirm that <code>wxcc-patch-flow-draft</code> (<strong>Patch Flow Draft</strong> in Control Hub) and <code>wxcc-validate-flow</code> (<strong>Validate Flow</strong> in Control Hub) now appear. Select both and keep <code>wxcc-list-flows</code> and <code>wxcc-get-flow</code> selected. <strong>Click Save tools before closing the dialog.</strong> If all four are already selected and there are no unsaved changes, continue without changing them. You may also select other tools you are comfortable using; they are not required for this stretch.</li>
+<li>
+<p>Confirm that patch says <strong>Approval required</strong>, while validation says <strong>Runs automatically</strong>. You do not need <code>wxcc-save-flow-draft</code> for this small patch; it replaces the whole draft rather than updating just one node. If either required tool is still missing after authorization, recheck the saved Control Hub settings and your sandbox account with the facilitator before continuing.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-mcp-lab-draft-tools.jpg" data-title="MCP Lab tool management showing the selected patch tool, decoded description, and Approval required label" data-desc-position="top"><img alt="MCP Lab tool management showing the selected patch tool, decoded description, and Approval required label" src="../assets/lab-guide/live/bonus-mcp-lab-draft-tools.jpg" width="800"></a></p>
+<p><em>The example has eight selected tools. Your count may differ. The patch tool remains approval-gated even when it is enabled.</em></p>
+</li>
+</ol>
+<h3 id="prepare-the-message-change">Prepare the message change</h3>
+<ol>
+<li>Confirm that the practice flow is still a <strong>Draft</strong>, has <strong>Edit: Off</strong>, and has a different flow ID from any flow receiving calls. Replace <code>&lt;your ServiceDeskMCPBonus flow ID&gt;</code> with the imported practice draft's flow ID, then send:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Use wxcc-get-flow to read the draft of flow &lt;your ServiceDeskMCPBonus flow ID&gt; using the sandbox organization ID I provided at the start of this bonus. Report its name, current version, EscalationMessage properties.promptsTts and the main edges. Confirm it contains only NewPhoneContact, EscalationMessage and EndFlow in the main flow. Do not change anything. Stop if a node is missing or this is not the imported practice draft.
+</code></pre></div>
+<ol>
+<li value="2">Check the read-back against your open Flow Designer tab. Copy the returned <strong>current draft version</strong>; do not assume it is zero. The replacement message will be:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Thank you for calling Order Desk. We can help you check your order status.
+</code></pre></div>
+<h3 id="apply-the-bounded-patch">Apply the bounded patch</h3>
+<ol>
+<li>Copy the request below. Replace <strong>your organization ID, the practice flow ID, and the current draft version</strong>. Use the organization ID you copied from <strong>Control Hub → Account → Info</strong>. Keep the version as a number without quotes. Leave the patch fields unchanged. Confirm that no placeholders remain, then send the completed request:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Invoke wxcc-patch-flow-draft for approval with these exact arguments. Only this unpublished practice draft may change. Preserve all remaining node properties, variables, edges and event handlers. Never publish or change routing. Do not merely print a proposal: invoke the tool and request approval.
+{
+  "org_id": "&lt;your organization ID&gt;",
+  "flow_id": "&lt;your ServiceDeskMCPBonus flow ID&gt;",
+  "flow_type": "FLOW",
+  "expected_version": &lt;current draft version&gt;,
+  "patch": {
+    "upsert_nodes": [
+      {
+        "name": "EscalationMessage",
+        "activityType": "action",
+        "properties": {
+          "promptsTts": [
+            {
+              "type": "tts",
+              "value": "Thank you for calling Order Desk. We can help you check your order status.",
+              "name": "Thank you for calling Order Desk. We can help you check your order status."
+            }
+          ],
+          "volumeGainDb": "0",
+          "speakingRate": "1",
+          "toggleLanguage": "",
+          "voiceLanguage_name": "",
+          "flowDecryptAccess": ""
+        }
+      },
+      {"name": "EndFlow", "activityType": "end"}
+    ]
+  }
+}
+</code></pre></div>
+<ol>
+<li value="2">Review the agent's request or plan. Confirm that its organization ID matches the one you copied from Control Hub and its flow ID matches your practice draft. It must update the message and supplied default fields, preserve the end activity's type, and leave all connections unchanged. If the agent only prints a proposal without an <strong>Approval required</strong> card, replace both placeholders in this follow-up and send: <code>Invoke wxcc-patch-flow-draft with org_id &lt;your organization ID&gt;, flow_id &lt;your ServiceDeskMCPBonus flow ID&gt;, and all other arguments above unchanged now and request tool approval.</code> This follow-up is only for a proposal that has not run, not a failed write.</li>
+<li>At <strong>Approval required</strong>, confirm the tool is <code>wxcc-patch-flow-draft</code>, then select <strong>Approve tool</strong>. The card identifies the tool; it is not a detailed JSON diff. Select <strong>Cancel</strong> if the tool or preceding plan differs from your request. Wait for <code>wxcc-patch-flow-draft completed</code>; an approval alone is not proof of success. If the tool reports a version conflict, reread the draft for its current version and review the request again; do not force an overwrite.</li>
+</ol>
+<h3 id="verify-the-saved-message">Verify the saved message</h3>
+<ol>
+<li>Replace <code>&lt;your ServiceDeskMCPBonus flow ID&gt;</code> and send this separate read-back:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Use wxcc-get-flow to reread the draft of flow &lt;your ServiceDeskMCPBonus flow ID&gt; using the sandbox organization ID I provided at the start of this bonus. Report EscalationMessage properties.promptsTts and only the main-flow edges. Do not save, publish or change routing.
+</code></pre></div>
+<ol>
+<li value="2">Confirm that the saved message is the replacement text and the three connections still match the canvas. Then request validation separately. Replace <strong>both your organization ID and the practice flow ID</strong> in this prompt:</li>
+</ol>
+<div class="highlight"><pre><span></span><code>Call wxcc-validate-flow for org_id &lt;your organization ID&gt;, flow_id &lt;your ServiceDeskMCPBonus flow ID&gt;. Return valid, errors and warnings. Read-only; no changes.
+</code></pre></div>
+<ol>
+<li value="3">Refresh the <strong>practice draft's</strong> Flow Designer tab and double-click <code>EscalationMessage</code>. Under <strong>Prompt</strong>, confirm <strong>Text-to-speech message</strong> contains the replacement text, not just an updated activity description. Check that both message outputs still reach <code>EndFlow</code>.</li>
+<li>
+<p>Turn <strong>Edit: On</strong>, enable <strong>Validation</strong>, and open <strong>Validation results</strong>. Wait for validation to finish and confirm <strong>zero errors</strong>. Recommendations may remain for default event handlers and descriptions. If Flow Designer reports errors even though MCP reported valid, stop and show both results to the facilitator; do not publish or attempt an automatic repair.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-message-edit-verified.jpg" data-title="Updated spoken message in Flow Designer with zero validation errors" data-desc-position="top"><img alt="Updated spoken message in Flow Designer with zero validation errors" src="../assets/lab-guide/live/bonus-message-edit-verified.jpg" width="800"></a></p>
+<p><em>Check the saved text and native validation results. MCP validation alone is not sufficient.</em></p>
+</li>
+<li>
+<p><strong>Optional audio check:</strong> with <code>EscalationMessage</code> selected and <strong>Edit: On</strong>, open <strong>Preview prompt</strong>. Under <strong>Choose a voice to test the prompt</strong>, select <strong>en-US-Maria</strong>, then select the play button to generate the preview. Once the audio player appears, play it and confirm that it reads the replacement message. Close the preview. This does not require publishing or changing entry-point routing.</p>
+<p><a class="glightbox" data-type="image" data-width="100%" data-height="auto" href="../assets/lab-guide/live/bonus-message-audio-preview.jpg" data-title="Flow Designer text-to-speech preview with an English voice and generated audio player" data-desc-position="top"><img alt="Flow Designer text-to-speech preview with an English voice and generated audio player" src="../assets/lab-guide/live/bonus-message-audio-preview.jpg" width="800"></a></p>
+</li>
+<li>
+<p>Turn <strong>Edit: Off</strong> again. Leave the practice flow as a <strong>Draft</strong> for facilitator cleanup.</p>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Stop if the patch or validation fails</p>
+<p>If a tool returns an authorization error or a Flow Store/server error, do not assume the edit succeeded or repeatedly approve the same request. Read the draft to check what was saved, keep it unpublished, and ask the facilitator to review the error. Do not replace the whole flow as a workaround.</p>
+<p>If MCP Lab instead reports a generic <strong>The lab service could not complete that request</strong> during a read or validation, retry that read-only prompt once. If it fails again, ask the facilitator. Never repeat an approved patch just because a later read or validation failed.</p>
+</div>
+<div class="admonition success">
+<p class="admonition-title">Draft edit verified</p>
+<p>The replacement spoken message is visible in the MCP read-back and Flow Designer, the three connections are unchanged, and both validation checks report no errors. The practice draft remains unpublished. Your original <code>ServiceDesk</code> and entry-point routing, if present, are unchanged. The optional audio preview is not a routed phone-call test.</p>
+</div>
+<h2 id="finish-the-bonus">Finish the bonus</h2>
+<ol>
+<li>In <strong>Connected MCPs</strong>, select the <strong>Webex Contact Center</strong> card.</li>
+<li>Under <strong>Remove this MCP</strong>, select <strong>Remove connection</strong>, then <strong>Delete MCP</strong>. This removes the connection and its saved credential from your MCP Lab session, not the Webex server or your Contact Center flow.</li>
+<li>Confirm the Contact Center card is gone. Keep your Order Desk connection if it is still present; do not reset the whole session to remove one MCP.</li>
+</ol>
+<div class="admonition success">
+<p class="admonition-title">Bonus complete</p>
+<p>Both flow-read tools succeeded in your assigned sandbox, and their results match the practice flow. If you completed the edit, its new spoken message persists and native validation reports zero errors. Leave the imported practice draft unpublished and tell the facilitator it needs cleanup. If you completed the main lab, leave its original flow and entry-point routing in place.</p>
+</div>
+<p>Other tools are available for exploration in your assigned sandbox. Approve only changes you understand; this exercise does not require queue, entry-point, subscription or published-flow changes. The separate Contact Center Operations MCP is outside this exercise. See the <a href="../references/#bonus-webex-contact-center-mcp-services">official references</a> for later exploration.</p>
+<p><a class="md-button md-button--primary" href="../troubleshooting/">Continue to troubleshooting and completion</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden="">
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"></path></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer">
+        
+          
+          <a href="../lab5_end_to_end/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Checkpoint 9 - End-to-end test">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"></path></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Checkpoint 9 - End-to-end test
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../optional_flow_designer_deep_dive/" class="md-footer__link md-footer__link--next" aria-label="Next: Optional - Build Flow Designer assets by hand">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Optional - Build Flow Designer assets by hand
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"></path></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2026 Cisco
+    </div>
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.indexes", "navigation.instant", "navigation.top", "navigation.footer", "search.suggest", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../template_assets/js/newLoad.js"></script>
+      
+        <script src="../template_assets/js/setInfo.js"></script>
+      
+        <script src="../template_assets/js/copy-lab-values.js"></script>
+      
+    
+  
+<script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": false, "openEffect": "fade", "closeEffect": "fade", "slideEffect": "slide"});
+document$.subscribe(()=>{ lightbox.reload(); });
+</script></body></html>
